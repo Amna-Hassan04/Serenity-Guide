@@ -1,6 +1,8 @@
 import os
 import streamlit as st
 import anthropic
+import random
+import datetime
 
 # Retrieve API key from Hugging Face secrets
 claude_api_key = os.getenv("CLAUDE_API_KEY")
@@ -32,6 +34,65 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
     itinerary = raw_context[0].text
     return itinerary
 
+# Additional Features
+def get_quick_tip():
+    tips = [
+        "🌞 Take a deep breath and count to five. You got this! ✨",
+        "💪 It's okay to feel this way; give yourself permission to rest. You've earned it! 🛌",
+        "🍃 Step outside for a moment of fresh air and reset. 🌳",
+        "✍️ Write down one thing you're grateful for today. It'll boost your mood! 😊",
+        "🕰 Focus on the present moment. Let go of the past and future for now. 🌸",
+        "🚀 Remember, small steps can lead to big changes. Keep going! 🌟"
+    ]
+    return random.choice(tips)
+
+def daily_challenge(specific_need):
+    challenges = {
+        "Anxious": "Write down your anxious thoughts and then tear the paper up.",
+        "Stressed": "Take a 10-minute walk outside and focus on your surroundings.",
+        "Overwhelmed": "Break your tasks into smaller, manageable steps and tackle one at a time.",
+        "Calm": "Maintain your calm state by doing a relaxing activity like reading or drawing.",
+        "Other": "Try a new hobby or revisit an old one that brings you joy."
+    }
+    challenge = challenges.get(specific_need, "Spend 5 minutes meditating to start your day.")
+    return challenge
+
+def soothing_sounds():
+    st.header("🎵 Calm Down with Soothing Sounds")
+    sound_options = {
+        "Rain": "https://example.com/rain_sound.mp3",
+        "Ocean Waves": "https://example.com/ocean_waves.mp3",
+        "Forest": "https://example.com/forest.mp3"
+    }
+    selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
+    if st.button("Play Sound"):
+        st.audio(sound_options[selected_sound])
+
+def interactive_journal():
+    if 'journal_entries' not in st.session_state:
+        st.session_state.journal_entries = []
+
+    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    if st.button("Save Entry"):
+        st.session_state.journal_entries.append({
+            "date": datetime.datetime.now(),
+            "entry": journal_input
+        })
+        st.success("Journal entry saved!")
+
+    # Display past journal entries
+    if st.checkbox("Show Past Entries"):
+        st.write("### Past Journal Entries:")
+        for entry in st.session_state.journal_entries:
+            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+
+def mood_boosting_mini_games():
+    st.header("🎮 Mood-Boosting Mini Games")
+    st.markdown("Relax with a fun mini-game to distract your mind.")
+    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
+    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
+    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
+
 # Streamlit App
 def main():
     # App Title and Description with Emojis
@@ -54,5 +115,24 @@ def main():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
 
+    st.markdown(
+        f'<marquee style="color: #2ECC71; font-size: 18px;">💡 Quick Tip: {get_quick_tip()}</marquee>',
+        unsafe_allow_html=True
+    )
+
+    st.header("🏆 Daily Challenges")
+    specific_need = mood  
+    challenge = daily_challenge(specific_need)
+    st.markdown(f"**Today's Challenge:** {challenge}")
+
+    # Reward Mechanism
+    completed = st.checkbox("Mark as Completed")
+    if completed:
+        st.markdown("🌟 Well done! You've earned a star! Keep up the great work! 🌟")
+        
+    soothing_sounds()
+    mood_boosting_mini_games()
+    interactive_journal()
+    
 if __name__ == "__main__":
     main()
