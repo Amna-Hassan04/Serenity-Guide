@@ -1,7 +1,7 @@
 # SereniFi
 Feel Calm, Centered, and Peaceful
 
-Certainly! Here's a professionally formatted README with the sections you requested:
+## Prototype Video- https://www.youtube.com/watch?v=j4-efJYhnzs
 
 ## 📜 Overview
 
