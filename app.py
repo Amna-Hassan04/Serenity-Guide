@@ -321,7 +321,40 @@ def show_main_page():
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
 
+def soothing_sounds():
+    st.header("🎵 Calm Down with Soothing Sounds")
+    sound_options = {
+        "Rain": "https://example.com/rain_sound.mp3",
+        "Ocean Waves": "https://example.com/ocean_waves.mp3",
+        "Forest": "https://example.com/forest.mp3"
+    }
+    selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
+    if st.button("Play Sound"):
+        st.audio(sound_options[selected_sound])
 
+def interactive_journal():
+    if 'journal_entries' not in st.session_state:
+        st.session_state.journal_entries = []
+
+    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    if st.button("Save Entry"):
+        st.session_state.journal_entries.append({
+            "date": datetime.datetime.now(),
+            "entry": journal_input
+        })
+        st.success("Journal entry saved!")
+
+    # Display past journal entries
+    if st.checkbox("Show Past Entries"):
+        st.write("### Past Journal Entries:")
+        for entry in st.session_state.journal_entries:
+            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+
+def mood_boosting_mini_games():
+    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
+    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
+    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
+    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
 
 
 def show_calm_space():
@@ -375,20 +408,17 @@ def show_calm_space():
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
         st.write("Launching a quick mood-boosting game...")
-
+        mood_boosting_mini_games()
 
     st.write("---")
-    
-    st.subheader("Calm Down with Soothing Sounds")
-    st.write("Enjoy some relaxing background sounds to ease your mind.")
-    st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+    soothing_sounds()
 
     st.write("---")
 
     st.subheader("Interactive Journaling")
-    journal_entry = st.text_area("Express your thoughts and feelings here:")
     if st.button("Submit Journal Entry"):
-        st.success("Journal entry saved. It's important to reflect and release your emotions.")
+        st.success("Journal entry: It's important to reflect and release your emotions.")
+        interactive_journal()
 
 
 
