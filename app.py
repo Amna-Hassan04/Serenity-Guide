@@ -60,9 +60,9 @@ def daily_challenge(specific_need):
 def soothing_sounds():
     st.header("🎵 Calm Down with Soothing Sounds")
     sound_options = {
-        "Rain": "https://example.com/rain_sound.mp3",
-        "Ocean Waves": "https://example.com/ocean_waves.mp3",
-        "Forest": "https://example.com/forest.mp3"
+        "Rain": "https://pixabay.com/sound-effects/light-rain-109591/",
+        "Ocean Waves": "https://pixabay.com/sound-effects/ocean-waves-112906/",
+        "Forest": "https://pixabay.com/sound-effects/forest-163012/"
     }
     selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
     if st.button("Play Sound"):
