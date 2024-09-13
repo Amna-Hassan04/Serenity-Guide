@@ -43,7 +43,7 @@ Serenity Guide is developed by a dedicated team of professionals committed to pr
 - **Amna Hassan** 
 - **Anushka Pote** 
 - **Pearl V** 
-- **K Madhuri** 
+- **K. Madhuri** 
 
 Together, we strive to create a tool that makes relaxation and mindfulness accessible to everyone.
 
