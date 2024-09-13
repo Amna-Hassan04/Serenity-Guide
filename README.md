@@ -41,9 +41,9 @@ To set up Serenity Guide on your local machine, follow these steps:
 Serenity Guide is developed by a dedicated team of professionals committed to promoting mental well-being. Our team includes:
 
 - **Amna Hassan** 
-- **Anushka Pote** 
-- **Pearl V** 
+- **Anushka Pote**
 - **K. Madhuri** 
+- **Pearl V** 
 
 Together, we strive to create a tool that makes relaxation and mindfulness accessible to everyone.
 
