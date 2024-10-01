@@ -1,0 +1,31 @@
+Sample Inputs for Personalized Management
+Sample Input 1
+
+How are you feeling?: Anxious
+Describe your feelings: I feel overwhelmed by my responsibilities and unsure if I can manage everything.
+Stress Level (1 to 10): 7
+Any recent events contributing to your stress or anxiety?: I have a project deadline coming up, and I feel unprepared.
+Sample Input 2
+
+How are you feeling?: Stressed
+Describe your feelings: I feel constantly on edge and unable to relax.
+Stress Level (1 to 10): 8
+Any recent events contributing to your stress or anxiety?: I've been working late hours at my job and have personal issues at home.
+Sample Input 3
+
+How are you feeling?: Calm
+Describe your feelings: I feel at peace and content with my life.
+Stress Level (1 to 10): 2
+Any recent events contributing to your stress or anxiety?: I recently finished a big project successfully.
+Sample Input 4
+
+How are you feeling?: Overwhelmed
+Describe your feelings: I feel like I have too many tasks to handle and not enough time.
+Stress Level (1 to 10): 9
+Any recent events contributing to your stress or anxiety?: I have exams coming up, and my study schedule is packed.
+Sample Input 5
+
+How are you feeling?: Stressed
+Describe your feelings: I feel anxious about my performance and fear failure.
+Stress Level (1 to 10): 6
+Any recent events contributing to your stress or anxiety?: I had a difficult conversation with my boss about my work performance.

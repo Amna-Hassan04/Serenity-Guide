@@ -2,38 +2,42 @@ import base64
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import requests, random
+import requests
+import random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 
-#AI Integration
+# AI Integration
 import anthropic
 
 # Retrieve API key from Hugging Face secrets
-claude_api_key = "api-key"
+claude_api_key = "your-api-key"  # Replace with your actual ClaudeAI API key
 
 # Initialize ClaudeAI client
 client = anthropic.Client(api_key=claude_api_key)
 
 def anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events):
-    # Construct the message for ClaudeAI
-    message = client.messages.create(
-        model="claude-3-opus-20240229",
-        max_tokens=250,
-        temperature=0.2,
-        system=f"You are a helpful mental health assistant that helps users manage their anxiety based on their mood, feelings, stress level, and recent events. Provide recommendations for exercises and techniques to reduce anxiety based on the user's mood, {mood}, their feelings described as: {feeling_description}, their current stress level of {current_stress_level}, and recent events: {recent_events}.",
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": f"Task: Help me manage my anxiety. I'm feeling {mood}. Here's what I'm experiencing: {feeling_description}. My current stress level is {current_stress_level}, and these are some recent events that might have contributed: {recent_events}\n\nConsiderations:\nProvide tailored anxiety-reduction exercises.\nConsider the user's mood, stress level, feelings, and recent events.\nOffer practical and effective techniques.\nEnsure the suggestions are easy to follow."
-                    }
-                ]
-            }
-        ]
-    )
+    messages = [
+        {
+            "role": "user",
+            "content": f"Task: Help me manage my anxiety. I'm feeling {mood}. Here's what I'm experiencing: {feeling_description}. My current stress level is {current_stress_level}, and these are some recent events that might have contributed: {recent_events}."
+        }
+    ]
+    
+    try:
+        response = client.messages.create(
+            model="claude-3-opus-20240229",
+            max_tokens=300,
+            temperature=0.2,
+            messages=messages
+        )
+        return response["choices"][0]["text"]
+    
+    except Exception as e:
+        # Handle the error gracefully
+        st.error(f"An error occurred while fetching advice: {str(e)}")
+        return "Unable to provide personalized advice at this moment."
+
 
 # Set page config (must be the first Streamlit command)
 st.set_page_config(page_title="Anxiety Relief App", page_icon=":relieved:", layout="centered")
@@ -43,8 +47,6 @@ data = {
     'Activity': ['Meditation', 'Yoga', 'Breathing', 'Journaling', 'Music'],
     'Calmness_Level': [85, 78, 90, 75, 88]
 }
-
-df = px.data.tips()  # Use your actual anxiety relief data
 
 @st.cache_data
 def get_img_as_base64(file):
@@ -97,20 +99,29 @@ right: 2rem;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-
 def load_lottie_url(url: str):
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     return None
 
+def soothing_sounds():
+    st.header("🎵 Calm Down with Soothing Sounds")
+    sound_options = {
+        "Rain": "https://www.soundjay.com/nature/rain-01.mp3",
+        "Ocean Waves": "https://www.soundjay.com/nature/ocean-waves-01.mp3",
+        "Forest": "https://www.soundjay.com/nature/forest-01.mp3"
+    }
+    selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
+    if st.button("Play Sound"):
+        st.audio(sound_options[selected_sound])
+
 # Main function to control page navigation
 def main():
-
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Calm Space", "About & Feedback"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill"],
+        options=["Home", "Calm Space", "Personalized Management", "About & Feedback"],
+        icons=["house-door-fill", "cloud-sun-fill", "person-fill", "chat-dots-fill"],
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
@@ -134,6 +145,8 @@ def main():
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
+    elif selected == "Personalized Management":
+        show_personalized_management()
     elif selected == "About & Feedback":
         show_about_and_feedback()
 
@@ -151,17 +164,12 @@ def show_main_page():
     """, unsafe_allow_html=True
 )
 
-
     st.markdown('<h3 class="pulse" style="text-align: center;">Feel Calm, Centered, and Peaceful</h3>', unsafe_allow_html=True)
-
-
 
     st.image("https://images.pexels.com/photos/185801/pexels-photo-185801.jpeg?auto=compress&cs=tinysrgb&w=600", caption="Breathe and Relax", use_column_width=True)
 
     st.write("---")
-    
 
-    
     # Interactive content
     st.markdown("""
     ### Welcome to Your Oasis of Calm
@@ -184,7 +192,6 @@ def show_main_page():
         st.balloons()
         st.write("**Guided Breathing Exercise:** Inhale deeply through your nose for 4 seconds, hold for 4 seconds, and exhale slowly through your mouth. Repeat this process a few times to feel the calming effect.")
 
-
     st.write("---")
 
     # Survey for Personalized Tips
@@ -200,7 +207,6 @@ def show_main_page():
                 "Overwhelmed": "It's important to step away and take a break."
             }
             st.write(f"**Tip:** {tips[mood]}")
-
 
     st.write("---")
 
@@ -235,9 +241,7 @@ def show_main_page():
     else:
         st.error("Mental health is crucial! Start small by incorporating simple self-care practices.")
     
-
     st.write("---")
-
 
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
@@ -253,10 +257,8 @@ def show_main_page():
 
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
     
-
     lottie_json_breathing = load_lottie_url(lottie_url_breathing)
     
-
     if lottie_json_breathing:
         st.markdown(
             """
@@ -282,13 +284,7 @@ def show_main_page():
         st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
         st.markdown('</div>', unsafe_allow_html=True)
         
-
-        
         st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
 
     st.write("---")
 
@@ -321,41 +317,21 @@ def show_main_page():
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
 
-def soothing_sounds():
-    st.header("🎵 Calm Down with Soothing Sounds")
-    sound_options = {
-        "Rain": "https://example.com/rain_sound.mp3",
-        "Ocean Waves": "https://example.com/ocean_waves.mp3",
-        "Forest": "https://example.com/forest.mp3"
-    }
-    selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
-    if st.button("Play Sound"):
-        st.audio(sound_options[selected_sound])
+def show_personalized_management():
+    st.header("📝 Personalized Anxiety Management")
 
-def interactive_journal():
-    if 'journal_entries' not in st.session_state:
-        st.session_state.journal_entries = []
+    # Input form for user data
+    with st.form(key='anxiety_management_form'):
+        mood = st.selectbox("How are you feeling?", ["Anxious", "Stressed", "Overwhelmed", "Calm"])
+        feeling_description = st.text_area("Describe your feelings:", placeholder="I feel...")
+        current_stress_level = st.slider("Stress Level (1 to 10)", 1, 10, 5)
+        recent_events = st.text_area("Any recent events contributing to your stress or anxiety?")
+        submit_button = st.form_submit_button("Get Personalized Advice")
 
-    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
-    if st.button("Save Entry"):
-        st.session_state.journal_entries.append({
-            "date": datetime.datetime.now(),
-            "entry": journal_input
-        })
-        st.success("Journal entry saved!")
-
-    # Display past journal entries
-    if st.checkbox("Show Past Entries"):
-        st.write("### Past Journal Entries:")
-        for entry in st.session_state.journal_entries:
-            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-
-def mood_boosting_mini_games():
-    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
-    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
-    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
-    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
-
+        if submit_button:
+            st.write("Generating your personalized plan...")
+            advice = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
+            st.write(f"**Personalized Advice:** {advice}")
 
 def show_calm_space():
     st.title("Calm Space")
@@ -390,7 +366,7 @@ def show_calm_space():
 
     st.write("---")
 
-    st.subheader("Daily Anxeity Check")
+    st.subheader("Daily Anxiety Check")
     # Sidebar Inputs
     st.subheader("📝 Share Your Current State:")
     
@@ -408,7 +384,6 @@ def show_calm_space():
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
         st.write("Launching a quick mood-boosting game...")
-        mood_boosting_mini_games()
 
     st.write("---")
     soothing_sounds()
@@ -418,15 +393,9 @@ def show_calm_space():
     st.subheader("Interactive Journaling")
     if st.button("Submit Journal Entry"):
         st.success("Journal entry: It's important to reflect and release your emotions.")
-        interactive_journal()
-
-
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
-
-
-
 
 def show_about_and_feedback():
     st.title("About Us & Feedback")
@@ -497,14 +466,9 @@ def show_about_and_feedback():
     if st.button("Subscribe"):
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
-
-
-
-
 
 if __name__ == "__main__":
     main()

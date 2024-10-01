@@ -47,16 +47,35 @@ To set up SereniFi on your local machine, follow these steps:
 
 3. **Install Dependencies**  
    ```bash
-   npm install
+   npm init -y
    ```
 
 4. **Start the Application**  
    ```bash
-   npm start
+   streamlit run app.py
    ```
 
 ---
+## 🛠️ Personalized Anxiety Management Feature
 
+# Overview
+The Personalized Anxiety Management feature allows users to input their mood, feelings, stress levels, and any recent events that may be contributing to their anxiety. Based on this input, the application uses the Anthropic API to provide tailored recommendations for managing anxiety.
+
+# Input Requirements
+Users are required to provide the following inputs:
+
+Mood: A dropdown selection of feelings (e.g., Anxious, Stressed, Overwhelmed, Calm).
+Describe Your Feelings: A text area for users to elaborate on their feelings.
+Stress Level: A slider to indicate their current stress level on a scale from 1 to 10.
+Recent Events: A text area for users to describe any recent events contributing to their anxiety.
+
+# Usage Instructions
+Navigate to the Personalized Management section of the app.
+Fill out the input fields with your current emotional state.
+Click on the "Get Personalized Advice" button to receive tailored recommendations.
+
+# Error Handling
+The application includes error handling for API calls to ensure a smooth user experience. If an API call fails, a user-friendly message will notify the user of the issue.
 ---
 
 ## 🌟 Contributors
