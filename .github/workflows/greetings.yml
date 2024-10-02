@@ -1,0 +1,33 @@
+name: Greetings
+
+on: 
+  [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            👋 Thank you! Welcome to the project! Please follow these guidelines for smooth collaboration:
+            1. After completing a task, add your name and details to the Contributors Table/List.
+            2. Attach relevant screenshots or videos of your contribution for transparency.
+            3. Tasks are assigned on a first-come, first-served basis.
+               - Avoid spamming requests for already-assigned tasks.
+               - Respect the queue and wait for new tasks.
+            4. **Propose New Ideas**: Discuss new features or suggestions in the "Ideas" channel before starting work.
+          pr-message: |
+            🎉 Thank you for your contribution! Your pull request has been submitted successfully. A maintainer will review it as soon as possible. We appreciate your support in making this project better.
+
+            Please follow these guidelines for smooth collaboration:
+            1. After completing a task, add your name and details to the Contributors Table/List.
+            2. Attach relevant screenshots or videos of your contribution for transparency.
+            3. Tasks are assigned on a first-come, first-served basis.
+               - Avoid spamming requests for already-assigned tasks.
+               - Respect the queue and wait for new tasks.
+            4. **Propose New Ideas**: Discuss new features or suggestions in the "Ideas" channel before starting work.
