@@ -5,14 +5,18 @@ import pandas as pd
 import requests, random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
-
+import os
+from dotenv import load_dotenv
 #AI Integration
 import anthropic
 
-# Retrieve API key from Hugging Face secrets
-claude_api_key = "api-key"
+#Changes made by --Charvi Arora 
+#Added security
+# Load environment variables from .env file
+load_dotenv()
+# Retrieve the API key
+claude_api_key = os.getenv("CLAUDE_API_KEY")
 
-# Initialize ClaudeAI client
 client = anthropic.Client(api_key=claude_api_key)
 
 def anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events):
