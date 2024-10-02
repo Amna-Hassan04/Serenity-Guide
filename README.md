@@ -65,7 +65,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 |:--:|:--:|:--:|:--:|
 | [Amna Hassan](https://github.com/Amna-Hassan04) | [Anushka Pote](https://github.com/username2) | [K. Madhuri](https://github.com/username3) | [Pearl V](https://github.com/username4) |
-[Kiran Baliga](https://github.com/KiranBaliga)
+[Kiran Baliga](https://github.com/KiranBaliga) | [priyansh aggarwal](https://github.com/priyanshaggarwal001)
 
 ---
 
