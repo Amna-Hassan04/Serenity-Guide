@@ -127,7 +127,7 @@ Submit a pull request with a detailed explanation of your changes.
 
 ## 8. License
 
-This project is licensed under the MIT License [LICENSE](LICENSE.MD).
+This project is licensed under the GPU License [LICENSE](LICENSE.MD).
 
 ## 9. Acknowledgments
 
