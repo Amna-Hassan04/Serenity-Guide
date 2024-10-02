@@ -62,6 +62,7 @@ To set up SereniFi on your local machine, follow these steps:
 ## 🌟 Contributors
 
 | ![Amna Hassan](https://avatars.githubusercontent.com/Amna-Hassan04?s=50) | ![Anushka Pote](https://avatars.githubusercontent.com/Anushka-Pote?s=50) | ![K. Madhuri](https://avatars.githubusercontent.com/pearll12?s=50) | ![Pearl V](https://avatars.githubusercontent.com/madhurik04?s=50) | ![Kiran Baliga](https://avatars.githubusercontent.com/KiranBaliga?s=50) |
+
 |:--:|:--:|:--:|:--:|
 | [Amna Hassan](https://github.com/Amna-Hassan04) | [Anushka Pote](https://github.com/username2) | [K. Madhuri](https://github.com/username3) | [Pearl V](https://github.com/username4) |
 [Kiran Baliga](https://github.com/KiranBaliga)
