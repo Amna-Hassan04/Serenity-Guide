@@ -66,9 +66,6 @@ To set up SereniFi on your local machine, follow these steps:
 [![K. Madhuri](https://avatars.githubusercontent.com/pearll12?s=50)](https://github.com/username3)
 [![Pearl V](https://avatars.githubusercontent.com/madhurik04?s=50)](https://github.com/username4)
 
-
-
-
 ---
 
 ## 🏆 Acknowledgments  
