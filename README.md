@@ -8,7 +8,7 @@ Feel Calm, Centered, and Peaceful
 
 | 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
 |--------------|--------------|---------------|-----------------|------------------|
-| ![GitHub stars](https://img.shields.io/badge/stars-2-blue) | ![GitHub forks](https://img.shields.io/badge/forks-1-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-0-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-0-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-2-lightgrey) |
+| ![GitHub stars](https://img.shields.io/badge/stars-9-blue) | ![GitHub forks](https://img.shields.io/badge/forks-26-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-22-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-7-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-9-lightgrey) |
 
 ## 🏆 Featured in
 
@@ -37,7 +37,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 1. **Clone the Repository**  
    ```bash
-   git clone https://github.com/your-username/serenity-guide.git
+   git clone https://github.com/Amna-Hassan04//serenity-guide.git
    ```
 
 2. **Navigate to the Project Directory**  
@@ -61,12 +61,9 @@ To set up SereniFi on your local machine, follow these steps:
 
 ## 🌟 Contributors
 
-[![Amna Hassan](https://avatars.githubusercontent.com/Amna-Hassan04?s=50)](https://github.com/Amna-Hassan04)
-[![Anushka Pote](https://avatars.githubusercontent.com/Anushka-Pote?s=50)](https://github.com/Anushka-Pote)
-[![K. Madhuri](https://avatars.githubusercontent.com/madhurik04?s=50)](https://github.com/madhurik04)
-[![Pearl V](https://avatars.githubusercontent.com/pearll12?s=50)](https://github.com/pearll12)
+|[Amna Hassan](https://github.com/Amna-Hassan04) | [Anushka Pote](https://github.com/username2) | [K. Madhuri](https://github.com/username3) | [Pearl V](https://github.com/username4) |
+[Kiran Baliga](https://github.com/KiranBaliga) | [Himanshi Maheshwari](https://github.com/Himanshi-M) |
 
----
 
 ## 🏆 Acknowledgments  
 
