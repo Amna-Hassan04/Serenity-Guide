@@ -2,6 +2,7 @@ import base64
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import datetime
 import requests, random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu

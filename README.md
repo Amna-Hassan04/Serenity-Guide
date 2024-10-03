@@ -54,6 +54,10 @@ To set up SereniFi on your local machine, follow these steps:
    ```bash
    npm start
    ```
+5. **Required Packages to Install**
+   ```bash
+   pip install streamlit plotly pandas requests streamlit-lottie streamlit-option-menu python-dotenv
+   ```
 
 ---
 
