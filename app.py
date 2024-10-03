@@ -7,16 +7,12 @@ from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 import os
 from dotenv import load_dotenv
-#AI Integration
 import anthropic
+from datetime import datetime  # Import datetime module
 
-#Changes made by --Charvi Arora 
-#Added security
 # Load environment variables from .env file
 load_dotenv()
-# Retrieve the API key
 claude_api_key = os.getenv("CLAUDE_API_KEY")
-
 client = anthropic.Client(api_key=claude_api_key)
 
 def anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events):
@@ -25,30 +21,33 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
         model="claude-3-opus-20240229",
         max_tokens=250,
         temperature=0.2,
-        system=f"You are a helpful mental health assistant that helps users manage their anxiety based on their mood, feelings, stress level, and recent events. Provide recommendations for exercises and techniques to reduce anxiety based on the user's mood, {mood}, their feelings described as: {feeling_description}, their current stress level of {current_stress_level}, and recent events: {recent_events}.",
+        system=f"You are a helpful mental health assistant that helps users manage their anxiety based on their mood, feelings, stress level, and recent events...",
         messages=[
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "text",
-                        "text": f"Task: Help me manage my anxiety. I'm feeling {mood}. Here's what I'm experiencing: {feeling_description}. My current stress level is {current_stress_level}, and these are some recent events that might have contributed: {recent_events}\n\nConsiderations:\nProvide tailored anxiety-reduction exercises.\nConsider the user's mood, stress level, feelings, and recent events.\nOffer practical and effective techniques.\nEnsure the suggestions are easy to follow."
+                        "text": f"Task: Help me manage my anxiety. I'm feeling {mood}. Here's what I'm experiencing: {feeling_description}. My current stress level is {current_stress_level}, and these are some recent events that might have contributed: {recent_events}\n\n..."
                     }
                 ]
             }
         ]
     )
 
-# Set page config (must be the first Streamlit command)
+# Set page config
 st.set_page_config(page_title="Anxiety Relief App", page_icon=":relieved:", layout="centered")
 
-# Data for mental health (sampled)
+# Get current date and time
+current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+# Data for mental health
 data = {
     'Activity': ['Meditation', 'Yoga', 'Breathing', 'Journaling', 'Music'],
     'Calmness_Level': [85, 78, 90, 75, 88]
 }
 
-df = px.data.tips()  # Use your actual anxiety relief data
+df = px.data.tips()
 
 @st.cache_data
 def get_img_as_base64(file):
@@ -110,7 +109,6 @@ def load_lottie_url(url: str):
 
 # Main function to control page navigation
 def main():
-
     selected = option_menu(
         menu_title=None,
         options=["Home", "Calm Space", "About & Feedback"],
@@ -127,7 +125,7 @@ def main():
                 "--hover-color": "#ddd",
                 "border-radius": "10px",
                 "color": "#fff",
-                "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
+                "background-color": "rgba(0, 0, 0, 0.8)",
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
             "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff", "transform": "scale(1.1)"}
@@ -142,21 +140,25 @@ def main():
         show_about_and_feedback()
 
 def show_main_page():
+    # Display current date and time
     st.markdown(
-    """
-    <style>
-    .centered-title {
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
-    </style>
-    <h1 class="centered-title">Welcome to SereniFi</h1>
-    """, unsafe_allow_html=True
-)
+        f"<p style='text-align:center; font-size:20px; color:#333;'>Current Date and Time: {current_datetime}</p>", 
+        unsafe_allow_html=True
+    )
 
-
-    st.markdown('<h3 class="pulse" style="text-align: center;">Feel Calm, Centered, and Peaceful</h3>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <style>
+        .centered-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        </style>
+        <h1 class="centered-title">Welcome to SereniFi</h1>
+        """, 
+        unsafe_allow_html=True
+    )
 
 
 
