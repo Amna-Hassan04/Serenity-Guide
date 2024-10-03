@@ -1,4 +1,4 @@
-name: Check for Screenshot
+name: Check Screenshot in PR
 
 on:
   pull_request:
@@ -9,16 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check for screenshot in pull request
+      - name: Check if screenshot is attached
         id: check_screenshot
         run: |
-          # Fetch the PR description and extract the body
+          # Fetch the PR body (description) using jq
           PR_BODY=$(jq -r '.pull_request.body' "$GITHUB_EVENT_PATH")
 
-          # Check if the PR body contains an image link or attachment (formats: .png, .jpg, .jpeg, .gif)
-          if echo "$PR_BODY" | grep -E "\.(png|jpg|jpeg|gif)"; then
+          # Log the PR body for debugging (you can remove this later)
+          echo "PR BODY: $PR_BODY"
+
+          # Check if the PR body contains a GitHub-hosted image URL or image extensions (png, jpg, jpeg, gif)
+          if echo "$PR_BODY" | grep -E "https://github.com/.+/assets/|\.png|\.jpg|\.jpeg|\.gif"; then
             echo "Screenshot found!"
           else
             echo "No screenshot found! Please attach a screenshot to your PR."
-            exit 1
+            exit 1  # Fail the workflow if no screenshot is found
           fi
