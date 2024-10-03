@@ -76,7 +76,7 @@ A heartfelt thanks to all contributors, testers, and supporters. Special thanks 
 ---
 
 ## Contribution Guidelines  
-We welcome contributions! Please read our [Code of Conduct] to participate in this project. By contributing, you agree to abide by its terms.
+We welcome contributions! Please read our [Code of Conduct](https://github.com/Amna-Hassan04/Serenity-Guide?tab=coc-ov-file#contributor-code-of-conduct) to participate in this project. By contributing, you agree to abide by its terms.
 
 ## License  
 This project is licensed under the **GPL-3.0 License**
