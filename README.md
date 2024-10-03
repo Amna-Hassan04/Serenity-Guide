@@ -62,7 +62,8 @@ To set up SereniFi on your local machine, follow these steps:
 ## 🌟 Contributors
 
 <a href="https://github.com/Amna-Hassan04/Serenity-Guide/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Amna-Hassan04/Serenity-Guide" />
+  <img src="https://contrib.rocks/image?repo=Amna-Hassan04/Serenity-Guide&v=1" />
+
 </a>
 
 
