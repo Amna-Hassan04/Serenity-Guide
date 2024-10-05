@@ -36,8 +36,8 @@ Feel Calm, Centered, and Peaceful
 To set up SereniFi on your local machine, follow these steps:
 
 1. **Clone the Repository**  
-   ```bash
-git clone https://github.com/Amna-Hassan04/serenity-guide.git
+   ```bash 
+   git clone https://github.com/Amna-Hassan04/serenity-guide.git
    ```
 
 2. **Navigate to the Project Directory**  
