@@ -327,14 +327,29 @@ def show_main_page():
 
 def soothing_sounds():
     st.header("🎵 Calm Down with Soothing Sounds")
+    #Contributions made by Himanshi-M
     sound_options = {
-        "Rain": "https://example.com/rain_sound.mp3",
-        "Ocean Waves": "https://example.com/ocean_waves.mp3",
-        "Forest": "https://example.com/forest.mp3"
+        "Rain": "https://cdn.pixabay.com/audio/2022/05/13/audio_257112ce99.mp3",
+        "Ocean Waves": "https://cdn.pixabay.com/audio/2022/06/07/audio_b9bd4170e4.mp3",
+        "Forest": "https://cdn.pixabay.com/audio/2022/03/10/audio_4dedf5bf94.mp3",
+        "Birds Chirping":"https://cdn.pixabay.com/audio/2022/03/09/audio_c610232c26.mp3",
+        "River Flowing":"https://cdn.pixabay.com/audio/2024/07/30/audio_319893354c.mp3",
+        "White Noise":"https://cdn.pixabay.com/audio/2022/03/12/audio_b4f7e5a4ff.mp3",
+        "Pink Noise": "https://cdn.pixabay.com/audio/2023/10/07/audio_df9c190caf.mp3"
     }
     selected_sound = st.selectbox("Choose a sound to relax:", list(sound_options.keys()))
-    if st.button("Play Sound"):
-        st.audio(sound_options[selected_sound])
+    # Organizing the button, checkbox and volume slider on the same row
+    col1, col2, col3 = st.columns([1,1,2])
+    with col1:
+        playbutton=st.button("Play Sound")
+    with col2:
+        # Looping Checkbox
+        loopcheckbox = st.checkbox("Loop Sound")
+
+    if playbutton:
+        # Rendering the audio player and JS in the app
+        with col3:
+            st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
 
 def interactive_journal():
     if 'journal_entries' not in st.session_state:
