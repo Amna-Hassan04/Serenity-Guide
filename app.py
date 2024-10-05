@@ -166,7 +166,7 @@ def main():
                 "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
-            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff", "transform": "scale(1.1)"}
+            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff","font-size": "14px",}
         }
     )
 
