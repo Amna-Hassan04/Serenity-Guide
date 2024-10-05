@@ -70,7 +70,7 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
 
     
 # Set page config (must be the first Streamlit command)
-st.set_page_config(page_title="Anxiety Relief App", page_icon=":relieved:", layout="centered")
+st.set_page_config(page_title="SereniFi", page_icon=":relieved:", layout="centered")
 st.markdown(scroll_to_top, unsafe_allow_html=True)
 def scroll_to_top_button():
     st.markdown('<a id="scrollButton" title="Go to top" href="#top">↑ Top</a>', unsafe_allow_html=True)
@@ -359,7 +359,7 @@ def show_main_page():
         st.plotly_chart(fig_selected)
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 def soothing_sounds():
     st.header("🎵 Calm Down with Soothing Sounds")
@@ -478,7 +478,7 @@ def show_calm_space():
 
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 
@@ -487,7 +487,7 @@ def show_about_and_feedback():
     st.title("About Us & Feedback")
     
     st.write("""
-    **Welcome to Our Anxiety Relief Platform!**
+    **Welcome to SereniFi!**
     
     We are dedicated to promoting mental wellness through interactive and accessible tools. Our mission is to provide a supportive environment where individuals can explore effective techniques for managing anxiety and improving overall mental well-being.
     """)
@@ -555,7 +555,7 @@ def show_about_and_feedback():
     
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 
