@@ -1,5 +1,6 @@
 import base64
 import datetime
+import time
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -441,7 +442,25 @@ def show_calm_space():
 
     if selected_challenge:
         st.write(f"**Today's Challenge:** {challenges[selected_challenge]}")
-        st.write("Set a reminder to complete this challenge today. Remember, consistency is key to building habits and improving your mental well-being.")
+        st.write("Remember, consistency is key to building habits and improving your mental well-being.")
+
+        #Progress Bar Feature added by suhaib-lone
+        if st.button("Start Progress"):
+            progress_bar=st.progress(0)
+            if selected_challenge == "Meditation" or selected_challenge == "journaling":
+                challenge_time=600
+            elif selected_challenge == "Yoga":
+                challenge_time=900
+            elif selected_challenge == "Breathing":
+                challenge_time=300
+            else:
+                challenge_time=1200
+            for i in range(challenge_time):
+                time.sleep(1)
+                progress_bar.progress((i+1)/challenge_time)
+            st.success("Ding! Ding! Time UP!")
+
+
 
     st.write("---")
 
