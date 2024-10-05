@@ -9,6 +9,34 @@ import os
 from dotenv import load_dotenv
 #AI Integration
 import anthropic
+import datetime
+import datetime
+# CSS for Scroll to Top Button
+scroll_to_top = """
+    <style>
+    #scrollButton {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: rgb(4, 170, 109);
+        color: white;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 10px;
+        opacity: 0.7;
+    }
+
+    #scrollButton:hover {
+        background-color: rgb(4, 170, 109);
+        opacity: 1;
+    }
+    </style>
+"""
+
 
 #Changes made by --Charvi Arora 
 #Added security
@@ -39,8 +67,15 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
         ]
     )
 
+    
 # Set page config (must be the first Streamlit command)
 st.set_page_config(page_title="Anxiety Relief App", page_icon=":relieved:", layout="centered")
+st.markdown(scroll_to_top, unsafe_allow_html=True)
+def scroll_to_top_button():
+    st.markdown('<a id="scrollButton" title="Go to top" href="#top">↑ Top</a>', unsafe_allow_html=True)
+    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
+
+scroll_to_top_button()
 
 # Data for mental health (sampled)
 data = {
