@@ -14,7 +14,7 @@ Feel Calm, Centered, and Peaceful
 
 | Event Logo | Event Name                          | Event Description                                                                                                                                                       |
 |------------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![GSSoC 24](https://gssoc.girlscript.tech/GS_logo_Black.svg) | GirlScript Summer of Code 2024 Ext | GirlScript Summer of Code Ext Edition is a One-month-long Open Source Program conducted from 1st Octuber to 30th octuber by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. |
+| ![GSSoC 24](https://gssoc.girlscript.tech/GS_logo_Black.svg) | GirlScript Summer of Code 2024 Ext | GirlScript Summer of Code Ext Edition is a One-month-long Open Source Program conducted from 1st October to 30th October by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. |
 
 
 ## Overview  
@@ -37,7 +37,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 1. **Clone the Repository**  
    ```bash
-   git clone https://github.com/Amna-Hassan04//serenity-guide.git
+git clone https://github.com/Amna-Hassan04/serenity-guide.git
    ```
 
 2. **Navigate to the Project Directory**  
@@ -61,10 +61,10 @@ To set up SereniFi on your local machine, follow these steps:
 
 ## 🌟 Contributors
 
-<a href="https://github.com/Amna-Hassan04/Serenity-Guide/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Amna-Hassan04/Serenity-Guide&v=1" />
+| ![Amna Hassan](https://avatars.githubusercontent.com/Amna-Hassan04?s=50) | ![Anushka Pote](https://avatars.githubusercontent.com/Anushka-Pote?s=50) | ![K. Madhuri](https://avatars.githubusercontent.com/pearll12?s=50) | ![Pearl V](https://avatars.githubusercontent.com/madhurik04?s=50) | ![Kiran Baliga](https://avatars.githubusercontent.com/KiranBaliga?s=50) |
+|:--:|:--:|:--:|:--:|:--:|
+| [Amna Hassan](https://github.com/Amna-Hassan04) | [Anushka Pote](https://github.com/username2) | [K. Madhuri](https://github.com/username3) | [Pearl V](https://github.com/username4) | [Kiran Baliga](https://github.com/KiranBaliga) |
 
-</a>
 
 
 ## 🏆 Acknowledgments  
