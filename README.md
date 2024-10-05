@@ -47,12 +47,12 @@ To set up SereniFi on your local machine, follow these steps:
 
 3. **Install Dependencies**  
    ```bash
-   npm install
+   pip install
    ```
 
 4. **Start the Application**  
    ```bash
-   npm start
+   streamlit run app.py
    ```
 
 ---
