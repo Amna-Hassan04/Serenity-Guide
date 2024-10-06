@@ -235,9 +235,9 @@ def show_main_page():
         submit_button = st.form_submit_button("Get Tips")
         if submit_button:
             tips = {
-                "Low": "Keep up the great work! Stay consistent with mindfulness techniques.",
-                "Moderate": "Take a moment to practice deep breathing.",
-                "High": "Pause and try a guided meditation.",
+                "Low": "Keep up the great work! Stay consistent with mindfulness techniques."," Incorporate light stretching to release any tension in your body."
+                "Moderate": "Take a moment to practice deep breathing.","Use the 5-4-3-2-1 method to engage your senses—identify 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, and 1 you can taste."
+                "High": "Pause and try a guided meditation."," Write down your thoughts to organize and release them."
                 "Overwhelmed": "It's important to step away and take a break."
             }
             st.write(f"**Tip:** {tips[mood]}")
