@@ -47,7 +47,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 3. **Install Dependencies**  
    ```bash
-   pip install
+   pip install streamlit
    ```
 
 4. **Start the Application**  
