@@ -47,7 +47,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 3. **Install Dependencies**  
    ```bash
-   pip install streamlit
+   pip install streamlit pandas plotly requests anthropic streamlit_lottie
    ```
 
 4. **Start the Application**  
