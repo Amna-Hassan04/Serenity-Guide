@@ -2,6 +2,7 @@ import base64
 import datetime
 import time
 import streamlit as st
+import json
 import plotly.express as px
 import pandas as pd
 import requests, random
@@ -397,6 +398,8 @@ def load_entries():
 
 # Function to save entries to a JSON file
 def save_entries(entries):
+    for entry in entries:
+        entry['date'] = entry['date'].isoformat()  # Convert datetime to ISO format
     with open('journal_entries.json', 'w') as file:
         json.dump(entries, file)
 
@@ -429,7 +432,9 @@ def interactive_journal():
             st.write("No entries yet.")
         else:
             for entry in st.session_state.journal_entries:
-                st.write(f"**{entry['date']}**: {entry['entry']}")
+                date_str = entry['date']
+                date_obj = datetime.datetime.fromisoformat(date_str)
+                st.write(f"**{date_obj.strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
