@@ -46,7 +46,7 @@ scroll_to_top = """
 load_dotenv()
 # Retrieve the API key
 claude_api_key = os.getenv("CLAUDE_API_KEY")
-
+print(f"CLAUDE_API_KEY: {claude_api_key}") 
 client = anthropic.Client(api_key=claude_api_key)
 
 def anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events):
@@ -275,24 +275,6 @@ def show_main_page():
         st.warning("It's good you're trying! Consistency can help you feel more balanced.")
     else:
         st.error("Mental health is crucial! Start small by incorporating simple self-care practices.")
-    
-
-    st.write("---")
-
-    # Interactive section for viewers
-    st.subheader("Let's Explore How Mental Health Affects Your sleep")
-    
-    # User input on mental health habits
-    daily_sleep = st.radio("How quickly do you typically fall asleep after getting into bed?", ["Less than 5 minutes", "5 to 15 minutes", "15 to 30 minutes", "More than 30 minutes"])
-    
-    if daily_sleep == "Less than 5 minutes":
-        st.success("Great job! It seems you have a low stress level and can easily drift into dreamland!")
-    elif daily_sleep == "5 to 15 minutes":
-        st.info("Awesome! It looks like you're finding a nice balance—your body knows when it's time to rest!")
-    elif daily_sleep == "15 to 30 minutes":
-        st.warning("Good to know! It might be a sign that you have some thoughts on your mind—consider a relaxing bedtime routine!")
-    else:
-        st.error("No worries! It’s common to have a busy mind. Try incorporating calming activities before bed to help you unwind!")
     
 
     st.write("---")
