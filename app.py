@@ -393,12 +393,16 @@ def interactive_journal():
         st.session_state.journal_entries = []
 
     journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    
     if st.button("Save Entry"):
-        st.session_state.journal_entries.append({
-            "date": datetime.datetime.now(),
-            "entry": journal_input
-        })
-        st.success("Journal entry saved!")
+        if journal_input.strip() != "":  # Ensure the input is not empty
+            st.session_state.journal_entries.append({
+                "date": datetime.datetime.now(),
+                "entry": journal_input
+            })
+            st.success("Journal entry saved!")
+        else:
+            st.warning("Please write something before saving.")
 
     # Display past journal entries
     if st.checkbox("Show Past Entries"):
@@ -575,9 +579,6 @@ def show_about_and_feedback():
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-
-
-
 
 
 if __name__ == "__main__":
