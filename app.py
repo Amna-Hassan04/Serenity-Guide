@@ -389,14 +389,8 @@ def soothing_sounds():
         with col3:
             st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
 
-import os
-import json
-import datetime
-import streamlit as st
-
 # Function to load entries from a JSON file
 def load_entries():
-    print("Checking for journal_entries.json...")
     if os.path.exists('journal_entries.json'):
         with open('journal_entries.json', 'r') as file:
             return json.load(file)
@@ -404,13 +398,10 @@ def load_entries():
 
 # Function to save entries to a JSON file
 def save_entries(entries):
-    print("Saving entries...")
-    # Convert datetime objects to strings for JSON serialization
     for entry in entries:
         entry['date'] = entry['date'].isoformat()  # Convert datetime to ISO format
     with open('journal_entries.json', 'w') as file:
         json.dump(entries, file)
-    print("Entries saved.")
 
 def interactive_journal():
     # Load entries at the start
@@ -441,12 +432,9 @@ def interactive_journal():
             st.write("No entries yet.")
         else:
             for entry in st.session_state.journal_entries:
-                date_obj = datetime.datetime.fromisoformat(entry['date'])
+                date_str = entry['date']
+                date_obj = datetime.datetime.fromisoformat(date_str)
                 st.write(f"**{date_obj.strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-
-# Call the interactive journal function to run the app
-if __name__ == "__main__":
-    interactive_journal()
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
