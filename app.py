@@ -401,14 +401,19 @@ def interactive_journal():
                 "entry": journal_input
             })
             st.success("Journal entry saved!")
+            # Clear the text area after saving
+            st.experimental_rerun()  # Rerun the script to clear the input
         else:
             st.warning("Please write something before saving.")
 
     # Display past journal entries
     if st.checkbox("Show Past Entries"):
         st.write("### Past Journal Entries:")
-        for entry in st.session_state.journal_entries:
-            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+        if len(st.session_state.journal_entries) == 0:
+            st.write("No entries yet.")
+        else:
+            for entry in st.session_state.journal_entries:
+                st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
