@@ -2,6 +2,7 @@ import base64
 import datetime
 import time
 import streamlit as st
+import random
 import plotly.express as px
 import pandas as pd
 import requests, random
@@ -281,6 +282,8 @@ def show_main_page():
 
 
     # Tip for improving mental health
+    selected_tip = None # Initialize
+    
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
         tips = [
@@ -290,11 +293,11 @@ def show_main_page():
             "Take breaks when you're feeling overwhelmed.",
             "Connect with loved ones and share how you're feeling."
         ]
-        st.write(f"Tip: {random.choice(tips)}")
+        selected_tip = random.choice(tips)  # Get a random tip
+        st.write(f"Tip: {selected_tip}")
 
+    # Lottie animation for breathing
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
-    
-
     lottie_json_breathing = load_lottie_url(lottie_url_breathing)
     
 
@@ -302,7 +305,8 @@ def show_main_page():
         st.markdown(
             """
             <style>
-            .lottie-container {
+            .overlay-container {
+                position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -315,21 +319,28 @@ def show_main_page():
             .lottie-animation {
                 background: transparent;  /* Make the background of the animation transparent */
             }
+            .tip-overlay {
+                position: absolute;
+                color: white; 
+                font-size: 20px; 
+                top: 10%;  
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+            }
             </style>
-            <div class="lottie-container">
+            <div class="overlay-container">
             """, unsafe_allow_html=True)
 
         st.markdown('<div class="lottie-item lottie-animation">', unsafe_allow_html=True)
         st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
         st.markdown('</div>', unsafe_allow_html=True)
         
-
-        
+        # Add the overlay text for the tip only if a tip has been selected
+        if selected_tip is not None:
+            st.markdown(f'<div class="tip-overlay">{selected_tip}</div>', unsafe_allow_html=True)
+            
         st.markdown('</div>', unsafe_allow_html=True)
-
-
-
-
 
     st.write("---")
 
