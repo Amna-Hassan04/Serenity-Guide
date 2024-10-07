@@ -388,32 +388,48 @@ def soothing_sounds():
         with col3:
             st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
 
-def interactive_journal():
-    if 'journal_entries' not in st.session_state:
-        st.session_state.journal_entries = []
+# Function to load entries from a JSON file
+def load_entries():
+    if os.path.exists('journal_entries.json'):
+        with open('journal_entries.json', 'r') as file:
+            return json.load(file)
+    return []
 
+# Function to save entries to a JSON file
+def save_entries(entries):
+    with open('journal_entries.json', 'w') as file:
+        json.dump(entries, file)
+
+def interactive_journal():
+    # Load entries at the start
+    if 'journal_entries' not in st.session_state:
+        st.session_state.journal_entries = load_entries()
+
+    # Create a text area for journal input
     journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
-    
+
+    # Button to save the journal entry
     if st.button("Save Entry"):
-        if journal_input.strip() != "":  # Ensure the input is not empty
-            st.session_state.journal_entries.append({
+        if journal_input.strip() != "":
+            entry = {
                 "date": datetime.datetime.now(),
                 "entry": journal_input
-            })
+            }
+            st.session_state.journal_entries.append(entry)
+            save_entries(st.session_state.journal_entries)  # Save to file
             st.success("Journal entry saved!")
-            # Clear the text area after saving
-            st.experimental_rerun()  # Rerun the script to clear the input
+            st.experimental_rerun()
         else:
             st.warning("Please write something before saving.")
 
-    # Display past journal entries
+    # Checkbox to display past journal entries
     if st.checkbox("Show Past Entries"):
         st.write("### Past Journal Entries:")
-        if len(st.session_state.journal_entries) == 0:
+        if not st.session_state.journal_entries:
             st.write("No entries yet.")
         else:
             for entry in st.session_state.journal_entries:
-                st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+                st.write(f"**{entry['date']}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
