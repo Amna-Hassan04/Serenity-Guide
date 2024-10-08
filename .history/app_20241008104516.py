@@ -14,6 +14,7 @@ import anthropic
 import datetime
 import datetime
 #For storing feedbacks
+from db import init_db, insert_comment, fetch_comments, close_db
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -478,6 +479,64 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
+    st.subheader("Eating habits")
+
+    if 1 <= current_stress_level <= 3:
+        st.success("You're in a great place! It looks like you enjoy eating healthy, and it's really working for you. Keep up with the balanced diet!")
+        
+    elif 4 <= current_stress_level <= 7:
+        st.info("It seems like your meals are generally good, but you might want to tweak a few things to match your current stress levels. Let's add a few more nutritious choices!")
+
+    elif 8 <= current_stress_level <= 10:
+        st.warning("Looks like you've been craving some junk food today. Don't worry, stress can often lead to that! But here are some delicious, healthy alternatives that you can easily prepare:")
+        
+        st.write("### Smoothie Recipe: Energizing Green Smoothie")
+        st.write("""
+            **Ingredients:**
+            - 1 cup spinach
+            - 1/2 banana
+            - 1/2 cup frozen mango
+            - 1 tablespoon chia seeds
+            - 1 cup almond milk
+            
+            **Instructions:**
+            1. Add all ingredients to a blender.
+            2. Blend until smooth and creamy.
+            3. Pour into a glass and enjoy a stress-relieving, energizing drink!
+        """)
+
+        st.write("### Recipe: Avocado Toast with a Twist")
+        st.write("""
+            **Ingredients:**
+            - 1 slice whole grain bread, toasted
+            - 1/2 avocado, mashed
+            - 1 tablespoon hummus
+            - A pinch of red pepper flakes
+            - A drizzle of olive oil
+            
+            **Instructions:**
+            1. Spread the mashed avocado on the toasted bread.
+            2. Add a layer of hummus for extra protein.
+            3. Sprinkle red pepper flakes and drizzle with olive oil.
+            4. Enjoy this satisfying, healthy snack!
+        """)
+
+        st.write("### Recipe: Stress-Relieving Herbal Tea")
+        st.write("""
+            **Ingredients:**
+            - 1 teaspoon chamomile tea
+            - 1 teaspoon honey
+            - 1 slice lemon
+            - 1 cup hot water
+            
+            **Instructions:**
+            1. Steep the chamomile tea in hot water for 5 minutes.
+            2. Add honey and lemon, stir well.
+            3. Sip slowly to relax your mind and body.
+        """)
+    
+    st.write("---")
+    
     st.subheader("Mood-Boosting Mini Games")
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
@@ -530,6 +589,7 @@ def show_about_and_feedback():
     
     st.write("---")
 
+    conn, c = init_db()
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
@@ -539,8 +599,19 @@ def show_about_and_feedback():
     feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
     if st.button("Submit Feedback"):
         if feedback_activity:
+            insert_comment(conn, feedback_activity)
             st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
-      
+        else:
+            st.error("Please enter a comment before submitting.")
+
+    # Fetch and display comments
+    rows = fetch_comments(conn)
+    st.write("### Previous Discussions:")
+    for row in rows[:-1]:
+        st.write(f"- {row[0]}")
+
+    # Close connection
+    close_db(conn)       
     st.write("---")
     
     # Our Advertising Partners
