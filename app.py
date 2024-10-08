@@ -402,6 +402,7 @@ def interactive_journal():
         if st.button("Start Journaling"):
             st.session_state.journaling_started = True
             st.success("You can now write your journal entry.")
+            st.experimental_rerun()
     
     # If journaling has started
     if st.session_state.journaling_started:
