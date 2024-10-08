@@ -245,43 +245,6 @@ def show_main_page():
 
     st.write("---")
 
-    # Interactive section for viewers
-    st.subheader("Let's Explore How Mental Health Affects Your Sleep")
-
-    # User input on sleep habits
-    daily_sleep = st.radio("How quickly do you typically fall asleep after getting into bed?", 
-                        ["Less than 5 minutes", "5 to 15 minutes", "15 to 30 minutes", "More than 30 minutes"])
-
-    if daily_sleep == "Less than 5 minutes":
-        st.success("Great job! It seems you have a low stress level and can easily drift into dreamland!")
-    elif daily_sleep == "5 to 15 minutes":
-        st.info("Awesome! It looks like you're finding a nice balance—your body knows when it's time to rest!")
-    elif daily_sleep == "15 to 30 minutes":
-        st.warning("Good to know! It might be a sign that you have some thoughts on your mind—consider a relaxing bedtime routine!")
-    else:
-        st.error("No worries! It’s common to have a busy mind. Try incorporating calming activities before bed to help you unwind!")
-        
-        st.write("### Tips for Falling Asleep Faster When Stressed")
-        st.write("**1. Practice Deep Breathing**")
-        st.write("Take slow, deep breaths to calm your nervous system. Inhale for 4 counts, hold for 7 counts, and exhale for 8 counts. Repeat this to relax your body.")
-        
-        st.write("**2. Try Progressive Muscle Relaxation**")
-        st.write("Start from your toes and slowly tense and relax each muscle group as you move up your body. This helps release physical tension caused by stress.")
-        
-        st.write("**3. Limit Screen Time Before Bed**")
-        st.write("Avoid using electronic devices like phones or laptops at least 30 minutes before sleeping. The blue light can interfere with your body's ability to wind down.")
-        
-        st.write("**4. Create a Bedtime Routine**")
-        st.write("Establish a calming pre-sleep routine like reading, taking a warm bath, or listening to soft music to signal to your body that it's time to sleep.")
-        
-        st.write("**5. Keep a Journal by Your Bedside**")
-        st.write("If racing thoughts are keeping you awake, try writing them down in a journal. This can help clear your mind and prepare you for a more restful sleep.")
-        
-        st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
-        st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
-
-    st.write("---")
-
     st.markdown("""
     ### Embrace Your Journey to Wellness
 
