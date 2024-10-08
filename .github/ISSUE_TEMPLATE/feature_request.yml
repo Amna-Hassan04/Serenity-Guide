@@ -1,8 +1,8 @@
-name: Feature Request
-about: Suggest an enhancement or new feature for this project
+name: "Feature Request"
+description: "Suggest an enhancement or new feature for this project."
 title: "[FEATURE] - "
 labels: ["enhancement", "discussion"]
-assignees: "Amna-Hassan04"
+assignees: ["Amna-Hassan04"]
 
 body:
   - type: markdown
@@ -12,10 +12,10 @@ body:
         Thank you for suggesting a new feature! Please provide the information below to help us understand and evaluate your request.
 
   - type: input
-    id: title
+    id: feature_title
     attributes:
-      label: Feature Title
-      description: A brief summary of the feature you're proposing
+      label: "Feature Title"
+      description: "A brief summary of the feature you're proposing"
       placeholder: "Short, descriptive title"
     validations:
       required: true
@@ -23,8 +23,8 @@ body:
   - type: textarea
     id: problem_statement
     attributes:
-      label: Problem Statement
-      description: Describe the problem this feature solves
+      label: "Problem Statement"
+      description: "Describe the problem this feature solves"
       placeholder: "Explain the problem you are trying to solve"
     validations:
       required: true
@@ -32,8 +32,8 @@ body:
   - type: textarea
     id: proposed_solution
     attributes:
-      label: Proposed Solution
-      description: How would you like to solve the problem?
+      label: "Proposed Solution"
+      description: "How would you like to solve the problem?"
       placeholder: "Describe the solution you propose"
     validations:
       required: true
@@ -41,8 +41,8 @@ body:
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives Considered
-      description: Have you considered other solutions?
+      label: "Alternatives Considered"
+      description: "Have you considered other solutions?"
       placeholder: "Describe any alternative solutions"
     validations:
       required: false
@@ -50,6 +50,6 @@ body:
   - type: textarea
     id: additional_context
     attributes:
-      label: Additional Context
-      description: Any other details or screenshots that might be helpful
+      label: "Additional Context"
+      description: "Any other details or screenshots that might be helpful"
       placeholder: "Optional additional details"
