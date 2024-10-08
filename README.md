@@ -16,6 +16,13 @@ Feel Calm, Centered, and Peaceful
 |------------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ![GSSoC 24](https://gssoc.girlscript.tech/GS_logo_Black.svg) | GirlScript Summer of Code 2024 Ext | GirlScript Summer of Code Ext Edition is a One-month-long Open Source Program conducted from 1st October to 30th October by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. |
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#-features)
+3. [Installation](#%EF%B8%8F-installation)
+4. [Contribution Guidelines](#contribution-guidelines)
+
 
 ## Overview  
 📜 **SereniFi Guide** is a comprehensive mind-relaxing application designed to help users achieve mental tranquility and enhance well-being. Through guided meditations, breathing exercises, and soothing music, SereniFi offers a serene experience tailored to individual needs. Perfect for those seeking to unwind, focus, or find inner peace amidst the daily grind.
@@ -59,6 +66,9 @@ To set up SereniFi on your local machine, follow these steps:
 
 ---
 
+## Contribution Guidelines  
+We welcome contributions! Please read our [Code of Conduct](https://github.com/Amna-Hassan04/Serenity-Guide?tab=coc-ov-file#contributor-code-of-conduct) to participate in this project. By contributing, you agree to abide by its terms.
+
 ## 🌟 Contributors
 
 <a href="https://github.com/Amna-Hassan04/Serenity-Guide/graphs/contributors">
@@ -72,9 +82,6 @@ To set up SereniFi on your local machine, follow these steps:
 A heartfelt thanks to all contributors, testers, and supporters. Special thanks to **OSS Codess Cafe Cohort 5** for their unwavering support and encouragement. This project was initially made as a hackathon submission and secured 3rd place in that hackathon. 
 
 ---
-
-## Contribution Guidelines  
-We welcome contributions! Please read our [Code of Conduct](https://github.com/Amna-Hassan04/Serenity-Guide?tab=coc-ov-file#contributor-code-of-conduct) to participate in this project. By contributing, you agree to abide by its terms.
 
 ## License  
 This project is licensed under the **GPL-3.0 License**
