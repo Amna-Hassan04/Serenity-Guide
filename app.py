@@ -412,10 +412,14 @@ def interactive_journal():
         st.success("Journal entry saved!")
 
     # Display past journal entries
+    past_entries_container = st.empty()  # Create an empty container
     if st.checkbox("Show Past Entries"):
-        st.write("### Past Journal Entries:")
-        for entry in st.session_state.journal_entries:
-            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+        if st.session_state.journal_entries:
+            past_entries_container.write("### Past Journal Entries:")
+            for entry in st.session_state.journal_entries:
+                past_entries_container.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+        else:
+            past_entries_container.write("No past entries found.")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
