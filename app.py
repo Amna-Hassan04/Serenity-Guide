@@ -392,45 +392,32 @@ def interactive_journal():
     # Initialize session state for journal entries
     if 'journal_entries' not in st.session_state:
         st.session_state.journal_entries = []
-    
-    # Flag to check if journaling has started
-    if 'journaling_started' not in st.session_state:
-        st.session_state.journaling_started = False
 
-    # Button to start journaling
-    if not st.session_state.journaling_started:
-        if st.button("Start Journaling"):
-            st.session_state.journaling_started = True
-            st.success("You can now write your journal entry.")
-            st.experimental_rerun()
-    
-    # If journaling has started
-    if st.session_state.journaling_started:
-        # Text area for journal input
-        journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    # Text area for journal input
+    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
 
-        # Button to save entry
-        if st.button("Save Entry"):
-            if journal_input:
-                # Save the entry to session state
-                st.session_state.journal_entries.append({
-                    "date": datetime.datetime.now(),
-                    "entry": journal_input
-                })
-                st.success("Journal entry saved!")
-                # Clear the input field after saving (optional)
-                st.session_state.journal_input = ""  
-            else:
-                st.warning("Please write something before saving.")
+    # Button to save entry
+    if st.button("Save Entry"):
+        if journal_input:
+            # Save the entry to session state
+            st.session_state.journal_entries.append({
+                "date": datetime.datetime.now(),
+                "entry": journal_input
+            })
+            st.success("Journal entry saved!")
+            # Clear the input field after saving
+            st.session_state.journal_input = ""  # Optional: Clear the input field
+        else:
+            st.warning("Please enter an entry before saving.")
 
-        # Checkbox to show past journal entries
-        if st.checkbox("Show Past Entries"):
-            if st.session_state.journal_entries:
-                st.write("### Past Journal Entries:")
-                for entry in st.session_state.journal_entries:
-                    st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-            else:
-                st.info("No past entries found.")
+    # Checkbox to show past journal entries
+    if st.checkbox("Show Past Entries"):
+        if st.session_state.journal_entries:
+            st.write("### Past Journal Entries:")
+            for entry in st.session_state.journal_entries:
+                st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+        else:
+            st.info("No past entries found.")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
