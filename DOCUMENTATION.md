@@ -118,12 +118,12 @@ st.markdown("""
     
 ## 7. How to Contribute
 
-To contribute:
-
-Fork the repository.
-Create a new branch for your feature.
-Make your changes and ensure they pass tests.
-Submit a pull request with a detailed explanation of your changes.
+1. Fork this repository to your GitHub account.
+2. Create a new branch to work on your feature or bug fix.
+3. Make your changes and ensure all tests pass successfully.
+4. Once ready, submit a pull request with a clear and detailed explanation of the changes you’ve made.
+   
+We appreciate your contributions! 
 
 ## 8. License
 
