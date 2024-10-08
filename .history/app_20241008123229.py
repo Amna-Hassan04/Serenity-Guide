@@ -14,7 +14,6 @@ import anthropic
 import datetime
 import datetime
 #For storing feedbacks
-from db import init_db, insert_comment, fetch_comments, close_db
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -572,7 +571,7 @@ def show_calm_space():
         """)
     
     st.write("---")
-
+    
     st.subheader("Mood-Boosting Mini Games")
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
@@ -630,25 +629,12 @@ def show_about_and_feedback():
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
-    
-    conn, c = init_db()
+
     feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
     if st.button("Submit Feedback"):
         if feedback_activity:
-            insert_comment(conn, feedback_activity)
             st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
-        else:
-            st.error("Please enter a comment before submitting.")
-
-    # Fetch and display comments
-    rows = fetch_comments(conn)
-    st.write("### Previous Discussions:")
-    for row in rows[:-1]:
-        st.write(f"- {row[0]}")
-
-    # Close connection
-    close_db(conn)       
-       
+      
     st.write("---")
     
     # Our Advertising Partners

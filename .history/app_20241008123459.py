@@ -647,8 +647,7 @@ def show_about_and_feedback():
         st.write(f"- {row[0]}")
 
     # Close connection
-    close_db(conn)       
-       
+    close_db(conn)          
     st.write("---")
     
     # Our Advertising Partners
