@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 import anthropic
 import datetime
 import datetime
+from pymongo import MongoClient
+
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -511,6 +513,7 @@ def show_about_and_feedback():
     
     st.write("---")
     
+   
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
@@ -520,7 +523,27 @@ def show_about_and_feedback():
     feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
     if st.button("Submit Feedback"):
         if feedback_activity:
-            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+            # Connect to MongoDB
+            mongodb_uri = os.getenv("MONGODB_URI")
+            client = MongoClient('mongodb+srv://ananyaskbtech22:1234@cluster0.p1xef.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+            db = client['mydatabase']
+            collection = db['user_feedback']
+
+            # Create a document to insert
+            document = {
+                "feedback": feedback_activity
+            }
+
+            # Insert the document into the collection
+            try:
+                inserted_document = collection.insert_one(document)
+                st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+            except Exception as e:
+                st.error(f"An error occurred while submitting your feedback: {e}")
+            finally:
+                client.close()  # Close the MongoDB client
+        else:
+            st.warning("Please enter your feedback before submitting.")
     
     st.write("---")
     
