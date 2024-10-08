@@ -2,7 +2,6 @@ import base64
 import datetime
 import time
 import streamlit as st
-import random
 import plotly.express as px
 import pandas as pd
 import requests, random
@@ -282,8 +281,6 @@ def show_main_page():
 
 
     # Tip for improving mental health
-    selected_tip = None # Initialize
-    
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
         tips = [
@@ -293,11 +290,11 @@ def show_main_page():
             "Take breaks when you're feeling overwhelmed.",
             "Connect with loved ones and share how you're feeling."
         ]
-        selected_tip = random.choice(tips)  # Get a random tip
-        st.write(f"Tip: {selected_tip}")
+        st.write(f"Tip: {random.choice(tips)}")
 
-    # Lottie animation for breathing
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
+    
+
     lottie_json_breathing = load_lottie_url(lottie_url_breathing)
     
 
@@ -305,8 +302,7 @@ def show_main_page():
         st.markdown(
             """
             <style>
-            .overlay-container {
-                position: relative;
+            .lottie-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -319,28 +315,21 @@ def show_main_page():
             .lottie-animation {
                 background: transparent;  /* Make the background of the animation transparent */
             }
-            .tip-overlay {
-                position: absolute;
-                color: white; 
-                font-size: 20px; 
-                top: 10%;  
-                left: 50%;
-                transform: translateX(-50%);
-                text-align: center;
-            }
             </style>
-            <div class="overlay-container">
+            <div class="lottie-container">
             """, unsafe_allow_html=True)
 
         st.markdown('<div class="lottie-item lottie-animation">', unsafe_allow_html=True)
         st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
         st.markdown('</div>', unsafe_allow_html=True)
         
-        # Add the overlay text for the tip only if a tip has been selected
-        if selected_tip is not None:
-            st.markdown(f'<div class="tip-overlay">{selected_tip}</div>', unsafe_allow_html=True)
-            
+
+        
         st.markdown('</div>', unsafe_allow_html=True)
+
+
+
+
 
     st.write("---")
 
@@ -403,35 +392,19 @@ def interactive_journal():
     if 'journal_entries' not in st.session_state:
         st.session_state.journal_entries = []
 
-    st.title("Interactive Journaling")
-
-    if st.button("Start Journaling"):
-        journal_input = st.text_area("Write down your thoughts...")
-
-        if st.button("Save Entry"):
-           if journal_input:
-               st.session_state.journal_entries.append(journal_input)
-               st.success("Journal entry saved!")
-           else:
-               st.warning("Please enter a journal entry before saving.")
-
-        if st.button("Paste Entries"):
-            if st.session_state.journal_entries:
-                st.write("### Past Journal Entries:")
-                for entry in st.session_state.journal_entries:
-                    st.write(entry)
-            else:
-                st.warning("No past entries found.")
+    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    if st.button("Save Entry"):
+        st.session_state.journal_entries.append({
+            "date": datetime.datetime.now(),
+            "entry": journal_input
+        })
+        st.success("Journal entry saved!")
 
     # Display past journal entries
-    past_entries_container = st.empty()  # Create an empty container
     if st.checkbox("Show Past Entries"):
-        if st.session_state.journal_entries:
-            past_entries_container.write("### Past Journal Entries:")
-            for entry in st.session_state.journal_entries:
-                past_entries_container.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-        else:
-            past_entries_container.write("No past entries found.")
+        st.write("### Past Journal Entries:")
+        for entry in st.session_state.journal_entries:
+            st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
