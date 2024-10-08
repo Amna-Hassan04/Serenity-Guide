@@ -403,14 +403,14 @@ def interactive_journal():
         else:
             st.warning("Please enter an entry before saving.")
 
-  # Display past journal entries
-  if st.checkbox("Show Past Entries"):
-      if st.session_state.journal_entries:
-          st.write("### Past Journal Entries:")
-          for entry in st.session_state.journal_entries:
-              st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-      else:
-          st.info("No past entries found.")
+    # Display past journal entries
+    if st.checkbox("Show Past Entries"):
+        if st.session_state.journal_entries:
+            st.write("### Past Journal Entries:")
+            for entry in st.session_state.journal_entries:
+                st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+        else:
+            st.info("No past entries found.")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
