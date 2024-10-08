@@ -393,31 +393,38 @@ def interactive_journal():
     if 'journal_entries' not in st.session_state:
         st.session_state.journal_entries = []
 
-    # Text area for journal input
-    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    # Create two columns: one for the journal input and one for past entries
+    col1, col2 = st.columns([2, 1])  # Adjust the column sizes as needed
 
-    # Button to save entry
-    if st.button("Save Entry"):
-        if journal_input:
-            # Save the entry to session state
-            st.session_state.journal_entries.append({
-                "date": datetime.datetime.now(),
-                "entry": journal_input
-            })
-            st.success("Journal entry saved!")
-            # Clear the input field after saving
-            st.session_state.journal_input = ""  # Optional: Clear the input field
-        else:
-            st.warning("Please enter an entry before saving.")
+    with col1:
+        # Text area for journal input
+        journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
 
-    # Checkbox to show past journal entries
-    if st.checkbox("Show Past Entries"):
-        if st.session_state.journal_entries:
-            st.write("### Past Journal Entries:")
-            for entry in st.session_state.journal_entries:
-                st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
-        else:
-            st.info("No past entries found.")
+        # Button to save entry
+        if st.button("Save Entry"):
+            if journal_input:
+                # Save the entry to session state
+                st.session_state.journal_entries.append({
+                    "date": datetime.datetime.now(),
+                    "entry": journal_input
+                })
+                st.success("Journal entry saved!")
+                # Clear the input field after saving
+                st.experimental_rerun()  # Refresh the app to update the input field
+            else:
+                st.warning("Please enter an entry before saving.")
+
+    with col2:
+        # Checkbox to show past journal entries
+        show_entries = st.checkbox("Show Past Entries")
+
+        if show_entries:
+            if st.session_state.journal_entries:
+                st.write("### Past Journal Entries:")
+                for entry in st.session_state.journal_entries:
+                    st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
+            else:
+                st.info("No past entries found.")
 
 def mood_boosting_mini_games():
     st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
