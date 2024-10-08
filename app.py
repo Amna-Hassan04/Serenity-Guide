@@ -408,20 +408,20 @@ def interactive_journal():
     if st.button("Start Journaling"):
         journal_input = st.text_area("Write down your thoughts...")
 
-    if st.button("Save Entry"):
-        if journal_input:
-            st.session_state.journal_entries.append(journal_input)
-            st.success("Journal entry saved!")
-        else:
-            st.warning("Please enter a journal entry before saving.")
+        if st.button("Save Entry"):
+           if journal_input:
+               st.session_state.journal_entries.append(journal_input)
+               st.success("Journal entry saved!")
+           else:
+               st.warning("Please enter a journal entry before saving.")
 
-     if st.button("Paste Entries"):
-        if st.session_state.journal_entries:
-            st.write("### Past Journal Entries:")
-            for entry in st.session_state.journal_entries:
-                st.write(entry)
-        else:
-            st.warning("No past entries found.")
+        if st.button("Paste Entries"):
+            if st.session_state.journal_entries:
+                st.write("### Past Journal Entries:")
+                for entry in st.session_state.journal_entries:
+                    st.write(entry)
+            else:
+                st.warning("No past entries found.")
 
     # Display past journal entries
     past_entries_container = st.empty()  # Create an empty container
