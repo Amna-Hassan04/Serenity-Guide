@@ -1,6 +1,4 @@
 import base64
-import datetime
-import time
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -11,34 +9,6 @@ import os
 from dotenv import load_dotenv
 #AI Integration
 import anthropic
-import datetime
-import datetime
-# CSS for Scroll to Top Button
-scroll_to_top = """
-    <style>
-    #scrollButton {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        font-size: 18px;
-        border: none;
-        outline: none;
-        background-color: rgb(4, 170, 109);
-        color: white;
-        cursor: pointer;
-        padding: 10px;
-        border-radius: 10px;
-        opacity: 0.7;
-    }
-
-    #scrollButton:hover {
-        background-color: rgb(4, 170, 109);
-        opacity: 1;
-    }
-    </style>
-"""
-
 
 #Changes made by --Charvi Arora 
 #Added security
@@ -69,15 +39,8 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
         ]
     )
 
-    
 # Set page config (must be the first Streamlit command)
-st.set_page_config(page_title="SereniFi", page_icon=":relieved:", layout="centered")
-st.markdown(scroll_to_top, unsafe_allow_html=True)
-def scroll_to_top_button():
-    st.markdown('<a id="scrollButton" title="Go to top" href="#top">↑ Top</a>', unsafe_allow_html=True)
-    st.markdown('<div id="top"></div>', unsafe_allow_html=True)
-
-scroll_to_top_button()
+st.set_page_config(page_title="Anxiety Relief App", page_icon=":relieved:", layout="centered")
 
 # Data for mental health (sampled)
 data = {
@@ -167,7 +130,7 @@ def main():
                 "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
-            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff","font-size": "14px",}
+            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff", "transform": "scale(1.1)"}
         }
     )
 
@@ -197,7 +160,33 @@ def show_main_page():
 
 
 
-    st.image("https://images.pexels.com/photos/185801/pexels-photo-185801.jpeg?auto=compress&cs=tinysrgb&w=600", caption="Breathe and Relax", use_column_width=True)
+    #st.image("https://images.pexels.com/photos/185801/pexels-photo-185801.jpeg?auto=compress&cs=tinysrgb&w=600", caption="Breathe and Relax", use_column_width=True)
+    # dynamic images
+    # Add this in the show_main_page function
+    def fetch_dynamic_images(query):
+        API_KEY = os.getenv("UNSPLASH_API_KEY")  # Ensure you have your Unsplash API key in the .env file
+        response = requests.get(f"https://api.unsplash.com/photos/random?query={query}&client_id={API_KEY}")
+
+        if response.status_code == 200:
+            image = response.json()  # This will be a single image object
+            return [image['urls']['small']]  # Return a list containing the small size URL
+        else:
+            st.error("Error fetching images from Unsplash.")
+            return []
+    def imgContainer(query):
+        images = fetch_dynamic_images(query)
+        if images:
+            # Create a div container for images
+            image_container = st.container()
+            with image_container:
+                st.markdown(f'<div class="img-container" style="width: inherit;">', unsafe_allow_html=True)
+                for img_url in images:
+                    st.markdown(f'<img src="{img_url}" style="width: 100%;border: 2px solid;border-color: black;border-radius: 10px;">', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+
+
+    st.subheader("Dynamic Anxiety Relief Images")
+    imgContainer("Peace")  # You can customize the query based on user input or context
 
     st.write("---")
     
@@ -360,7 +349,7 @@ def show_main_page():
         st.plotly_chart(fig_selected)
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
 
 def soothing_sounds():
     st.header("🎵 Calm Down with Soothing Sounds")
@@ -442,25 +431,7 @@ def show_calm_space():
 
     if selected_challenge:
         st.write(f"**Today's Challenge:** {challenges[selected_challenge]}")
-        st.write("Remember, consistency is key to building habits and improving your mental well-being.")
-
-        #Progress Bar Feature added by suhaib-lone
-        if st.button("Start Progress"):
-            progress_bar=st.progress(0)
-            if selected_challenge == "Meditation" or selected_challenge == "journaling":
-                challenge_time=600
-            elif selected_challenge == "Yoga":
-                challenge_time=900
-            elif selected_challenge == "Breathing":
-                challenge_time=300
-            else:
-                challenge_time=1200
-            for i in range(challenge_time):
-                time.sleep(1)
-                progress_bar.progress((i+1)/challenge_time)
-            st.success("Ding! Ding! Time UP!")
-
-
+        st.write("Set a reminder to complete this challenge today. Remember, consistency is key to building habits and improving your mental well-being.")
 
     st.write("---")
 
@@ -497,7 +468,7 @@ def show_calm_space():
 
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 
@@ -506,7 +477,7 @@ def show_about_and_feedback():
     st.title("About Us & Feedback")
     
     st.write("""
-    **Welcome to SereniFi!**
+    **Welcome to Our Anxiety Relief Platform!**
     
     We are dedicated to promoting mental wellness through interactive and accessible tools. Our mission is to provide a supportive environment where individuals can explore effective techniques for managing anxiety and improving overall mental well-being.
     """)
@@ -574,7 +545,7 @@ def show_about_and_feedback():
     
 
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align: center;">© 2024 Anxiety Relief Platform. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 
