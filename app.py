@@ -12,7 +12,8 @@ from dotenv import load_dotenv
 #AI Integration
 import anthropic
 import datetime
-import datetime
+from pymongo import MongoClient
+from datetime import datetime
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -48,6 +49,20 @@ load_dotenv()
 claude_api_key = os.getenv("CLAUDE_API_KEY")
 
 client = anthropic.Client(api_key=claude_api_key)
+
+#Setting up the MongoDB connection
+db_client = MongoClient("mongodb://localhost:27017/") # Connect to the MongoDB server give your own connection string
+db = db_client["serenifi"] # Create a database called serenifi
+collection = db["feedback"] # Create a collection called feedback
+
+def insert_feedback(feature_name, rating, comments):
+    feedback_data = {
+        "feature_name": feature_name,
+        "rating": rating,
+        "comments": comments,
+        "timestamp": datetime.now()
+    }
+    collection.insert_one(feedback_data)
 
 def anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events):
     # Construct the message for ClaudeAI
@@ -534,12 +549,17 @@ def show_about_and_feedback():
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
-    """)
-
-    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    """)       
+    # Interactive Feedback on Features
+    st.subheader("Feature Feedback")
+    feature_name = st.selectbox("Select a feature to provide feedback:", ["Guided Breathing", "Mood-Boosting Games", "Interactive Journaling", "Mood-Boosting Mini Games", "Soothing Sounds", "Daily Challenge Suggestions", "Quick Tips for Positivity", "Daily Anxiety Check", "Calm Space"])
+    rating = st.slider("Rate the feature (1 = Poor, 10 = Excellent)", 1, 10)
+    comments = st.text_area("Any comments or suggestions for improvement?")
     if st.button("Submit Feedback"):
-        if feedback_activity:
-            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+        if feature_name and rating:
+            insert_feedback(feature_name, rating, comments)
+            st.success("Thank you for your feedback! Your input helps us enhance our platform.")
+    
     
     st.write("---")
     
