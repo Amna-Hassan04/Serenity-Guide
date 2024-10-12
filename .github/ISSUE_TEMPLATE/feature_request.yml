@@ -1,0 +1,55 @@
+name: "Feature Request"
+description: "Suggest an enhancement or new feature for this project."
+title: "[FEATURE] - "
+labels: ["enhancement", "discussion"]
+assignees: [""]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        Thank you for suggesting a new feature! Please provide the information below to help us understand and evaluate your request.
+
+  - type: input
+    id: feature_title
+    attributes:
+      label: "Feature Title"
+      description: "A brief summary of the feature you're proposing"
+      placeholder: "Short, descriptive title"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: "Problem Statement"
+      description: "Describe the problem this feature solves"
+      placeholder: "Explain the problem you are trying to solve"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "Proposed Solution"
+      description: "How would you like to solve the problem?"
+      placeholder: "Describe the solution you propose"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "Have you considered other solutions?"
+      placeholder: "Describe any alternative solutions"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Any other details or screenshots that might be helpful"
+      placeholder: "Optional additional details"

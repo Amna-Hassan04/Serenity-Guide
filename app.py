@@ -13,8 +13,11 @@ from dotenv import load_dotenv
 import anthropic
 import datetime
 import datetime
+<<<<<<< HEAD
 #For storing feedbacks
 import sqlite3
+=======
+>>>>>>> upstream/main
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -244,6 +247,7 @@ def show_main_page():
             }
             st.write(f"**Tip:** {tips[mood]}")
 
+<<<<<<< HEAD
     st.write("---")
 
     # Interactive section for viewers
@@ -280,6 +284,8 @@ def show_main_page():
         
         st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
         st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
+=======
+>>>>>>> upstream/main
 
     st.write("---")
 
@@ -317,6 +323,10 @@ def show_main_page():
 
     st.write("---")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/main
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -515,6 +525,7 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
+<<<<<<< HEAD
     st.subheader("Eating habits")
 
     if 1 <= current_stress_level <= 3:
@@ -573,6 +584,8 @@ def show_calm_space():
     
     st.write("---")
 
+=======
+>>>>>>> upstream/main
     st.subheader("Mood-Boosting Mini Games")
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
@@ -624,12 +637,17 @@ def show_about_and_feedback():
     """)
     
     st.write("---")
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> upstream/main
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
+<<<<<<< HEAD
     
     # Function to initialize the SQLite database
     def init_db():
@@ -673,6 +691,13 @@ def show_about_and_feedback():
 
     # Close the connection at the end of the app
     conn.close()
+=======
+
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+>>>>>>> upstream/main
     
     st.write("---")
     
@@ -714,4 +739,8 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> upstream/main
