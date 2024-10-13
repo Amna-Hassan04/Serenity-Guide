@@ -14,7 +14,6 @@ import anthropic
 import datetime
 import datetime
 #For storing feedbacks
-import sqlite3
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -40,7 +39,6 @@ scroll_to_top = """
     }
     </style>
 """
-
 
 
 #Changes made by --Charvi Arora 
@@ -282,8 +280,6 @@ def show_main_page():
         st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
         st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
 
-
-
     st.write("---")
 
     st.markdown("""
@@ -319,6 +315,7 @@ def show_main_page():
     
 
     st.write("---")
+
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -517,64 +514,6 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
-    st.subheader("Eating habits")
-
-    if 1 <= current_stress_level <= 3:
-        st.success("You're in a great place! It looks like you enjoy eating healthy, and it's really working for you. Keep up with the balanced diet!")
-        
-    elif 4 <= current_stress_level <= 7:
-        st.info("It seems like your meals are generally good, but you might want to tweak a few things to match your current stress levels. Let's add a few more nutritious choices!")
-
-    elif 8 <= current_stress_level <= 10:
-        st.warning("Looks like you've been craving some junk food today. Don't worry, stress can often lead to that! But here are some delicious, healthy alternatives that you can easily prepare:")
-        
-        st.write("### Smoothie Recipe: Energizing Green Smoothie")
-        st.write("""
-            **Ingredients:**
-            - 1 cup spinach
-            - 1/2 banana
-            - 1/2 cup frozen mango
-            - 1 tablespoon chia seeds
-            - 1 cup almond milk
-            
-            **Instructions:**
-            1. Add all ingredients to a blender.
-            2. Blend until smooth and creamy.
-            3. Pour into a glass and enjoy a stress-relieving, energizing drink!
-        """)
-
-        st.write("### Recipe: Avocado Toast with a Twist")
-        st.write("""
-            **Ingredients:**
-            - 1 slice whole grain bread, toasted
-            - 1/2 avocado, mashed
-            - 1 tablespoon hummus
-            - A pinch of red pepper flakes
-            - A drizzle of olive oil
-            
-            **Instructions:**
-            1. Spread the mashed avocado on the toasted bread.
-            2. Add a layer of hummus for extra protein.
-            3. Sprinkle red pepper flakes and drizzle with olive oil.
-            4. Enjoy this satisfying, healthy snack!
-        """)
-
-        st.write("### Recipe: Stress-Relieving Herbal Tea")
-        st.write("""
-            **Ingredients:**
-            - 1 teaspoon chamomile tea
-            - 1 teaspoon honey
-            - 1 slice lemon
-            - 1 cup hot water
-            
-            **Instructions:**
-            1. Steep the chamomile tea in hot water for 5 minutes.
-            2. Add honey and lemon, stir well.
-            3. Sip slowly to relax your mind and body.
-        """)
-    
-    st.write("---")
-
     st.subheader("Mood-Boosting Mini Games")
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
@@ -627,57 +566,17 @@ def show_about_and_feedback():
     
     st.write("---")
 
-
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
 
-    
-    # Function to initialize the SQLite database
-    def init_db():
-        conn = sqlite3.connect('peer_discussion.db')
-        c = conn.cursor()
-        c.execute('''
-                CREATE TABLE IF NOT EXISTS comments
-                (id INTEGER PRIMARY KEY, comment TEXT)
-                ''')
-        conn.commit()
-        return conn, c
-
-    # Initialize SQLite connection at the beginning of the app
-    conn, c = init_db()
-
-    # Peer Discussion Section
-    st.subheader("Peer Discussion Room")
-    st.write("Feeling stressed? Share your thoughts, tips, or experiences with others in a safe space. Let's help each other out!")
-
-    # User input
-    peer_comment = st.text_area("Share your thoughts or tips here:")
-
-    # Submit button
-    if st.button("Submit"):
-        if peer_comment:
-            # Insert the comment into the SQLite database
-            c.execute("INSERT INTO comments (comment) VALUES (?)", (peer_comment,))
-            conn.commit()
-            st.success("Your message has been shared with others!")
-        else:
-            st.error("Please enter a comment before submitting.")
-
-    # Fetch all previous comments from the database
-    c.execute("SELECT comment FROM comments")
-    rows = c.fetchall()
-
-    # Display previous comments
-    st.write("### Previous Discussions:")
-    for row in rows:
-        st.write(f"- {row[0]}")
-
-    # Close the connection at the end of the app
-    conn.close()
-
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+      
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +617,4 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
     main()
-
-

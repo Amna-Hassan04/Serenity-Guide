@@ -42,7 +42,6 @@ scroll_to_top = """
 """
 
 
-
 #Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
@@ -282,8 +281,6 @@ def show_main_page():
         st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
         st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
 
-
-
     st.write("---")
 
     st.markdown("""
@@ -319,6 +316,7 @@ def show_main_page():
     
 
     st.write("---")
+
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -627,13 +625,11 @@ def show_about_and_feedback():
     
     st.write("---")
 
-
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
-
     
     # Function to initialize the SQLite database
     def init_db():
@@ -677,7 +673,7 @@ def show_about_and_feedback():
 
     # Close the connection at the end of the app
     conn.close()
-
+    
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +714,4 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
     main()
-
-

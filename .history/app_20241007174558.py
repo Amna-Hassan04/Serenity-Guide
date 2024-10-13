@@ -14,7 +14,7 @@ import anthropic
 import datetime
 import datetime
 #For storing feedbacks
-import sqlite3
+from db import init_db, insert_comment, fetch_comments, close_db
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -40,7 +40,6 @@ scroll_to_top = """
     }
     </style>
 """
-
 
 
 #Changes made by --Charvi Arora 
@@ -245,6 +244,41 @@ def show_main_page():
             }
             st.write(f"**Tip:** {tips[mood]}")
 
+
+    st.write("---")
+
+    st.markdown("""
+    ### Embrace Your Journey to Wellness
+
+    Taking care of your mental health is an ongoing journey that requires attention and effort. It's essential to recognize the value of setting aside time for yourself amidst your busy schedule. Activities such as mindfulness, relaxation exercises, and engaging in hobbies can significantly improve your overall well-being. 
+
+    Remember, mental health is not just the absence of mental illness but a state of complete emotional, psychological, and social well-being. Incorporating small, positive changes into your daily routine can lead to a more balanced and fulfilling life. Embrace these practices with an open heart and notice the positive impact they have on your day-to-day life. 
+    """)
+
+    st.video("https://www.youtube.com/watch?v=inpok4MKVLM", start_time=10)
+
+    st.write("---")
+
+    st.markdown('<h4 style="text-align: center;">The Importance of Mental Health</h4>', unsafe_allow_html=True)
+    
+    st.write("Mental health is just as important as physical health, but often overlooked. It affects how we think, feel, and act in our daily lives. Prioritizing mental well-being can help us manage stress, connect with others, and make healthier choices.")
+
+    # Interactive section for viewers
+    st.subheader("Let's Explore How Mental Health Affects You")
+    
+    # User input on mental health habits
+    daily_mindfulness = st.radio("How often do you practice mindfulness or self-care?", ["Daily", "Weekly", "Occasionally", "Rarely"])
+    
+    if daily_mindfulness == "Daily":
+        st.success("Amazing! Regular self-care routines greatly enhance mental wellness.")
+    elif daily_mindfulness == "Weekly":
+        st.info("Great start! Try increasing your self-care sessions to enhance its benefits.")
+    elif daily_mindfulness == "Occasionally":
+        st.warning("It's good you're trying! Consistency can help you feel more balanced.")
+    else:
+        st.error("Mental health is crucial! Start small by incorporating simple self-care practices.")
+    
+
     st.write("---")
 
     # Interactive section for viewers
@@ -282,43 +316,9 @@ def show_main_page():
         st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
         st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
 
-
-
     st.write("---")
 
-    st.markdown("""
-    ### Embrace Your Journey to Wellness
 
-    Taking care of your mental health is an ongoing journey that requires attention and effort. It's essential to recognize the value of setting aside time for yourself amidst your busy schedule. Activities such as mindfulness, relaxation exercises, and engaging in hobbies can significantly improve your overall well-being. 
-
-    Remember, mental health is not just the absence of mental illness but a state of complete emotional, psychological, and social well-being. Incorporating small, positive changes into your daily routine can lead to a more balanced and fulfilling life. Embrace these practices with an open heart and notice the positive impact they have on your day-to-day life. 
-    """)
-
-    st.video("https://www.youtube.com/watch?v=inpok4MKVLM", start_time=10)
-
-    st.write("---")
-
-    st.markdown('<h4 style="text-align: center;">The Importance of Mental Health</h4>', unsafe_allow_html=True)
-    
-    st.write("Mental health is just as important as physical health, but often overlooked. It affects how we think, feel, and act in our daily lives. Prioritizing mental well-being can help us manage stress, connect with others, and make healthier choices.")
-
-    # Interactive section for viewers
-    st.subheader("Let's Explore How Mental Health Affects You")
-    
-    # User input on mental health habits
-    daily_mindfulness = st.radio("How often do you practice mindfulness or self-care?", ["Daily", "Weekly", "Occasionally", "Rarely"])
-    
-    if daily_mindfulness == "Daily":
-        st.success("Amazing! Regular self-care routines greatly enhance mental wellness.")
-    elif daily_mindfulness == "Weekly":
-        st.info("Great start! Try increasing your self-care sessions to enhance its benefits.")
-    elif daily_mindfulness == "Occasionally":
-        st.warning("It's good you're trying! Consistency can help you feel more balanced.")
-    else:
-        st.error("Mental health is crucial! Start small by incorporating simple self-care practices.")
-    
-
-    st.write("---")
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -574,7 +574,7 @@ def show_calm_space():
         """)
     
     st.write("---")
-
+    
     st.subheader("Mood-Boosting Mini Games")
     st.write("Take a break and play a mini-game to reduce your anxiety.")
     if st.button("Start Game"):
@@ -627,57 +627,29 @@ def show_about_and_feedback():
     
     st.write("---")
 
-
+    conn, c = init_db()
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
 
-    
-    # Function to initialize the SQLite database
-    def init_db():
-        conn = sqlite3.connect('peer_discussion.db')
-        c = conn.cursor()
-        c.execute('''
-                CREATE TABLE IF NOT EXISTS comments
-                (id INTEGER PRIMARY KEY, comment TEXT)
-                ''')
-        conn.commit()
-        return conn, c
-
-    # Initialize SQLite connection at the beginning of the app
-    conn, c = init_db()
-
-    # Peer Discussion Section
-    st.subheader("Peer Discussion Room")
-    st.write("Feeling stressed? Share your thoughts, tips, or experiences with others in a safe space. Let's help each other out!")
-
-    # User input
-    peer_comment = st.text_area("Share your thoughts or tips here:")
-
-    # Submit button
-    if st.button("Submit"):
-        if peer_comment:
-            # Insert the comment into the SQLite database
-            c.execute("INSERT INTO comments (comment) VALUES (?)", (peer_comment,))
-            conn.commit()
-            st.success("Your message has been shared with others!")
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            insert_comment(conn, feedback_activity)
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
         else:
             st.error("Please enter a comment before submitting.")
 
-    # Fetch all previous comments from the database
-    c.execute("SELECT comment FROM comments")
-    rows = c.fetchall()
-
-    # Display previous comments
+    # Fetch and display comments
+    rows = fetch_comments(conn)
     st.write("### Previous Discussions:")
     for row in rows:
         st.write(f"- {row[0]}")
 
-    # Close the connection at the end of the app
-    conn.close()
-
+    # Close connection
+    close_db(conn)       
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +690,4 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
     main()
-
-

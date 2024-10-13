@@ -42,7 +42,6 @@ scroll_to_top = """
 """
 
 
-
 #Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
@@ -319,6 +318,11 @@ def show_main_page():
     
 
     st.write("---")
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/main
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -626,14 +630,17 @@ def show_about_and_feedback():
     """)
     
     st.write("---")
+<<<<<<< HEAD
 
-
+=======
+    
+>>>>>>> upstream/main
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
-
+<<<<<<< HEAD
     
     # Function to initialize the SQLite database
     def init_db():
@@ -677,7 +684,14 @@ def show_about_and_feedback():
 
     # Close the connection at the end of the app
     conn.close()
+=======
 
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+>>>>>>> upstream/main
+    
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +732,8 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
+<<<<<<< HEAD
     main()
-
-
+=======
+    main()
+>>>>>>> upstream/main

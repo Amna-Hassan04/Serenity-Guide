@@ -42,7 +42,6 @@ scroll_to_top = """
 """
 
 
-
 #Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
@@ -678,6 +677,13 @@ def show_about_and_feedback():
     # Close the connection at the end of the app
     conn.close()
 
+
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+
+    
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +724,8 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
+<<<<<<< HEAD
     main()
-
-
+=======
+    main()
+>>>>>>> upstream/main

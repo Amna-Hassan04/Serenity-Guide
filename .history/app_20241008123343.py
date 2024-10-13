@@ -14,7 +14,7 @@ import anthropic
 import datetime
 import datetime
 #For storing feedbacks
-import sqlite3
+from db import init_db, insert_comment, fetch_comments, close_db
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -40,7 +40,6 @@ scroll_to_top = """
     }
     </style>
 """
-
 
 
 #Changes made by --Charvi Arora 
@@ -282,8 +281,6 @@ def show_main_page():
         st.write("**6. Herbal Teas and Sleep-Inducing Foods**")
         st.write("Chamomile tea, almonds, and bananas are known to promote sleep. Incorporate these into your evening to help relax and ease stress.")
 
-
-
     st.write("---")
 
     st.markdown("""
@@ -319,6 +316,7 @@ def show_main_page():
     
 
     st.write("---")
+
     # Tip for improving mental health
     st.subheader("Quick Tip for Mental Health")
     if st.button("Get a Tip"):
@@ -517,7 +515,7 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
-    st.subheader("Eating habits")
+     st.subheader("Eating habits")
 
     if 1 <= current_stress_level <= 3:
         st.success("You're in a great place! It looks like you enjoy eating healthy, and it's really working for you. Keep up with the balanced diet!")
@@ -627,57 +625,17 @@ def show_about_and_feedback():
     
     st.write("---")
 
-
     # Interactive Feedback on Activities
     st.subheader("Share Your Experience")
     st.write("""
     We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
     """)
 
-    
-    # Function to initialize the SQLite database
-    def init_db():
-        conn = sqlite3.connect('peer_discussion.db')
-        c = conn.cursor()
-        c.execute('''
-                CREATE TABLE IF NOT EXISTS comments
-                (id INTEGER PRIMARY KEY, comment TEXT)
-                ''')
-        conn.commit()
-        return conn, c
-
-    # Initialize SQLite connection at the beginning of the app
-    conn, c = init_db()
-
-    # Peer Discussion Section
-    st.subheader("Peer Discussion Room")
-    st.write("Feeling stressed? Share your thoughts, tips, or experiences with others in a safe space. Let's help each other out!")
-
-    # User input
-    peer_comment = st.text_area("Share your thoughts or tips here:")
-
-    # Submit button
-    if st.button("Submit"):
-        if peer_comment:
-            # Insert the comment into the SQLite database
-            c.execute("INSERT INTO comments (comment) VALUES (?)", (peer_comment,))
-            conn.commit()
-            st.success("Your message has been shared with others!")
-        else:
-            st.error("Please enter a comment before submitting.")
-
-    # Fetch all previous comments from the database
-    c.execute("SELECT comment FROM comments")
-    rows = c.fetchall()
-
-    # Display previous comments
-    st.write("### Previous Discussions:")
-    for row in rows:
-        st.write(f"- {row[0]}")
-
-    # Close the connection at the end of the app
-    conn.close()
-
+    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    if st.button("Submit Feedback"):
+        if feedback_activity:
+            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
+      
     st.write("---")
     
     # Our Advertising Partners
@@ -718,7 +676,4 @@ def show_about_and_feedback():
 
 
 if __name__ == "__main__":
-
     main()
-
-

@@ -42,7 +42,6 @@ scroll_to_top = """
 """
 
 
-
 #Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
