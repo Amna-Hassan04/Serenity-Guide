@@ -145,6 +145,122 @@ def load_lottie_url(url: str):
         return response.json()
     return None
 
+#Footer Function to show footer and bottom nav
+def show_footer():
+    st.write("---")
+    
+    # Define the HTML for the footer
+    footer_html = """
+    <style>
+        .footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .social-icons {
+            margin-top: 5px; /* Space above icons */
+        }
+        .social-icons a {
+            margin: 0 10px; /* Spacing between icons */
+            color: #333; /* Icon color */
+            text-decoration: none; /* Remove underline from links */
+            font-size: 20px; /* Icon size */
+        }
+        .social-icons a:hover {
+            color: #007bff; /* Change color on hover */
+        }
+        .footer-links {
+            margin-top: 10px;
+            font-size: 14px; /* Link font size */
+        }
+        .footer-links a {
+            margin: 0 15px; /* Space between links */
+            color: #333;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        .newsletter {
+            margin-top: 10px;
+        }
+        .newsletter input {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid #000;
+        }
+        .newsletter button {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid #000;
+        }
+        .newsletter button:hover {
+            background-color: rgba(0, 123, 255, 0.3); 
+        }
+    </style>
+    
+    <!-- Load Font Awesome from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <div class="footer">
+        <p>© 2024 SereniFi. All rights reserved.</p>
+        <div class="newsletter">
+            <h4>Subscribe to Our Newsletter</h4>
+            <input type="text" id="newsletter-email" placeholder="your_email@example.com">
+            <button onclick="subscribe()">Subscribe</button>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/amna-hassan-143b76202/" target="_blank">
+                <i class="fab fa-linkedin" title="LinkedIn"></i>
+            </a>
+            <a href="https://github.com/Amna-Hassan04/Serenity-Guide" target="_blank">
+                <i class="fab fa-github" title="GitHub"></i>
+            </a>
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="fab fa-facebook" title="Facebook"></i>
+            </a>
+            <a href="https://www.twitter.com" target="_blank">
+                <i class="fab fa-twitter" title="Twitter"></i>
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="fab fa-instagram" title="Instagram"></i>
+            </a>
+        </div>
+        <div class="footer-links">
+            <a class = "foot-links" href="#" target="_blank">Terms and Conditions</a>
+            <a class = "foot-links" href="#" target="_blank">Privacy Policy</a>
+            <a class = "foot-links" href="#" target="_blank">About Us</a>
+            <a class = "foot-links" href="#" target="_blank">Contact Us</a>
+        </div>
+        <div class = "Acknowledgements">
+            <p>Hackathon Project created by Amna Hassan, Anushka Pote, Madhuri K, Pearl Vashistha. <br>
+            Maintained and Features added by Contributors. 
+            </p>
+        </div>
+    </div>
+    <script>
+        function subscribe() {
+            const email = document.getElementById('newsletter-email').value;
+            if (email) {
+                alert('Thank you for subscribing, ' + email + '!');
+                //Code to save the email to database or mailing list
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+    </script>
+    """
+    
+    # Render the HTML in the footer
+    st.markdown(footer_html, unsafe_allow_html=True)
+
 # Main function to control page navigation
 def main():
 
@@ -359,8 +475,7 @@ def show_main_page():
         fig_selected = px.bar(selected_data, x='Activity', y='Calmness_Level', title="Selected Activities Effectiveness")
         st.plotly_chart(fig_selected)
 
-    st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    show_footer()
 
 def soothing_sounds():
     st.header("🎵 Calm Down with Soothing Sounds")
@@ -494,12 +609,7 @@ def show_calm_space():
         st.success("Journal entry: It's important to reflect and release your emotions.")
         interactive_journal()
 
-
-
-    st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-
-
+    show_footer()
 
 
 def show_about_and_feedback():
@@ -571,11 +681,8 @@ def show_about_and_feedback():
     if st.button("Subscribe"):
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
-
-    st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-
+             
+    show_footer()
 
 
 
