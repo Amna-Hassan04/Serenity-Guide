@@ -407,11 +407,44 @@ def interactive_journal():
             st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
-    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
-    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
-    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
-    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
+    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game you want:")
+    
+    # Define button style with off-black background and off-white text color
+    button_style = """
+        <style>
+        .button {
+            background-color: #1a1a1a;  /* off-black */
+            color: #f5f5f5;  /* off-white */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button a {
+            color: #f5f5f5;  /* off-white text */
+            text-decoration: none;  /* remove underline */
+        }
+        .button a:hover {
+            color: #f5f5f5;  /* off-white text on hover */
+        }
+        .button:hover {
+            background-color: #333;  /* slightly lighter on hover */
+        }
+        </style>
+    """
+    
+    # Apply the button style to the Streamlit app
+    st.markdown(button_style, unsafe_allow_html=True)
 
+    # Create buttons with the custom style
+    st.markdown('<a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25" target="_blank"><div class="button">Play Snake Game</div></a>', unsafe_allow_html=True)
 
 def show_calm_space():
     st.title("Calm Space")
