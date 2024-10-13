@@ -441,10 +441,30 @@ def mood_boosting_mini_games():
     # Apply the button style to the Streamlit app
     st.markdown(button_style, unsafe_allow_html=True)
 
-    # Create buttons with the custom style
-    st.markdown('<a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25" target="_blank"><div class="button">Play Snake Game</div></a>', unsafe_allow_html=True)
+    # Create a table with 12 game buttons, 4 columns and 3 rows
+    st.markdown('''
+        <table>
+            <tr>
+                <td><a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a></td>
+                <td><a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a></td>
+                <td><a href="https://www.google.com/search?q=snake+game" target="_blank"><div class="button">Play Snake Game</div></a></td>
+                <td><a href="https://agar.io/" target="_blank"><div class="button">Play Agar.io</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://trex-runner.com/" target="_blank"><div class="button">Play T-Rex Game</div></a></td>
+                <td><a href="https://slither.io/" target="_blank"><div class="button">Play Slither.io</div></a></td>
+                <td><a href="https://www.google.com/search?q=solitaire" target="_blank"><div class="button">Play Solitaire</div></a></td>
+                <td><a href="https://mahjon.gg/" target="_blank"><div class="button">Play Mahjong</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://sudoku.com/" target="_blank"><div class="button">Play Sudoku</div></a></td>
+                <td><a href="https://www.crazygames.com/game/fireboy-and-watergirl-the-forest-temple" target="_blank"><div class="button">Play Fireboy & Watergirl</div></a></td>
+                <td><a href="https://checkers.online/" target="_blank"><div class="button">Play Checkers</div></a></td>
+                <td><a href="https://krunker.io/" target="_blank"><div class="button">Play Krunker.io</div></a></td>
+            </tr>
+        </table>
+    ''', unsafe_allow_html=True)
+
 
 def show_calm_space():
     st.title("Calm Space")
