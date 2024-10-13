@@ -8,13 +8,22 @@ Feel Calm, Centered, and Peaceful
 
 | 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
 |--------------|--------------|---------------|-----------------|------------------|
-| ![GitHub stars](https://img.shields.io/badge/stars-9-blue) | ![GitHub forks](https://img.shields.io/badge/forks-26-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-22-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-7-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-9-lightgrey) |
+| ![GitHub stars](https://img.shields.io/badge/stars-16-blue) | ![GitHub forks](https://img.shields.io/badge/forks-56-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-48-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-8-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-37-lightgrey) |
 
-## 🏆 Featured in
+## 🏆 Featured in Open Source Programs
 
-| Event Logo | Event Name                          | Event Description                                                                                                                                                       |
-|------------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![GSSoC 24](https://gssoc.girlscript.tech/GS_logo_Black.svg) | GirlScript Summer of Code 2024 Ext | GirlScript Summer of Code Ext Edition is a One-month-long Open Source Program conducted from 1st October to 30th October by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. |
+<table>
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+   <tr>
+      <td><img src="https://user-images.githubusercontent.com/63473496/153487849-4f094c16-d21c-463e-9971-98a8af7ba372.png" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
+      <td>GirlScript Summer of Code Extd 2024</td>
+      <td>GirlScript Summer of Code Extd is a 1-month long OpenSource  program by GirlScript Foundation.It is an initiative to bring more beginners to Open-Source Software Development.</td>
+   </tr>
+</table>
 
 
 ## Overview  
