@@ -2,7 +2,7 @@ name: "Bug Report"
 description: "Report a bug to help us improve."
 title: "[BUG] - "
 labels: ["bug", "needs-triage"]
-assignees: ["Amna-Hassan04"]
+assignees: [""]
 
 body:
   - type: markdown
