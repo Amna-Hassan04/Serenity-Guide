@@ -211,11 +211,6 @@ def show_footer():
 
     <div class="footer">
         <p>© 2024 SereniFi. All rights reserved.</p>
-        <div class="newsletter">
-            <h4>Subscribe to Our Newsletter</h4>
-            <input type="text" id="newsletter-email" placeholder="your_email@example.com">
-            <button onclick="subscribe()">Subscribe</button>
-        </div>
         <div class="social-icons">
             <a href="https://www.linkedin.com/in/amna-hassan-143b76202/" target="_blank">
                 <i class="fab fa-linkedin" title="LinkedIn"></i>
@@ -245,17 +240,6 @@ def show_footer():
             </p>
         </div>
     </div>
-    <script>
-        function subscribe() {
-            const email = document.getElementById('newsletter-email').value;
-            if (email) {
-                alert('Thank you for subscribing, ' + email + '!');
-                //Code to save the email to database or mailing list
-            } else {
-                alert('Please enter a valid email address.');
-            }
-        }
-    </script>
     """
     
     # Render the HTML in the footer
