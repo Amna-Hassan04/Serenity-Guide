@@ -4,6 +4,7 @@ import time
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import re
 import requests, random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
@@ -569,10 +570,16 @@ def show_about_and_feedback():
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
     email = st.text_input("Enter your email address:")
-    if st.button("Subscribe"):
-        if email:
-            st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
     
+    # regular expression to check a vald email
+    email_regex = r"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$"
+    if st.button("Subscribe"):
+        if re.match(email_regex,email):
+            if email:
+                st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
+        else:
+            st.error("Please enter a valid email address!")
+        
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
