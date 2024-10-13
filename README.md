@@ -53,7 +53,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 4. **Start the Application**  
    ```bash
-   streamlit run app.py
+   python -m streamlit run app.py
    ```
 
 ---
