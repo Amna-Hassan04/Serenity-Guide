@@ -586,14 +586,22 @@ def show_about_and_feedback():
     
     # Call to Action
     st.subheader("Get Involved")
-    st.write("""
+    
+    # Using st.markdown with HTML to style the links
+    st.markdown("""
+    <p>
     Interested in supporting our mission? There are several ways you can get involved:
-    - **Volunteer**: Join our team of volunteers to help others benefit from our platform.
-    - **Donate**: Support our efforts by contributing to our cause.
-    - **Share**: Spread the word about our platform to help us reach more people in need.
-
-    For more information, visit our [website](#) or contact us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com).
-    """)
+    <ul>
+    <li><strong>Volunteer</strong>: Join our team of volunteers to help others benefit from our platform.</li>
+    <li><strong>Donate</strong>: Support our efforts by contributing to our cause.</li>
+    <li><strong>Share</strong>: Spread the word about our platform to help us reach more people in need.</li>
+    </ul>
+    </p>
+    <p>
+    For more information, visit our <a href="#" style="color: #101010; text-decoration: underline; text-decoration-color: white;">website</a> 
+    or contact us at <a href="mailto:info@anxietyrelief.com" style="color: #101010; text-decoration: underline; text-decoration-color: white;">info@anxietyrelief.com</a>.
+    </p>
+    """, unsafe_allow_html=True)
 
     st.write("---")
     
@@ -605,7 +613,6 @@ def show_about_and_feedback():
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
     
-
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
