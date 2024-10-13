@@ -289,9 +289,9 @@ def show_main_page():
     db = client['serenity_guide_db']
     tips_collection = db['mental_health_tips']
 
-    # Uncomment the following line to populate the database with tips
+    # Uncomment the following line to populate the database with tips in the format below:
     # tips = []
-    # tips_collection.insert_many(tips) 
+    # tips_collection.insert_one({"tip": "Take deep breaths to relax."}) 
 
 
     st.subheader("Quick Tip for Mental Health")
