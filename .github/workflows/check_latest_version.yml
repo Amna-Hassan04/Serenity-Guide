@@ -1,0 +1,38 @@
+name: Check for Latest Version
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check_latest_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout PR Branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+    
+    - name: Checkout Main Branch
+      run: git fetch origin main && git checkout main
+    
+    - name: Check if PR is behind Main
+      run: git rev-list --left-right --count origin/main...${{ github.event.pull_request.head.ref }}
+      id: behind_check
+    
+    - name: Fail if PR is behind
+      if: steps.behind_check.outputs.behind != '0'
+      run: exit 1
+      shell: bash
+
+    - name: Comment on PR if it is behind
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.issues.createComment({
+            issue_number: ${{ github.event.pull_request.number }},
+            owner: '${{ github.repository_owner }}',
+            repo: '${{ github.event.repository.name }}',
+            body: 'Your PR is behind the latest version of the main branch. Please update your branch with the latest commits.'
+          })
