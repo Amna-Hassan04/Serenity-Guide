@@ -9,6 +9,8 @@ from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
 import os
 from dotenv import load_dotenv
+#Json for json files
+import json
 #AI Integration
 import anthropic
 import datetime
@@ -217,7 +219,7 @@ def show_main_page():
     **Engage with Us:**
     - Share your favorite relaxation techniques or feedback on how our platform helps you.
 
-    Your path to a serene and fulfilling life starts here. Let’s embark on this journey together—take the first step today!
+    Your path to a serene and fulfilling life starts here. Let's embark on this journey together—take the first step today!
     """)
 
     # Interactive Widgets
@@ -229,18 +231,45 @@ def show_main_page():
     st.write("---")
 
     # Survey for Personalized Tips
+    st.markdown(
+    """
+    <style>
+    .emoji {
+        font-size: 50px;
+        display: inline-block;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.subheader("Personalized Tips for You")
     with st.form(key='personalized_tips_form'):
         mood = st.radio("What's your current anxiety level?", ["Low", "Moderate", "High", "Overwhelmed"])
-        submit_button = st.form_submit_button("Get Tips")
-        if submit_button:
+        st.markdown('<span class="emoji">💡</span>', unsafe_allow_html=True)
+        submit_button = st.form_submit_button("Get Tip")   
+        if submit_button:   
             tips = {
                 "Low": "Keep up the great work! Stay consistent with mindfulness techniques.",
                 "Moderate": "Take a moment to practice deep breathing.",
                 "High": "Pause and try a guided meditation.",
                 "Overwhelmed": "It's important to step away and take a break."
             }
-            st.write(f"**Tip:** {tips[mood]}")
+            with st.spinner("wait for it..."):
+                time.sleep(3)
+                st.write(f"**Tip:** {tips[mood]}")
 
 
     st.write("---")
@@ -281,7 +310,32 @@ def show_main_page():
 
 
     # Tip for improving mental health
+    st.markdown(
+    """
+    <style>
+    .emoji {
+        font-size: 50px;
+        display: inline-block;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.subheader("Quick Tip for Mental Health")
+    st.markdown('<span class="emoji">💡</span>', unsafe_allow_html=True)
     if st.button("Get a Tip"):
         tips = [
             "Take a few minutes to practice deep breathing daily.",
@@ -472,7 +526,31 @@ def show_calm_space():
     feeling_description = st.text_area("What exactly are you feeling?", placeholder="Describe your feelings here...")
     current_stress_level = st.slider("Current Stress Level (1 to 10)", 1, 10, value=5)
     recent_events = st.text_area("Recent Events", placeholder="Describe any recent events that may have contributed to your anxiety or stress...")
-
+    st.markdown(
+    """
+    <style>
+    .emoji {
+        font-size: 50px;
+        display: inline-block;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+    st.markdown('<span class="emoji">✔️</span>', unsafe_allow_html=True)    
     if st.button("Submit"):
         st.write("Thank you for sharing. Let’s find some exercises to help you.")
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
@@ -537,6 +615,31 @@ def show_about_and_feedback():
     """)
 
     feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
+    st.markdown(
+    """
+    <style>
+    .emoji {
+        font-size: 50px;
+        display: inline-block;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+    st.markdown('<span class="emoji">📈</span>', unsafe_allow_html=True)
     if st.button("Submit Feedback"):
         if feedback_activity:
             st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
@@ -568,6 +671,31 @@ def show_about_and_feedback():
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
     email = st.text_input("Enter your email address:")
+    st.markdown(
+    """
+    <style>
+    .emoji {
+        font-size: 50px;
+        display: inline-block;
+        animation: bounce 1s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+    st.markdown('<span class="emoji">🔔</span>', unsafe_allow_html=True)
     if st.button("Subscribe"):
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
