@@ -81,7 +81,7 @@ To set up SereniFi on your local machine, follow these steps:
 
 A heartfelt thanks to all contributors, testers, and supporters. Special thanks to **OSS Codess Cafe Cohort 5** for their unwavering support and encouragement. This project was initially made as a hackathon submission and secured 3rd place in that hackathon. 
 
-# Test change
+# Test changes
 ---
 
 ## Contribution Guidelines  
