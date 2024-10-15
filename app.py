@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 import anthropic
 import datetime
 import datetime
+
 # CSS for Scroll to Top Button
 scroll_to_top = """
     <style>
@@ -157,7 +158,7 @@ def main():
         default_index=0,
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#333", "border-radius": "10px", "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)"},
+            "container": {"padding": "0!important", "background-color": "#123", "border-radius": "10px", "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)"},
             "nav-link": {
                 "font-size": "18px",
                 "text-align": "center",
@@ -282,51 +283,93 @@ def show_main_page():
 
 
     # Tip for improving mental health
-    st.subheader("Quick Tip for Mental Health")
-    if st.button("Get a Tip"):
-        tips = [
-            "Take a few minutes to practice deep breathing daily.",
-            "Keep a gratitude journal to focus on the positive.",
-            "Engage in physical activity to boost your mood.",
-            "Take breaks when you're feeling overwhelmed.",
-            "Connect with loved ones and share how you're feeling."
-        ]
-        st.write(f"Tip: {random.choice(tips)}")
+    col1,col2 = st.columns(2)
 
-    lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
+    #FOr lottie animartion, the left column:
+    with col1:
+        lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
     
 
-    lottie_json_breathing = load_lottie_url(lottie_url_breathing)
-    
+        lottie_json_breathing = load_lottie_url(lottie_url_breathing)
+        
 
-    if lottie_json_breathing:
-        st.markdown(
-            """
+        if lottie_json_breathing:
+            st.markdown(
+                """
+                <style>
+                .lottie-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    background: none;
+                }
+                .lottie-item {
+                    margin: 0 10px;  /* Add space between animations */
+                }
+                .lottie-animation {
+                    background: transparent;  /* Make the background of the animation transparent */
+                }
+                </style>
+                <div class="lottie-container">
+                """, unsafe_allow_html=True)
+
+            st.markdown('<div class="lottie-item lottie-animation">', unsafe_allow_html=True)
+            st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
+            st.markdown('</div>', unsafe_allow_html=True)
+            
+
+            
+            st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        tip=""
+        st.markdown("""
             <style>
-            .lottie-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                background: none;
-            }
-            .lottie-item {
-                margin: 0 10px;  /* Add space between animations */
-            }
-            .lottie-animation {
-                background: transparent;  /* Make the background of the animation transparent */
-            }
+                .centered-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    background-color: transparent;  /* Set the background color to transparent */
+                }
             </style>
-            <div class="lottie-container">
-            """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+        st.markdown("<div class='centered-container'>", unsafe_allow_html=True)
+        # st.markdown(
+        #         """
+        #         <style>
+        #         .tip {
+        #             display: flex;
+        #             justify-content: center;
+        #             align-items: center;
+        #             height: 100%;
+        #             background: transparent;
+        #         }
 
-        st.markdown('<div class="lottie-item lottie-animation">', unsafe_allow_html=True)
-        st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
+        #         </style>
+        #         <div class="tip">
+        #         """, unsafe_allow_html=True)
+        # st.markdown('<div class="tip">', unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: center;'>Quick Tip for Mental Health</h1>", unsafe_allow_html=True)
+        # st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+        center_col = st.columns([1, 1, 1])
+        with center_col[1]:
+            if st.button("Get a Tip"):
+                tips = [
+                    "Take a few minutes to practice deep breathing daily.",
+                    "Keep a gratitude journal to focus on the positive.",
+                    "Engage in physical activity to boost your mood.",
+                    "Take breaks when you're feeling overwhelmed.",
+                    "Connect with loved ones and share how you're feeling."
+                ]
+                tip = random.choice(tips)
+        st.markdown("<p style='text-align: center;'>" + tip + "</p>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
+            # st.markdown("</div>", unsafe_allow_html=True)
+        # st.markdown('</div>', unsafe_allow_html=True)
 
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+    
 
 
 
