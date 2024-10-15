@@ -581,13 +581,25 @@ def show_about_and_feedback():
     st.write("---")
     
     # Subscribe for Updates
+    # Regular expression to check if email is valid
+    def is_valid_email(email):
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        return re.match(email_regex, email)
+
+    # Subscribe Section
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
+
     email = st.text_input("Enter your email address:")
+
     if st.button("Subscribe"):
         if email:
-            st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
+            if is_valid_email(email):
+                st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
+            else:
+                st.error("Please enter a valid email address.")
+        else:
+            st.error("Email field cannot be empty.")
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
@@ -598,3 +610,4 @@ def show_about_and_feedback():
 
 if __name__ == "__main__":
     main()
+
