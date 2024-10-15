@@ -668,6 +668,9 @@ def show_resources():
     st.image("https://pmhsredandblack.com/wp-content/uploads/2019/01/for-Olivias-article-895x900.jpg", 
              caption="Additional Self-Care Resource", use_column_width=True)
 
+    # Add the YouTube video below the images
+    st.video("https://www.youtube.com/watch?app=desktop&v=LY4i5CSn7AA")
+
     # Display user-added self-care activities
     if st.session_state.activities:
         st.subheader("Your Self-Care Routine")
@@ -713,16 +716,49 @@ def show_resources():
             '</a>', unsafe_allow_html=True
         )
 
-
     # Podcast/Audio Library
     st.header("Podcast/Audio Library")
-    podcasts = [
-        ("Overcoming Anxiety", "https://example.com/podcast1"),
-        ("Building Self-Esteem", "https://example.com/podcast2"),
-    ]
-    
-    for title, url in podcasts:
-        st.markdown(f"[{title}]({url})")
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .podcast-hover img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .podcast-hover img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create columns for side-by-side podcast images
+    podcast_col1, podcast_col2, podcast_col3 = st.columns(3)
+
+    # The Anxiety Coaches Podcast
+    with podcast_col1:
+        st.markdown(
+            '<a href="https://player.fm/series/the-anxiety-coaches-podcast" class="podcast-hover">'
+            '<img src="https://cdn.player.fm/images/230641/series/Ut7N671x7htRnKjm/256.jpg" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # The Self-Esteem and Confidence Mindset
+    with podcast_col2:
+        st.markdown(
+            '<a href="https://podcasts.apple.com/gb/podcast/the-self-esteem-and-confidence-mindset/id1497438573" class="podcast-hover">'
+            '<img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/a0/f5/c5/a0f5c592-4e41-de36-e9fe-3981dcaf986e/mza_17991338792145651433.jpg/300x300bb.webp" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # Spotify Podcast - Overcoming Anxiety
+    with podcast_col3:
+        st.markdown(
+            '<a href="https://open.spotify.com/show/5M5D6lihTbDs8aRnb6xazq" class="podcast-hover">'
+            '<img src="https://i.scdn.co/image/ab6765630000ba8ac3cc83aee70191fa17f56934" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+
 
 
 
