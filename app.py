@@ -1,6 +1,7 @@
 import base64
 import datetime
 import time
+from tkinter import Tk
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -24,7 +25,7 @@ scroll_to_top = """
         font-size: 18px;
         border: none;
         outline: none;
-        background-color: rgb(4, 170, 109);
+        background-color: rgb(4, 170, );
         color: white;
         cursor: pointer;
         padding: 10px;
@@ -148,27 +149,37 @@ def load_lottie_url(url: str):
 
 # Main function to control page navigation
 def main():
-
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Calm Space", "About & Feedback"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill"],
+        options=["Home", "Calm Space", "Resources", "About & Feedback"],  # Added "Resources"
+        icons=["house-door-fill", "cloud-sun-fill", "book-fill", "chat-dots-fill"],  # Changed icon for "Resources"
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#333", "border-radius": "10px", "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)"},
+            "container": {
+                "padding": "0!important",
+                "background-color": "#333",
+                "border-radius": "10px",
+                "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
+                "width": "100%",  # Increase the width of the menu bar
+                "max-width": "100%",  # Prevent overflow
+            },
             "nav-link": {
                 "font-size": "18px",
                 "text-align": "center",
-                "margin": "0px",
+                "margin": "0 20px",  # Increase left and right margin to expand space between items
                 "--hover-color": "#ddd",
                 "border-radius": "10px",
                 "color": "#fff",
                 "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
-            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff","font-size": "14px",}
+            "nav-link-selected": {
+                "background-color": "#04AA6D",
+                "color": "#fff",
+                "font-size": "14px",
+            }
         }
     )
 
@@ -176,8 +187,11 @@ def main():
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
+    elif selected == "Resources":  # Added condition for "Resources"
+        show_resources()  # Call the new function
     elif selected == "About & Feedback":
         show_about_and_feedback()
+
 
 def show_main_page():
     st.markdown(
@@ -327,9 +341,6 @@ def show_main_page():
 
         
         st.markdown('</div>', unsafe_allow_html=True)
-
-
-
 
 
     st.write("---")
@@ -576,6 +587,144 @@ def show_about_and_feedback():
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    
+
+import streamlit as st
+
+def show_resources():
+    st.title("Mental Health Resources")
+
+    # Sidebar menu for personalized self-care routine
+    st.sidebar.title("Personalized Self-Care Routine")
+    
+    # Initialize a session state to store activities
+    if 'activities' not in st.session_state:
+        st.session_state.activities = []
+
+    # Create a form to collect user inputs for the routine
+    with st.sidebar.form(key='self_care_form'):
+        st.subheader("Create Your Self-Care Routine")
+        
+        # User inputs
+        activity = st.text_input("Self-Care Activity")
+        duration = st.number_input("Duration (in minutes)", min_value=1, max_value=120)
+        frequency = st.selectbox("Frequency", ["Daily", "Weekly", "Monthly"])
+        
+        # Submit button
+        submit_button = st.form_submit_button(label='Add Activity')
+
+        if submit_button:
+            # Append the activity to the session state
+            st.session_state.activities.append((activity, duration, frequency))
+            st.success(f"Added '{activity}' for {duration} minutes {frequency}!")
+
+    # Mental Health Articles
+    st.header("Mental Health Articles")
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .hover-effect img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .hover-effect img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create columns for side-by-side images
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown(
+            '<a href="https://www.medicalnewstoday.com/articles/323454#symptoms" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-XQXu69JDDd7GRnNedvL1Ld32?se=2024-10-15T10%3A18%3A18Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D8067e13f-e01a-4f98-bb8b-3032dfd8842c.webp&sig=HZ53OvoLQPLoord2sM7aM3iRJZeSVRgueC2u1owUWYY%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with col2:
+        st.markdown(
+            '<a href="https://www.snhu.edu/about-us/newsroom/health/what-is-self-care" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-chhKTLGaIokEFRTf9aEh4lAc?se=2024-10-15T10%3A15%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D8c89f7ff-469c-4777-9adf-d5bc5898c1f1.webp&sig=TD4oofQ1tP7MI6OyCIK39rHiUjb1B2LjLx2%2Bj9NxAHM%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with col3:
+        st.markdown(
+            '<a href="https://www.helpguide.org/mental-health/depression/coping-with-depression" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-oSz9p3oO0nr9Kl34h6M02W7h?se=2024-10-15T10%3A01%3A31Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D42222272-d7ea-487d-84ee-7a5b57eefca4.webp&sig=8SCuBVJkYA2c5CGjynpFlkchayZ5L2PIrdwGVkXEO84%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # Self-Care Tips
+    st.header("Self-Care Tips")
+
+    # Adding the Self-Care Ideas image
+    st.image("https://cdn.shopify.com/s/files/1/0400/8574/9923/files/Self_Care_Ideas_grande.png?v=1591248756", 
+             caption="Self-Care Ideas", use_column_width=True)
+
+    # Adding the second image
+    st.image("https://pmhsredandblack.com/wp-content/uploads/2019/01/for-Olivias-article-895x900.jpg", 
+             caption="Additional Self-Care Resource", use_column_width=True)
+
+    # Display user-added self-care activities
+    if st.session_state.activities:
+        st.subheader("Your Self-Care Routine")
+        for activity, duration, frequency in st.session_state.activities:
+            st.markdown(f"- **Activity**: {activity}, **Duration**: {duration} minutes, **Frequency**: {frequency}")
+
+    # Guides & E-books
+    st.header("Guides & E-books")
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .guide-hover img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .guide-hover img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create a container for the images
+    guide_col1, guide_col2, guide_col3 = st.columns(3)
+
+    with guide_col1:
+        st.markdown(
+            '<a href="https://www.gnyha.org/wp-content/uploads/2020/06/Building-Resilience-UCD.pdf" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_b42d7fea-8ae2-11ef-978e-0ab00016590f.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with guide_col2:
+        st.markdown(
+            '<a href="https://www.mindful.org/an-introduction-to-mindful-gratitude/" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_72510c1e-8ae6-11ef-8e7f-4ed4b81f76cb.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with guide_col3:
+        st.markdown(
+            '<a href="https://iris.who.int/bitstream/handle/10665/205887/B5084.pdf" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_d1074afe-8ae4-11ef-924c-9afd28bf6444.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+
+    # Podcast/Audio Library
+    st.header("Podcast/Audio Library")
+    podcasts = [
+        ("Overcoming Anxiety", "https://example.com/podcast1"),
+        ("Building Self-Esteem", "https://example.com/podcast2"),
+    ]
+    
+    for title, url in podcasts:
+        st.markdown(f"[{title}]({url})")
+
+
 
 
 
