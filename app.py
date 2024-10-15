@@ -1,6 +1,7 @@
 import base64
 import datetime
 import time
+from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -11,7 +12,6 @@ import os
 from dotenv import load_dotenv
 #AI Integration
 import anthropic
-import datetime
 import datetime
 # CSS for Scroll to Top Button
 scroll_to_top = """
@@ -282,16 +282,31 @@ def show_main_page():
 
 
     # Tip for improving mental health
+    
+    #|------MongoDb for Quick Tips For Mental Health Section for inserting and retreiving the tips------|
+    #Setting MongoDb connection
+    mongodb_uri = os.getenv("MONGODB_URI")
+    client=MongoClient(mongodb_uri)
+    db = client['serenity_guide_db']
+    tips_collection = db['mental_health_tips']
+
+    # Uncomment the following line to populate the database with tips in the format below:
+    # tips = []
+    # tips_collection.insert_one({"tip": "Take deep breaths to relax."}) 
+
+
     st.subheader("Quick Tip for Mental Health")
+    all_tips = [] 
     if st.button("Get a Tip"):
-        tips = [
-            "Take a few minutes to practice deep breathing daily.",
-            "Keep a gratitude journal to focus on the positive.",
-            "Engage in physical activity to boost your mood.",
-            "Take breaks when you're feeling overwhelmed.",
-            "Connect with loved ones and share how you're feeling."
-        ]
-        st.write(f"Tip: {random.choice(tips)}")
+        all_tips = list(tips_collection.find({}, {"_id": 0, "tip": 1}))
+    
+        if all_tips:
+            random_tip = random.choice(all_tips)
+            st.write(f"Tip: {random_tip['tip']}")
+        else:
+            st.write("No tips available.")
+            st.write(f"Tip: {random.choice(tips)}")
+    #!--------------------------------------------------------------------------------------------------|
 
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
     
