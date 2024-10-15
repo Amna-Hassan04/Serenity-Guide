@@ -336,21 +336,6 @@ def show_main_page():
             </style>
         """, unsafe_allow_html=True)
         st.markdown("<div class='centered-container'>", unsafe_allow_html=True)
-        # st.markdown(
-        #         """
-        #         <style>
-        #         .tip {
-        #             display: flex;
-        #             justify-content: center;
-        #             align-items: center;
-        #             height: 100%;
-        #             background: transparent;
-        #         }
-
-        #         </style>
-        #         <div class="tip">
-        #         """, unsafe_allow_html=True)
-        # st.markdown('<div class="tip">', unsafe_allow_html=True)
         st.markdown("<h1 style='text-align: center;'>Quick Tip for Mental Health</h1>", unsafe_allow_html=True)
         # st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
         center_col = st.columns([1, 1, 1])
@@ -366,9 +351,6 @@ def show_main_page():
                 tip = random.choice(tips)
         st.markdown("<p style='text-align: center;'>" + tip + "</p>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
-            # st.markdown("</div>", unsafe_allow_html=True)
-        # st.markdown('</div>', unsafe_allow_html=True)
-
     
 
 
