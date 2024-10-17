@@ -8,6 +8,7 @@ import pandas as pd
 import requests, random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
+import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
 #AI Integration
@@ -378,8 +379,167 @@ def show_main_page():
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
+#adding spotify playlist feature
+def spotifyPlaylist():
+    # Embed Spotify API with JavaScript
+    spotify_html_podcasts = """
+
+     <style>
+      
+        /* Styling for the buttons */
+        .podcast-button {
+            background-color: #1db954; /* Spotify green */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for buttons */
+        .podcast-button:hover {
+            background-color: #1aa34a; /* Slightly darker green */
+            transform: scale(1.05); /* Small zoom effect */
+        }
+
+        /* Active state styling (when clicking the button) */
+        .podcast-button:active {
+            background-color: #148b3a;
+            transform: scale(1);
+        }
+
+        /* Fix the container to center align the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+    </style>
+    
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <div id="embed-iframe"></div>
+    
+    <div class="button-container">
+        <!-- Buttons to switch between podcasts -->
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/playlist/77AOjGgwOTmcDiH15lARCh?si=7c76c455e4e74479')">Podcast 1 </button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/4298EkFJWEK6VAxKARB7bS?si=52e58231da08404a')">Podcast 2</button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/1QBP6aNv7BsdQWwhqxLcIC?si=d7145f9457ee42b3')">Podcast 3</button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/69ZUhdV0q2JtibNU2yLTpQ?si=5f6143e2f1744f71')">Podcast 4 </button>
+    </div>
+
+    <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let currentController = null;
+        const element = document.getElementById('embed-iframe');
+
+        window.loadPodcast = (uri) => {
+            const options = { uri: uri };
+            if (currentController) {
+                currentController.loadUri(uri);  // Update the playlist in the existing controller
+            } else {
+                IFrameAPI.createController(element, options, (EmbedController) => {
+                    currentController = EmbedController;
+                });
+            }
+        };
+
+        // Load the first playlist by default
+        loadPodcast('https://open.spotify.com/playlist/77AOjGgwOTmcDiH15lARCh?si=7c76c455e4e74479');
+    };
+    </script>
+    
+    """
+
+
+    # Embed Spotify API with JavaScript
+    spotify_html_songs = """
+
+      <style>
+      
+        /* Styling for the buttons */
+        .playlist-button {
+            background-color: #1db954; /* Spotify green */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for buttons */
+        .playlist-button:hover {
+            background-color: #1aa34a; /* Slightly darker green */
+            transform: scale(1.05); /* Small zoom effect */
+        }
+
+        /* Active state styling (when clicking the button) */
+        .playlist-button:active {
+            background-color: #148b3a;
+            transform: scale(1);
+        }
+
+        /* Fix the container to center align the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+    </style>
+
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <div id="embed-iframe"></div>
+    
+    <div class="button-container">
+        <!-- Buttons to switch between playlists -->
+        <button  class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWXe9gFZP0gtP?si=32e4c036692f4da4')">Stress Relief </button>
+        <button class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWTC99MCpbjP8?si=1ee785b4c5064848')">Calm</button>
+        <button  class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DXaImRpG7HXqp?si=f4dbafdfb4c94563')">Calming Acoustic</button>
+        <button class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DXcCnTAt8CfNe?si=43381859af3d4869')">Musical Therapy</button>
+    </div>
+
+    <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let currentController = null;
+        const element = document.getElementById('embed-iframe');
+
+        window.loadPlaylist = (uri) => {
+            const options = { uri: uri };
+            if (currentController) {
+                currentController.loadUri(uri);  // Update the playlist in the existing controller
+            } else {
+                IFrameAPI.createController(element, options, (EmbedController) => {
+                    currentController = EmbedController;
+                });
+            }
+        };
+
+        // Load the first playlist by default
+        loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWXe9gFZP0gtP?si=32e4c036692f4da4');
+    };
+    </script>
+    """
+
+    st.write("Explore our collection of insightful podcasts that empower you with expert advice, inspiring stories, and practical tools to enhance your mental well-being.")
+    # Display the HTML component in Streamlit
+    components.html(spotify_html_podcasts, height=415)
+
+    st.write("Dive into our curated playlists featuring calming and therapeutic music designed to soothe your mind and uplift your spirit, creating a harmonious backdrop for your mental health journey.")
+    # Display the HTML component in Streamlit
+    components.html(spotify_html_songs, height=415)
+
+
 def soothing_sounds():
-    st.header("🎵 Calm Down with Soothing Sounds")
+    st.subheader("🎵 Calm Down with Soothing Sounds")
     #Contributions made by Himanshi-M
     sound_options = {
         "Rain": "https://cdn.pixabay.com/audio/2022/05/13/audio_257112ce99.mp3",
@@ -403,6 +563,8 @@ def soothing_sounds():
         # Rendering the audio player and JS in the app
         with col3:
             st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
+    
+    spotifyPlaylist()
 
 def interactive_journal():
     if 'journal_entries' not in st.session_state:
