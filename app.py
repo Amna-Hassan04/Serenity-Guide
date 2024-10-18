@@ -585,10 +585,63 @@ def interactive_journal():
             st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
-    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
-    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
-    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
-    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
+    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game you want:")
+    
+    # Define button style with off-black background and off-white text color
+    button_style = """
+        <style>
+        .button {
+            background-color: #1a1a1a;  /* off-black */
+            color: #f5f5f5;  /* off-white */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button a {
+            color: #f5f5f5;  /* off-white text */
+            text-decoration: none;  /* remove underline */
+        }
+        .button a:hover {
+            color: #f5f5f5;  /* off-white text on hover */
+        }
+        .button:hover {
+            background-color: #333;  /* slightly lighter on hover */
+        }
+        </style>
+    """
+    
+    # Apply the button style to the Streamlit app
+    st.markdown(button_style, unsafe_allow_html=True)
+
+    # Create a table with 12 game buttons, 4 columns and 3 rows
+    st.markdown('''
+        <table>
+            <tr>
+                <td><a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a></td>
+                <td><a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a></td>
+                <td><a href="https://www.google.com/search?q=snake+game" target="_blank"><div class="button">Play Snake Game</div></a></td>
+                <td><a href="https://agar.io/" target="_blank"><div class="button">Play Agar.io</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://trex-runner.com/" target="_blank"><div class="button">Play T-Rex Game</div></a></td>
+                <td><a href="https://slither.io/" target="_blank"><div class="button">Play Slither.io</div></a></td>
+                <td><a href="https://www.google.com/search?q=solitaire" target="_blank"><div class="button">Play Solitaire</div></a></td>
+                <td><a href="https://mahjon.gg/" target="_blank"><div class="button">Play Mahjong</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://sudoku.com/" target="_blank"><div class="button">Play Sudoku</div></a></td>
+                <td><a href="https://www.crazygames.com/game/fireboy-and-watergirl-the-forest-temple" target="_blank"><div class="button">Play Fireboy & Watergirl</div></a></td>
+                <td><a href="https://checkers.online/" target="_blank"><div class="button">Play Checkers</div></a></td>
+                <td><a href="https://krunker.io/" target="_blank"><div class="button">Play Krunker.io</div></a></td>
+            </tr>
+        </table>
+    ''', unsafe_allow_html=True)
 
 
 def show_calm_space():
@@ -731,14 +784,22 @@ def show_about_and_feedback():
     
     # Call to Action
     st.subheader("Get Involved")
-    st.write("""
+    
+    # Using st.markdown with HTML to style the links
+    st.markdown("""
+    <p>
     Interested in supporting our mission? There are several ways you can get involved:
-    - **Volunteer**: Join our team of volunteers to help others benefit from our platform.
-    - **Donate**: Support our efforts by contributing to our cause.
-    - **Share**: Spread the word about our platform to help us reach more people in need.
-
-    For more information, visit our [website](#) or contact us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com).
-    """)
+    <ul>
+    <li><strong>Volunteer</strong>: Join our team of volunteers to help others benefit from our platform.</li>
+    <li><strong>Donate</strong>: Support our efforts by contributing to our cause.</li>
+    <li><strong>Share</strong>: Spread the word about our platform to help us reach more people in need.</li>
+    </ul>
+    </p>
+    <p>
+    For more information, visit our <a href="#" style="color: #101010; text-decoration: underline; text-decoration-color: white;">website</a> 
+    or contact us at <a href="mailto:info@anxietyrelief.com" style="color: #101010; text-decoration: underline; text-decoration-color: white;">info@anxietyrelief.com</a>.
+    </p>
+    """, unsafe_allow_html=True)
 
     st.write("---")
     
@@ -750,7 +811,6 @@ def show_about_and_feedback():
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
     
-
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
