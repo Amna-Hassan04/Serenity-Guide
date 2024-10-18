@@ -1,0 +1,38 @@
+name: Check if PR is up-to-date
+
+on:
+  pull_request:
+    branches:
+      - main  # Trigger on PRs targeting the main branch (change if necessary)
+
+jobs:
+  check-up-to-date:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the PR branch
+    - name: Checkout PR branch
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Fetch the base branch (e.g., main) for comparison
+    - name: Fetch base branch
+      run: git fetch origin main
+
+    # Compare the PR branch with the base branch
+    - name: Check if PR is up-to-date
+      run: |
+        # Fetch and compare base and PR branch commits
+        BASE_BRANCH="origin/main"
+        PR_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        
+        # Check if the PR branch is behind the base branch
+        BEHIND=$(git rev-list --count $PR_BRANCH..$BASE_BRANCH)
+        
+        if [ "$BEHIND" -ne 0 ]; then
+          echo "::error::Your branch is behind the base branch by $BEHIND commit(s). Please pull the latest changes."
+          exit 1
+        else
+          echo "Your branch is up-to-date."
+        fi
