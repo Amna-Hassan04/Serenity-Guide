@@ -539,7 +539,7 @@ def spotifyPlaylist():
 
 
 def soothing_sounds():
-    st.subheader("🎵 Calm Down with Soothing Sounds")
+    st.subheader(" Calm Down with Soothing Sounds")
     #Contributions made by Himanshi-M
     sound_options = {
         "Rain": "https://cdn.pixabay.com/audio/2022/05/13/audio_257112ce99.mp3",
@@ -570,7 +570,7 @@ def interactive_journal():
     if 'journal_entries' not in st.session_state:
         st.session_state.journal_entries = []
 
-    journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
+    journal_input = st.text_area(" Daily Journal", placeholder="Write down your thoughts...")
     if st.button("Save Entry"):
         st.session_state.journal_entries.append({
             "date": datetime.datetime.now(),
@@ -644,7 +644,7 @@ def show_calm_space():
 
     st.subheader("Daily Anxeity Check")
     # Sidebar Inputs
-    st.subheader("📝 Share Your Current State:")
+    st.subheader(" Share Your Current State:")
     
     mood = st.selectbox("How are you feeling today?", ["Anxious", "Stressed", "Overwhelmed", "Calm", "Other"])
     feeling_description = st.text_area("What exactly are you feeling?", placeholder="Describe your feelings here...")
@@ -676,87 +676,25 @@ def show_calm_space():
 
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-
-
-
+    
+    # Add Chatbase Chatbot
+    st.markdown(
+        """
+        <script>
+        window.embeddedChatbotConfig = {
+        chatbotId: "9TmbcgGGVEmGvSJcgNa7B",
+        domain: "www.chatbase.co"
+        }
+        </script>
+        <script
+        src="https://www.chatbase.co/embed.min.js"
+        chatbotId="9TmbcgGGVEmGvSJcgNa7B"
+        domain="www.chatbase.co"
+        defer>
+        </script>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def show_about_and_feedback():
     st.title("About Us & Feedback")
-    
-    st.write("""
-    **Welcome to SereniFi!**
-    
-    We are dedicated to promoting mental wellness through interactive and accessible tools. Our mission is to provide a supportive environment where individuals can explore effective techniques for managing anxiety and improving overall mental well-being.
-    """)
-    
-    st.write("""
-    Our team consists of mental health professionals, wellness coaches, and tech enthusiasts who are passionate about making mental health resources accessible to everyone. We believe that everyone deserves a space to find calm, learn about wellness, and connect with supportive tools and communities.
-    """)
-    
-    st.write("""
-    **Our Vision**
-    We envision a world where mental wellness is prioritized and accessible to all. Through innovative solutions and a user-centric approach, we aim to create a space where individuals can find the support they need to thrive.
-    """)
-    
-    st.write("""
-    **Meet the Team**
-    - **Amna Hassan** - Back-end Developer
-    - **Anushka Pote** - Wellness Coach
-    - **Madhuri K** - Front-end Developer
-    - **Pearl Vashishta** - Community Manager
-    """)
-    
-    st.write("---")
-    
-    # Interactive Feedback on Activities
-    st.subheader("Share Your Experience")
-    st.write("""
-    We'd love to hear how these activities are working for you. Your feedback helps others find effective ways to manage anxiety and improve their mental wellness. Feel free to share your thoughts, experiences, or suggestions.
-    """)
-
-    feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
-    if st.button("Submit Feedback"):
-        if feedback_activity:
-            st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
-    
-    st.write("---")
-    
-    # Our Advertising Partners
-    st.subheader("Our Advertising Partners")
-    st.write("Check out our partners in mental wellness products and services:")
-    st.write("- **Mindfulness App**: An app offering guided meditations and mindfulness exercises.")
-    st.write("- **Relaxation Techniques Guide**: A comprehensive guide to various relaxation techniques and their benefits.")
-    
-    st.write("---")
-    
-    # Call to Action
-    st.subheader("Get Involved")
-    st.write("""
-    Interested in supporting our mission? There are several ways you can get involved:
-    - **Volunteer**: Join our team of volunteers to help others benefit from our platform.
-    - **Donate**: Support our efforts by contributing to our cause.
-    - **Share**: Spread the word about our platform to help us reach more people in need.
-
-    For more information, visit our [website](#) or contact us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com).
-    """)
-
-    st.write("---")
-    
-    # Subscribe for Updates
-    st.subheader("Subscribe for Updates")
-    st.write("Stay updated with our latest features, activities, and wellness tips.")
-    email = st.text_input("Enter your email address:")
-    if st.button("Subscribe"):
-        if email:
-            st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
-
-    st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-
-
-
-
-
-if __name__ == "__main__":
-    main()
