@@ -1,0 +1,17 @@
+name: "Temporary Reduced Availability"
+description: "Let contributors know about potential delays in responses."
+title: "[Announcement]: Reduced Availability - Exams"
+labels: ["announcement", "info"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Announcement: Reduced Availability
+
+        Hey contributors,
+
+        I wanted to inform you that I’m having my exams this week, so my response to issues, pull requests, and other queries might be delayed. Rest assured, I will review and reply as soon as possible, and I will merge PRs once I’m available.
+
+        Thank you for your understanding!
