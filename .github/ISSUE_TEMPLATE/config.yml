@@ -19,9 +19,18 @@ issue_template:
     title: "[Feature]: "
     assignees:
       - Amna-Hassan04
+
+  - name: Anouncement
+    about: "Anouncement made by Maintainer"
+    labels: ["custom"]
+    title: "[Custom]: "
+    assignees:
+      - Amna-Hassan04
+      
   - name: Custom Issue
     about: "Submit a custom issue or inquiry"
     labels: ["custom"]
     title: "[Custom]: "
     assignees:
       - Amna-Hassan04
+      
