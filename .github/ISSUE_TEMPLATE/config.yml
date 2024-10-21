@@ -20,7 +20,7 @@ issue_template:
     assignees:
       - Amna-Hassan04
 
-  - name: Anouncement
+  - name: Temporary Reduced Availability
     about: "Anouncement made by Maintainer"
     labels: ["custom"]
     title: "[Custom]: "
