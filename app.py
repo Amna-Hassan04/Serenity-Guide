@@ -152,8 +152,8 @@ def main():
 
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Calm Space", "About & Feedback"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill"],
+        options=["Home", "Calm Space", "About & Feedback","FAQs"],
+        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill","question-circle-fill"],
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
@@ -179,6 +179,8 @@ def main():
         show_calm_space()
     elif selected == "About & Feedback":
         show_about_and_feedback()
+    elif selected == "FAQs":
+        show_FAQs_page()
 
 def show_main_page():
     st.markdown(
@@ -815,6 +817,91 @@ def show_about_and_feedback():
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
+def show_FAQs_page():
+    st.title("Frequently Asked Questions (FAQs)")
+    
+    st.markdown("""
+    <style>
+    .faq-question {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+    .faq-answer {
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.6;
+    }
+    .faq-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+    .additional-questions {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="faq-header">Welcome to the SereniFi FAQ Section!</div>', unsafe_allow_html=True)
+    st.write("""
+    Here you'll find answers to some of the most common questions about our platform, services, and how to make the most of your experience.
+    """)
+
+    st.write("---")
+
+    with st.expander("1. What is SereniFi?"):
+        st.markdown('<div class="faq-question">What is SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">SereniFi is a mental wellness platform dedicated to promoting mental well-being through interactive tools and resources. Our goal is to help individuals manage anxiety, stress, and improve their overall mental health.</div>', unsafe_allow_html=True)
+
+    with st.expander("2. How can SereniFi help with anxiety?"):
+        st.markdown('<div class="faq-question">How can SereniFi help with anxiety?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">SereniFi offers a variety of activities, guided meditations, relaxation techniques, and resources designed to reduce stress and anxiety. We also provide tools to track your progress and find what works best for you.</div>', unsafe_allow_html=True)
+
+    with st.expander("3. Is SereniFi free to use?"):
+        st.markdown('<div class="faq-question">Is SereniFi free to use?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, SereniFi offers free access to most of its tools and resources. Some premium features might require a subscription, but we ensure that the essential tools for mental wellness are always available to everyone at no cost.</div>', unsafe_allow_html=True)
+
+    with st.expander("4. Can I use SereniFi on my mobile device?"):
+        st.markdown('<div class="faq-question">Can I use SereniFi on my mobile device?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Absolutely! SereniFi is designed to be mobile-friendly, so you can access all features and resources from your smartphone or tablet, no matter where you are.</div>', unsafe_allow_html=True)
+
+    with st.expander("5. How do I provide feedback or get support?"):
+        st.markdown('<div class="faq-question">How do I provide feedback or get support?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">We value your feedback and encourage you to share your thoughts. You can visit our \'About Us & Feedback\' page to submit your feedback or email us directly at <a href="mailto:info@anxietyrelief.com">info@anxietyrelief.com</a>.</div>', unsafe_allow_html=True)
+
+    with st.expander("6. Is my data safe with SereniFi?"):
+        st.markdown('<div class="faq-question">Is my data safe with SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Your privacy is our top priority. We use state-of-the-art encryption and data protection measures to ensure that your information remains safe and confidential.</div>', unsafe_allow_html=True)
+
+    with st.expander("7. Can I customize my wellness plan on SereniFi?"):
+        st.markdown('<div class="faq-question">Can I customize my wellness plan on SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, you can tailor your wellness activities and resources according to your needs and preferences. SereniFi allows you to choose the techniques and exercises that work best for you.</div>', unsafe_allow_html=True)
+
+    with st.expander("8. How do I join the SereniFi community?"):
+        st.markdown('<div class="faq-question">How do I join the SereniFi community?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">You can join the SereniFi community by signing up on our platform. You\'ll gain access to support groups, forums, and events where you can connect with others on their mental wellness journey.</div>', unsafe_allow_html=True)
+
+    with st.expander("9. What types of mental health professionals contribute to SereniFi?"):
+        st.markdown('<div class="faq-question">What types of mental health professionals contribute to SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Our platform is supported by a diverse team of mental health professionals, including psychologists, wellness coaches, and therapists, who provide insights and guidance on our resources and tools.</div>', unsafe_allow_html=True)
+
+    with st.expander("10. Are the activities on SereniFi backed by scientific research?"):
+        st.markdown('<div class="faq-question">Are the activities on SereniFi backed by scientific research?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, our activities and techniques are grounded in evidence-based practices. We aim to provide methods that are scientifically proven to reduce anxiety and improve mental wellness.</div>', unsafe_allow_html=True)
+
+    st.write("---")
+
+    st.markdown('<div class="additional-questions">Have More Questions?</div>', unsafe_allow_html=True)
+    st.write("""
+    If you have any other questions that aren't listed here, feel free to reach out to us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com). We're here to help you get the most out of SereniFi!
+    """)
+
+    st.write("---")
+    st.markdown('<p style="text-align: center; font-size: 14px; color: #888888;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 
