@@ -1,17 +1,18 @@
 import base64
 import datetime
 import time
+from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
 import pandas as pd
 import requests, random
 from streamlit_lottie import st_lottie
 from streamlit_option_menu import option_menu
+import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
 #AI Integration
 import anthropic
-import datetime
 import datetime
 # CSS for Scroll to Top Button
 scroll_to_top = """
@@ -38,6 +39,7 @@ scroll_to_top = """
     }
     </style>
 """
+
 
 
 #Changes made by --Charvi Arora 
@@ -381,16 +383,31 @@ def show_main_page():
 
 
     # Tip for improving mental health
+    
+    #|------MongoDb for Quick Tips For Mental Health Section for inserting and retreiving the tips------|
+    #Setting MongoDb connection
+    mongodb_uri = os.getenv("MONGODB_URI")
+    client=MongoClient(mongodb_uri)
+    db = client['serenity_guide_db']
+    tips_collection = db['mental_health_tips']
+
+    # Uncomment the following line to populate the database with tips in the format below:
+    # tips = []
+    # tips_collection.insert_one({"tip": "Take deep breaths to relax."}) 
+
+
     st.subheader("Quick Tip for Mental Health")
+    all_tips = [] 
     if st.button("Get a Tip"):
-        tips = [
-            "Take a few minutes to practice deep breathing daily.",
-            "Keep a gratitude journal to focus on the positive.",
-            "Engage in physical activity to boost your mood.",
-            "Take breaks when you're feeling overwhelmed.",
-            "Connect with loved ones and share how you're feeling."
-        ]
-        st.write(f"Tip: {random.choice(tips)}")
+        all_tips = list(tips_collection.find({}, {"_id": 0, "tip": 1}))
+    
+        if all_tips:
+            random_tip = random.choice(all_tips)
+            st.write(f"Tip: {random_tip['tip']}")
+        else:
+            st.write("No tips available.")
+            st.write(f"Tip: {random.choice(tips)}")
+    #!--------------------------------------------------------------------------------------------------|
 
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
     
@@ -461,8 +478,167 @@ def show_main_page():
 
     show_footer()
 
+#adding spotify playlist feature
+def spotifyPlaylist():
+    # Embed Spotify API with JavaScript
+    spotify_html_podcasts = """
+
+     <style>
+      
+        /* Styling for the buttons */
+        .podcast-button {
+            background-color: #1db954; /* Spotify green */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for buttons */
+        .podcast-button:hover {
+            background-color: #1aa34a; /* Slightly darker green */
+            transform: scale(1.05); /* Small zoom effect */
+        }
+
+        /* Active state styling (when clicking the button) */
+        .podcast-button:active {
+            background-color: #148b3a;
+            transform: scale(1);
+        }
+
+        /* Fix the container to center align the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+    </style>
+    
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <div id="embed-iframe"></div>
+    
+    <div class="button-container">
+        <!-- Buttons to switch between podcasts -->
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/playlist/77AOjGgwOTmcDiH15lARCh?si=7c76c455e4e74479')">Podcast 1 </button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/4298EkFJWEK6VAxKARB7bS?si=52e58231da08404a')">Podcast 2</button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/1QBP6aNv7BsdQWwhqxLcIC?si=d7145f9457ee42b3')">Podcast 3</button>
+        <button class="podcast-button" onclick="loadPodcast('https://open.spotify.com/show/69ZUhdV0q2JtibNU2yLTpQ?si=5f6143e2f1744f71')">Podcast 4 </button>
+    </div>
+
+    <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let currentController = null;
+        const element = document.getElementById('embed-iframe');
+
+        window.loadPodcast = (uri) => {
+            const options = { uri: uri };
+            if (currentController) {
+                currentController.loadUri(uri);  // Update the playlist in the existing controller
+            } else {
+                IFrameAPI.createController(element, options, (EmbedController) => {
+                    currentController = EmbedController;
+                });
+            }
+        };
+
+        // Load the first playlist by default
+        loadPodcast('https://open.spotify.com/playlist/77AOjGgwOTmcDiH15lARCh?si=7c76c455e4e74479');
+    };
+    </script>
+    
+    """
+
+
+    # Embed Spotify API with JavaScript
+    spotify_html_songs = """
+
+      <style>
+      
+        /* Styling for the buttons */
+        .playlist-button {
+            background-color: #1db954; /* Spotify green */
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect for buttons */
+        .playlist-button:hover {
+            background-color: #1aa34a; /* Slightly darker green */
+            transform: scale(1.05); /* Small zoom effect */
+        }
+
+        /* Active state styling (when clicking the button) */
+        .playlist-button:active {
+            background-color: #148b3a;
+            transform: scale(1);
+        }
+
+        /* Fix the container to center align the buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+    </style>
+
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+
+    <div id="embed-iframe"></div>
+    
+    <div class="button-container">
+        <!-- Buttons to switch between playlists -->
+        <button  class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWXe9gFZP0gtP?si=32e4c036692f4da4')">Stress Relief </button>
+        <button class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWTC99MCpbjP8?si=1ee785b4c5064848')">Calm</button>
+        <button  class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DXaImRpG7HXqp?si=f4dbafdfb4c94563')">Calming Acoustic</button>
+        <button class="playlist-button" onclick="loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DXcCnTAt8CfNe?si=43381859af3d4869')">Musical Therapy</button>
+    </div>
+
+    <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        let currentController = null;
+        const element = document.getElementById('embed-iframe');
+
+        window.loadPlaylist = (uri) => {
+            const options = { uri: uri };
+            if (currentController) {
+                currentController.loadUri(uri);  // Update the playlist in the existing controller
+            } else {
+                IFrameAPI.createController(element, options, (EmbedController) => {
+                    currentController = EmbedController;
+                });
+            }
+        };
+
+        // Load the first playlist by default
+        loadPlaylist('https://open.spotify.com/playlist/37i9dQZF1DWXe9gFZP0gtP?si=32e4c036692f4da4');
+    };
+    </script>
+    """
+
+    st.write("Explore our collection of insightful podcasts that empower you with expert advice, inspiring stories, and practical tools to enhance your mental well-being.")
+    # Display the HTML component in Streamlit
+    components.html(spotify_html_podcasts, height=415)
+
+    st.write("Dive into our curated playlists featuring calming and therapeutic music designed to soothe your mind and uplift your spirit, creating a harmonious backdrop for your mental health journey.")
+    # Display the HTML component in Streamlit
+    components.html(spotify_html_songs, height=415)
+
+
 def soothing_sounds():
-    st.header("🎵 Calm Down with Soothing Sounds")
+    st.subheader("🎵 Calm Down with Soothing Sounds")
     #Contributions made by Himanshi-M
     sound_options = {
         "Rain": "https://cdn.pixabay.com/audio/2022/05/13/audio_257112ce99.mp3",
@@ -486,6 +662,8 @@ def soothing_sounds():
         # Rendering the audio player and JS in the app
         with col3:
             st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
+    
+    spotifyPlaylist()
 
 def interactive_journal():
     if 'journal_entries' not in st.session_state:
@@ -506,10 +684,63 @@ def interactive_journal():
             st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
-    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
-    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
-    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
-    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
+    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game you want:")
+    
+    # Define button style with off-black background and off-white text color
+    button_style = """
+        <style>
+        .button {
+            background-color: #1a1a1a;  /* off-black */
+            color: #f5f5f5;  /* off-white */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button a {
+            color: #f5f5f5;  /* off-white text */
+            text-decoration: none;  /* remove underline */
+        }
+        .button a:hover {
+            color: #f5f5f5;  /* off-white text on hover */
+        }
+        .button:hover {
+            background-color: #333;  /* slightly lighter on hover */
+        }
+        </style>
+    """
+    
+    # Apply the button style to the Streamlit app
+    st.markdown(button_style, unsafe_allow_html=True)
+
+    # Create a table with 12 game buttons, 4 columns and 3 rows
+    st.markdown('''
+        <table>
+            <tr>
+                <td><a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a></td>
+                <td><a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a></td>
+                <td><a href="https://www.google.com/search?q=snake+game" target="_blank"><div class="button">Play Snake Game</div></a></td>
+                <td><a href="https://agar.io/" target="_blank"><div class="button">Play Agar.io</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://trex-runner.com/" target="_blank"><div class="button">Play T-Rex Game</div></a></td>
+                <td><a href="https://slither.io/" target="_blank"><div class="button">Play Slither.io</div></a></td>
+                <td><a href="https://www.google.com/search?q=solitaire" target="_blank"><div class="button">Play Solitaire</div></a></td>
+                <td><a href="https://mahjon.gg/" target="_blank"><div class="button">Play Mahjong</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://sudoku.com/" target="_blank"><div class="button">Play Sudoku</div></a></td>
+                <td><a href="https://www.crazygames.com/game/fireboy-and-watergirl-the-forest-temple" target="_blank"><div class="button">Play Fireboy & Watergirl</div></a></td>
+                <td><a href="https://checkers.online/" target="_blank"><div class="button">Play Checkers</div></a></td>
+                <td><a href="https://krunker.io/" target="_blank"><div class="button">Play Krunker.io</div></a></td>
+            </tr>
+        </table>
+    ''', unsafe_allow_html=True)
 
 
 def show_calm_space():
@@ -647,14 +878,22 @@ def show_about_and_feedback():
     
     # Call to Action
     st.subheader("Get Involved")
-    st.write("""
+    
+    # Using st.markdown with HTML to style the links
+    st.markdown("""
+    <p>
     Interested in supporting our mission? There are several ways you can get involved:
-    - **Volunteer**: Join our team of volunteers to help others benefit from our platform.
-    - **Donate**: Support our efforts by contributing to our cause.
-    - **Share**: Spread the word about our platform to help us reach more people in need.
-
-    For more information, visit our [website](#) or contact us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com).
-    """)
+    <ul>
+    <li><strong>Volunteer</strong>: Join our team of volunteers to help others benefit from our platform.</li>
+    <li><strong>Donate</strong>: Support our efforts by contributing to our cause.</li>
+    <li><strong>Share</strong>: Spread the word about our platform to help us reach more people in need.</li>
+    </ul>
+    </p>
+    <p>
+    For more information, visit our <a href="#" style="color: #101010; text-decoration: underline; text-decoration-color: white;">website</a> 
+    or contact us at <a href="mailto:info@anxietyrelief.com" style="color: #101010; text-decoration: underline; text-decoration-color: white;">info@anxietyrelief.com</a>.
+    </p>
+    """, unsafe_allow_html=True)
 
     st.write("---")
     
@@ -665,8 +904,11 @@ def show_about_and_feedback():
     if st.button("Subscribe"):
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-             
-    show_footer()
+
+    
+    st.write("---")
+    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+
 
 
 
