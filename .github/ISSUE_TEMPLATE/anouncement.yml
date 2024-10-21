@@ -1,0 +1,53 @@
+name: "Temporary Reduced Availability"
+description: "Announcement regarding my limited availability during exams."
+title: "[Announcement]: Reduced Availability - Exams"
+labels: ["announcement", "info"]
+projects: []
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for your understanding and patience during this period!
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can I get in touch with you if necessary?
+      placeholder: ex. https://www.linkedin.com/in/amna-hassan-143b76202/
+    validations:
+      required: false
+
+  - type: textarea
+    id: availability
+    attributes:
+      label: Availability Note
+      description: Please understand that I am currently preparing for exams, which may result in delays in responding to issues, PRs, or queries.
+      placeholder: Feel free to add any further details or concerns here.
+      value: "I have my exams this week, so replies may be delayed."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: response-time
+    attributes:
+      label: Expected Response Time
+      description: How quickly do you expect a response based on urgency?
+      options:
+        - 1-2 days
+        - 3-5 days
+        - 1 week
+      default: 0
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      description: By submitting, you acknowledge that my availability is reduced during exams.
+      options:
+        - label: I understand the delay in response due to exams.
+          required: true
