@@ -817,6 +817,7 @@ def show_about_and_feedback():
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
+
 def show_FAQs_page():
     st.title("Frequently Asked Questions (FAQs)")
     
@@ -897,7 +898,7 @@ def show_FAQs_page():
 
     st.markdown('<div class="additional-questions">Have More Questions?</div>', unsafe_allow_html=True)
     st.write("""
-    If you have any other questions that aren't listed here, feel free to reach out to us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com). We're here to help you get the most out of SereniFi!
+    If you have any other questions that aren't listed here, feel free to reach out to us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com). We're here to help you get the most out of SereniFi!!
     """)
 
     st.write("---")
