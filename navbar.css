@@ -1,0 +1,57 @@
+import streamlit as st
+from streamlit_option_menu import option_menu
+
+def main():
+    # Create a top navigation menu
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Calm Space", "About & Feedback"],
+        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill"],
+        menu_icon="sun",
+        default_index=0,
+        orientation="horizontal",  # Keep the menu horizontal
+        styles={
+            "container": {
+                "padding": "0!important",
+                "background-color": "#333",
+                "border-radius": "10px",
+                "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)"
+            },
+            "nav-link": {
+                "font-size": "18px",
+                "text-align": "center",
+                "margin": "0px",
+                "--hover-color": "#ddd",
+                "border-radius": "10px",
+                "color": "#fff",
+                "background-color": "rgba(0, 0, 0, 0.8)",
+                "transition": "background-color 0.3s ease, transform 0.2s"
+            },
+            "nav-link-selected": {
+                "background-color": "#04AA6D",
+                "color": "#fff",
+                "font-size": "14px",
+            }
+        }
+    )
+
+    # Content based on the selected menu option
+    if selected == "Home":
+        show_main_page()
+    elif selected == "Calm Space":
+        show_calm_space()
+    elif selected == "About & Feedback":
+        show_about_and_feedback()
+
+# Sample placeholder functions for your pages
+def show_main_page():
+    st.title("Welcome to the Home Page")
+
+def show_calm_space():
+    st.title("Calm Space")
+
+def show_about_and_feedback():
+    st.title("About & Feedback")
+
+if __name__ == "__main__":
+    main()
