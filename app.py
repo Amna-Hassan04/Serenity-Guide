@@ -149,6 +149,12 @@ def load_lottie_url(url: str):
         return response.json()
     return None
 
+# Email Validation Function
+def is_valid_email(email):
+    # Updated pattern requires text before and after @ and .
+    pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+    return re.match(pattern, email) is not None
+
 # Main function to control page navigation
 def main():
     selected = option_menu(
@@ -818,21 +824,15 @@ def show_about_and_feedback():
     # Subscribe for Updates
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
-
-    # Email Validation Function
-    def is_valid_email(email):
-        # Updated pattern requires text before and after @ and .
-        pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
-        return re.match(pattern, email) is not None
-
     email = st.text_input("Enter your email address:")
     if st.button("Subscribe"):
-        if email:
+        if is_valid_email(email):
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
         else:
             st.error("Please enter a valid email address with a format like 'example@domain.com'.")
-    else:
-        st.warning("Email address cannot be empty.")
+    
+        
+    
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
     
