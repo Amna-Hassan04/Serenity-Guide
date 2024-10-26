@@ -188,6 +188,44 @@ def show_blog():
 
 # Main function to control page navigation
 def main():
+    def show_blog():
+    st.title("🌟 Community Blog")
+    
+    # Sample blog posts (you can replace this with a database or API call)
+    blog_posts = [
+        {
+            "title": "The Importance of Mental Health",
+            "content": "Mental health is just as important as physical health. It's crucial to prioritize mental wellness.",
+            "author": "Amna Hassan",
+            "date": "2024-10-01"
+        },
+        {
+            "title": "5 Tips for Managing Anxiety",
+            "content": "1. Practice mindfulness. 2. Stay active. 3. Connect with others. 4. Limit screen time. 5. Seek professional help.",
+            "author": "Anushka Pote",
+            "date": "2024-09-20"
+        }
+    ]
+    
+    # Display blog posts
+    for post in blog_posts:
+        st.subheader(post["title"])
+        st.write(f"*By {post['author']} on {post['date']}*")
+        st.write(post["content"])
+        st.write("---")
+    
+    # Comment section
+    st.subheader("Leave a Comment")
+    comment = st.text_area("Your Comment:")
+    if st.button("Submit Comment"):
+        if comment:
+            st.success("Thank you for your comment!")
+        else:
+            st.warning("Please enter a comment before submitting.")
+    
+    # Optional: Display comments (you can replace this with a database)
+    st.subheader("Comments")
+    st.write("No comments yet. Be the first to share your thoughts!")
     selected = option_menu(
         menu_title=None,
         options=["Home", "Calm Space", "Resources", "About & Feedback"],  # Added "Resources"
