@@ -12,6 +12,7 @@ from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
+import re
 #AI Integration
 import anthropic
 import datetime
@@ -817,11 +818,21 @@ def show_about_and_feedback():
     # Subscribe for Updates
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
+
+    # Email Validation Function
+    def is_valid_email(email):
+        # Updated pattern requires text before and after @ and .
+        pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+        return re.match(pattern, email) is not None
+
     email = st.text_input("Enter your email address:")
     if st.button("Subscribe"):
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
+        else:
+            st.error("Please enter a valid email address with a format like 'example@domain.com'.")
+    else:
+        st.warning("Email address cannot be empty.")
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
     
