@@ -3,6 +3,7 @@ import datetime
 import time
 from tkinter import Tk
 from pymongo import MongoClient
+from streamlit_navigation_bar import st_navbar
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -149,48 +150,17 @@ def load_lottie_url(url: str):
     return None
 
 # Main function to control page navigation
+   # Navigation bar function
 def main():
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "Calm Space", "Resources", "About & Feedback"],  # Added "Resources"
-        icons=["house-door-fill", "cloud-sun-fill", "book-fill", "chat-dots-fill"],  # Changed icon for "Resources"
-        menu_icon="sun",
-        default_index=0,
-        orientation="horizontal",
-        styles={
-            "container": {
-                "padding": "0!important",
-                "background-color": "#333",
-                "border-radius": "10px",
-                "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
-                "width": "100%",  # Increase the width of the menu bar
-                "max-width": "100%",  # Prevent overflow
-            },
-            "nav-link": {
-                "font-size": "18px",
-                "text-align": "center",
-                "margin": "0 20px",  # Increase left and right margin to expand space between items
-                "--hover-color": "#ddd",
-                "border-radius": "10px",
-                "color": "#fff",
-                "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
-                "transition": "background-color 0.3s ease, transform 0.2s"
-            },
-            "nav-link-selected": {
-                "background-color": "#04AA6D",
-                "color": "#fff",
-                "font-size": "14px",
-            }
-        }
-    )
+    pages = st_navbar(["Home", "Calm Space", "Resources", "About & Feedback"])
 
-    if selected == "Home":
+    if pages == "Home":
         show_main_page()
-    elif selected == "Calm Space":
+    elif pages == "Calm Space":
         show_calm_space()
-    elif selected == "Resources":  # Added condition for "Resources"
+    elif pages == "Resources":  # Added condition for "Resources"
         show_resources()  # Call the new function
-    elif selected == "About & Feedback":
+    elif pages== "About & Feedback":
         show_about_and_feedback()
 
 
