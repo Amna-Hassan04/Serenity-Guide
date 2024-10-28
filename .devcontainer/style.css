@@ -1,0 +1,106 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Body styling for a relaxing theme */
+body {
+  background-color: #f0f5f9; /* Soft pastel blue */
+  color: #333;
+}
+#contact { fill: #ffffff; }
+
+.nav-links svg { fill: #ffffff; }
+
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #90caf9; /* Soft light blue */
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.navbar .logo a {
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for links */
+.nav-links a:hover {
+  color: #ffeb3b; /* Soft yellow */
+  transform: scale(1.1); /* Slight zoom-in effect */
+}
+
+/* Adding hover effect to icons */
+.nav-links a .icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.nav-links a:hover .icon {
+  transform: rotate(15deg); /* Relaxing tilt effect */
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background-color: #ffffff;
+  margin: 3px;
+  border-radius: 3px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
