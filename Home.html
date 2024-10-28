@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calm Space</title>
+    
+</head>
+<body>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  animation: gradientBackground 15s ease infinite; /* Gradient animation */
+  background: linear-gradient(270deg, #a2c2e2, #4e6e8e, #c3e5e0, #f6e9b8);
+  background-size: 400% 400%; /* Ensure gradient covers the whole body */
+  color: #ffffff; /* White text for contrast */
+}
+
+@keyframes gradientBackground {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #ffeb3b; /* Yellow hover effect */
+}
+
+main {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  backdrop-filter: blur(10px); /* Blurs the background behind the main content */
+}
+
+section {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow for depth */
+  transition: transform 0.3s ease; /* Animation effect */
+}
+
+section:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #54bce8; /* Ferrari red for headings */
+  font-size: 1.8em;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  font-size: 1.1em; /* Slightly larger font for readability */
+}
+
+footer {
+  text-align: center;
+  padding: 10px 0;
+  background: rgba(104, 131, 206, 0.9); /* Semi-transparent Ferrari red */
+  color: #ffffff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+</style>
+    
+
+    <main>
+        <section id="breathing">
+            <h2>Engage in a Breathing Exercise</h2>
+            <p>Take a deep breath and count to 5. Repeat as needed to calm your mind.</p>
+        </section>
+
+        <section id="positivity">
+            <h2>Quick Tips for Positivity</h2>
+            <ul>
+                <li>Take a deep breath and count to 5.</li>
+                <li>Focus on what you can control, not on what you can't.</li>
+                <li>Take a moment to reflect on something you're grateful for.</li>
+                <li>Smile at yourself in the mirror.</li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>
