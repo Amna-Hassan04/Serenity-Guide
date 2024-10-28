@@ -1,7 +1,10 @@
 import base64
 import datetime
 import time
-from tkinter import Tk
+#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
+# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
+# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
+# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
 from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
@@ -12,6 +15,7 @@ from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
+
 #AI Integration
 import anthropic
 import datetime
@@ -961,6 +965,7 @@ def show_resources():
     # Podcast/Audio Library
     st.header("Podcast/Audio Library")
 
+
     # Add custom CSS for hover effect
     st.markdown("""
         <style>
@@ -1088,3 +1093,9 @@ def show_FAQs_page():
 
 if __name__ == "__main__":
     main()
+
+
+#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
+# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
+# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
+# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
