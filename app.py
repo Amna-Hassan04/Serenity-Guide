@@ -638,7 +638,7 @@ def mood_boosting_mini_games():
     # Apply the button style to the Streamlit app
     st.markdown(button_style, unsafe_allow_html=True)
 
-    # Create a table with 12 game buttons, 4 columns and 3 rows
+    # Create a table with multiple game buttons
     st.markdown('''
         <table>
             <tr>
@@ -660,8 +660,75 @@ def mood_boosting_mini_games():
                 <td><a href="https://krunker.io/" target="_blank"><div class="button">Play Krunker.io</div></a></td>
             </tr>
         </table>
+        <br>
     ''', unsafe_allow_html=True)
 
+#Simon Game Challenge
+
+def simon_game_challenge():
+    st.markdown("## Simon Game Challenge")
+
+    # Description, Instructions, and Play Game button in a table format
+    st.markdown("""
+    <style>
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .game-table th, .game-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .game-table th {
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: black ;
+            font-color: red;
+        }
+    </style>
+
+    <table class="game-table">
+        <tr>
+            <th>Description</th>
+            <th>Instructions</th>
+            <th>Play Game</th>
+        </tr>
+        <tr>
+            <td>
+                The Simon Game Challenge tests your memory and focus as you follow an
+                increasingly complex sequence of flashing colors and sounds. 
+                Each level adds a new step to the pattern, which you must repeat perfectly to advance. 
+                One mistake ends the game.
+            </td>
+            <td>
+                <ul>
+                    <li><b>Press any key</b> on your keyboard to start the game.</li>
+                    <li>Watch as <b>one block will light up</b> or make a sound. Click that block to match the sequence.</li>
+                    <li>The sequence will get longer with each level. Follow it correctly to advance.</li>
+                    <li>If you make a mistake, the game will end, and your <b>final score</b> will display.</li>
+                </ul>
+            </td>
+            <td style="text-align: center;">
+                <a href="https://sanyadureja.github.io/Simon-Game-JavaScript-jQuery/" target="_blank" class="button">
+                    Simon Game Challenge
+                </a>
+            </td>
+        </tr>
+    </table>
+    """, unsafe_allow_html=True)
 
 def show_calm_space():
     st.title("Calm Space")
@@ -728,11 +795,15 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
-    st.subheader("Mood-Boosting Mini Games")
-    st.write("Take a break and play a mini-game to reduce your anxiety.")
-    if st.button("Start Game"):
+    st.subheader("Mood-Boosting Games")
+    st.write("Take a break and play games to reduce your anxiety.")
+    if st.button("Start Mini Games"):
         st.write("Launching a quick mood-boosting game...")
         mood_boosting_mini_games()
+
+    #Simon Game Challenge Button
+    if st.button("Simon Game Challenge"):
+        simon_game_challenge()
 
     st.write("---")
     soothing_sounds()
