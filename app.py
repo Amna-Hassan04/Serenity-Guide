@@ -38,7 +38,24 @@ scroll_to_top = """
         background-color: rgb(4, 170, 109);
         opacity: 1;
     }
+
+    /* Position the chatbot fixed in the bottom-right corner */
+     #chatbotContainer {
+        position: fixed;
+        bottom: 20px; /* Positioning the chatbot */
+        right: 20px;
+        z-index: 98;
+        width: 350px; /* Set width based on chatbot size */
+        height: 500px; /* Set height based on chatbot size */
+        border: 1px solid #ccc; /* Optional: Add border for visibility */
+        border-radius: 10px; /* Optional: Round corners */
+        overflow: hidden; /* Prevent overflow */
+        background-color: white; /* Background color for chatbot */
+    }
     </style>
+
+    
+    
 """
 
 
@@ -72,15 +89,34 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
         ]
     )
 
-    
+
+
 # Set page config (must be the first Streamlit command)
 st.set_page_config(page_title="SereniFi", page_icon=":relieved:", layout="centered")
 st.markdown(scroll_to_top, unsafe_allow_html=True)
 def scroll_to_top_button():
     st.markdown('<a id="scrollButton" title="Go to top" href="#top">↑ Top</a>', unsafe_allow_html=True)
+    components.html("""
+        <div id="chatbotContainer">
+            <script type="text/javascript">
+                window.embeddedChatbotConfig = {
+                    chatbotId: "9TmbcgGGVEmGvSJcgNa7B",
+                    domain: "www.chatbase.co"
+                };
+            </script>
+            <script
+                src="https://www.chatbase.co/embed.min.js"
+                chatbotId="9TmbcgGGVEmGvSJcgNa7B"
+                domain="www.chatbase.co"
+                defer>
+            </script>
+        </div>
+    """, height=500)
     st.markdown('<div id="top"></div>', unsafe_allow_html=True)
+   
 
 scroll_to_top_button()
+
 
 # Data for mental health (sampled)
 data = {
@@ -138,6 +174,8 @@ right: 2rem;
 }}
 </style>
 """
+
+
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -209,6 +247,7 @@ def show_main_page():
     }
     </style>
     <h1 class="centered-title">Welcome to SereniFi</h1>
+    
     """, unsafe_allow_html=True
 )
 
