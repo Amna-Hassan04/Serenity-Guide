@@ -1,6 +1,10 @@
 import base64
 import datetime
 import time
+#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
+# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
+# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
+# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
 from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
@@ -11,8 +15,6 @@ from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
-#Json for json files
-import json
 #AI Integration
 import anthropic
 import datetime
@@ -27,7 +29,7 @@ scroll_to_top = """
         font-size: 18px;
         border: none;
         outline: none;
-        background-color: rgb(4, 170, 109);
+        background-color: rgb(4, 170, );
         color: white;
         cursor: pointer;
         padding: 10px;
@@ -151,27 +153,39 @@ def load_lottie_url(url: str):
 
 # Main function to control page navigation
 def main():
-
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Calm Space", "About & Feedback"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill"],
+
+        options=["Home", "Calm Space", "About & Feedback","FAQs"],
+        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill","question-circle-fill"],
+
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#333", "border-radius": "10px", "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)"},
+            "container": {
+                "padding": "0!important",
+                "background-color": "#333",
+                "border-radius": "10px",
+                "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
+                "width": "100%",  # Increase the width of the menu bar
+                "max-width": "100%",  # Prevent overflow
+            },
             "nav-link": {
                 "font-size": "18px",
                 "text-align": "center",
-                "margin": "0px",
+                "margin": "0 20px",  # Increase left and right margin to expand space between items
                 "--hover-color": "#ddd",
                 "border-radius": "10px",
                 "color": "#fff",
                 "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
-            "nav-link-selected": {"background-color": "#04AA6D", "color": "#fff","font-size": "14px",}
+            "nav-link-selected": {
+                "background-color": "#04AA6D",
+                "color": "#fff",
+                "font-size": "14px",
+            }
         }
     )
 
@@ -179,8 +193,13 @@ def main():
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
+    elif selected == "Resources":  # Added condition for "Resources"
+        show_resources()  # Call the new function
     elif selected == "About & Feedback":
         show_about_and_feedback()
+    elif selected == "FAQs":
+        show_FAQs_page()
+
 
 def show_main_page():
     st.markdown(
@@ -371,9 +390,6 @@ def show_main_page():
 
         
         st.markdown('</div>', unsafe_allow_html=True)
-
-
-
 
 
     st.write("---")
@@ -613,11 +629,131 @@ def interactive_journal():
             st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
-    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game yo want:")
-    st.markdown("[Play Pacman](https://www.google.co.in/search?q=pacman&sca_esv=aaaa9a10aaa1b9d1&sca_upv=1&sxsrf=ADLYWIJzV0yNeS6YptYfZn5AEFUKvBUtSw%3A1725304252827&ei=vA3WZqCaMrLy4-EPiZmBwAw&ved=0ahUKEwig6PmY-6SIAxUy-TgGHYlMAMgQ4dUDCBA&uact=5&oq=pacman&gs_lp=Egxnd3Mtd2l6LXNlcnAiBnBhY21hbjIQEC4YgAQYsQMYQxiDARiKBTIOEC4YgAQYkQIYsQMYigUyEBAAGIAEGLEDGEMYgwEYigUyExAuGIAEGLEDGEMYgwEY1AIYigUyChAuGIAEGEMYigUyChAAGIAEGEMYigUyBRAAGIAEMg0QABiABBixAxhDGIoFMggQABiABBixAzIFEAAYgAQyHxAuGIAEGLEDGEMYgwEYigUYlwUY3AQY3gQY4ATYAQFI3hZQ5A5Y8BRwAXgBkAEAmAHlAaABiwqqAQMyLTa4AQPIAQD4AQGYAgegAp8LwgIKEAAYsAMY1gQYR8ICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYkQIY1AIYigXCAhAQLhiABBhDGMcBGIoFGK8BmAMAiAYBkAYGugYGCAEQARgUkgcFMS4wLjagB5Vj&sclient=gws-wiz-serp)")
-    st.markdown("[Play Thinking Brain](https://kidshelpline.com.au/games/thinking-brain)")
-    st.markdown("[Play Snake Game](https://www.google.co.in/search?si=ACC90nwm_DCLUGduakF5oU94y1HpDc2j-V_TsJpED11KWNYygOhydoKqqSH9t8iyybygqTEoKMZa&biw=1536&bih=695&dpr=1.25)")
+    st.markdown("Relax with a fun mini-game to distract your mind. Choose the game you want:")
+    
+    # Define button style with off-black background and off-white text color
+    button_style = """
+        <style>
+        .button {
+            background-color: #1a1a1a;  /* off-black */
+            color: #f5f5f5;  /* off-white */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button a {
+            color: #f5f5f5;  /* off-white text */
+            text-decoration: none;  /* remove underline */
+        }
+        .button a:hover {
+            color: #f5f5f5;  /* off-white text on hover */
+        }
+        .button:hover {
+            background-color: #333;  /* slightly lighter on hover */
+        }
+        </style>
+    """
+    
+    # Apply the button style to the Streamlit app
+    st.markdown(button_style, unsafe_allow_html=True)
 
+    # Create a table with multiple game buttons
+    st.markdown('''
+        <table>
+            <tr>
+                <td><a href="https://g.co/kgs/o4uSVto" target="_blank"><div class="button">Play Pacman</div></a></td>
+                <td><a href="https://kidshelpline.com.au/games/thinking-brain" target="_blank"><div class="button">Play Thinking Brain</div></a></td>
+                <td><a href="https://www.google.com/search?q=snake+game" target="_blank"><div class="button">Play Snake Game</div></a></td>
+                <td><a href="https://agar.io/" target="_blank"><div class="button">Play Agar.io</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://trex-runner.com/" target="_blank"><div class="button">Play T-Rex Game</div></a></td>
+                <td><a href="https://slither.io/" target="_blank"><div class="button">Play Slither.io</div></a></td>
+                <td><a href="https://www.google.com/search?q=solitaire" target="_blank"><div class="button">Play Solitaire</div></a></td>
+                <td><a href="https://mahjon.gg/" target="_blank"><div class="button">Play Mahjong</div></a></td>
+            </tr>
+            <tr>
+                <td><a href="https://sudoku.com/" target="_blank"><div class="button">Play Sudoku</div></a></td>
+                <td><a href="https://www.crazygames.com/game/fireboy-and-watergirl-the-forest-temple" target="_blank"><div class="button">Play Fireboy & Watergirl</div></a></td>
+                <td><a href="https://checkers.online/" target="_blank"><div class="button">Play Checkers</div></a></td>
+                <td><a href="https://krunker.io/" target="_blank"><div class="button">Play Krunker.io</div></a></td>
+            </tr>
+        </table>
+        <br>
+    ''', unsafe_allow_html=True)
+
+#Simon Game Challenge
+
+def simon_game_challenge():
+    st.markdown("## Simon Game Challenge")
+
+    # Description, Instructions, and Play Game button in a table format
+    st.markdown("""
+    <style>
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .game-table th, .game-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .game-table th {
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: black ;
+            font-color: red;
+        }
+    </style>
+
+    <table class="game-table">
+        <tr>
+            <th>Description</th>
+            <th>Instructions</th>
+            <th>Play Game</th>
+        </tr>
+        <tr>
+            <td>
+                The Simon Game Challenge tests your memory and focus as you follow an
+                increasingly complex sequence of flashing colors and sounds. 
+                Each level adds a new step to the pattern, which you must repeat perfectly to advance. 
+                One mistake ends the game.
+            </td>
+            <td>
+                <ul>
+                    <li><b>Press any key</b> on your keyboard to start the game.</li>
+                    <li>Watch as <b>one block will light up</b> or make a sound. Click that block to match the sequence.</li>
+                    <li>The sequence will get longer with each level. Follow it correctly to advance.</li>
+                    <li>If you make a mistake, the game will end, and your <b>final score</b> will display.</li>
+                </ul>
+            </td>
+            <td style="text-align: center;">
+                <a href="https://sanyadureja.github.io/Simon-Game-JavaScript-jQuery/" target="_blank" class="button">
+                    Simon Game Challenge
+                </a>
+            </td>
+        </tr>
+    </table>
+    """, unsafe_allow_html=True)
 
 def show_calm_space():
     st.title("Calm Space")
@@ -708,11 +844,15 @@ def show_calm_space():
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
     
-    st.subheader("Mood-Boosting Mini Games")
-    st.write("Take a break and play a mini-game to reduce your anxiety.")
-    if st.button("Start Game"):
+    st.subheader("Mood-Boosting Games")
+    st.write("Take a break and play games to reduce your anxiety.")
+    if st.button("Start Mini Games"):
         st.write("Launching a quick mood-boosting game...")
         mood_boosting_mini_games()
+
+    #Simon Game Challenge Button
+    if st.button("Simon Game Challenge"):
+        simon_game_challenge()
 
     st.write("---")
     soothing_sounds()
@@ -808,14 +948,22 @@ def show_about_and_feedback():
     
     # Call to Action
     st.subheader("Get Involved")
-    st.write("""
+    
+    # Using st.markdown with HTML to style the links
+    st.markdown("""
+    <p>
     Interested in supporting our mission? There are several ways you can get involved:
-    - **Volunteer**: Join our team of volunteers to help others benefit from our platform.
-    - **Donate**: Support our efforts by contributing to our cause.
-    - **Share**: Spread the word about our platform to help us reach more people in need.
-
-    For more information, visit our [website](#) or contact us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com).
-    """)
+    <ul>
+    <li><strong>Volunteer</strong>: Join our team of volunteers to help others benefit from our platform.</li>
+    <li><strong>Donate</strong>: Support our efforts by contributing to our cause.</li>
+    <li><strong>Share</strong>: Spread the word about our platform to help us reach more people in need.</li>
+    </ul>
+    </p>
+    <p>
+    For more information, visit our <a href="#" style="color: #101010; text-decoration: underline; text-decoration-color: white;">website</a> 
+    or contact us at <a href="mailto:info@anxietyrelief.com" style="color: #101010; text-decoration: underline; text-decoration-color: white;">info@anxietyrelief.com</a>.
+    </p>
+    """, unsafe_allow_html=True)
 
     st.write("---")
     
@@ -852,13 +1000,272 @@ def show_about_and_feedback():
         if email:
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
     
-
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
+    
+
+import streamlit as st
+
+def show_resources():
+    st.title("Mental Health Resources")
+
+    # Sidebar menu for personalized self-care routine
+    st.sidebar.title("Personalized Self-Care Routine")
+    
+    # Initialize a session state to store activities
+    if 'activities' not in st.session_state:
+        st.session_state.activities = []
+
+    # Create a form to collect user inputs for the routine
+    with st.sidebar.form(key='self_care_form'):
+        st.subheader("Create Your Self-Care Routine")
+        
+        # User inputs
+        activity = st.text_input("Self-Care Activity")
+        duration = st.number_input("Duration (in minutes)", min_value=1, max_value=120)
+        frequency = st.selectbox("Frequency", ["Daily", "Weekly", "Monthly"])
+        
+        # Submit button
+        submit_button = st.form_submit_button(label='Add Activity')
+
+        if submit_button:
+            # Append the activity to the session state
+            st.session_state.activities.append((activity, duration, frequency))
+            st.success(f"Added '{activity}' for {duration} minutes {frequency}!")
+
+    # Mental Health Articles
+    st.header("Mental Health Articles")
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .hover-effect img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .hover-effect img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create columns for side-by-side images
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown(
+            '<a href="https://www.medicalnewstoday.com/articles/323454#symptoms" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-XQXu69JDDd7GRnNedvL1Ld32?se=2024-10-15T10%3A18%3A18Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D8067e13f-e01a-4f98-bb8b-3032dfd8842c.webp&sig=HZ53OvoLQPLoord2sM7aM3iRJZeSVRgueC2u1owUWYY%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with col2:
+        st.markdown(
+            '<a href="https://www.snhu.edu/about-us/newsroom/health/what-is-self-care" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-chhKTLGaIokEFRTf9aEh4lAc?se=2024-10-15T10%3A15%3A01Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D8c89f7ff-469c-4777-9adf-d5bc5898c1f1.webp&sig=TD4oofQ1tP7MI6OyCIK39rHiUjb1B2LjLx2%2Bj9NxAHM%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with col3:
+        st.markdown(
+            '<a href="https://www.helpguide.org/mental-health/depression/coping-with-depression" class="hover-effect">'
+            '<img src="https://files.oaiusercontent.com/file-oSz9p3oO0nr9Kl34h6M02W7h?se=2024-10-15T10%3A01%3A31Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D42222272-d7ea-487d-84ee-7a5b57eefca4.webp&sig=8SCuBVJkYA2c5CGjynpFlkchayZ5L2PIrdwGVkXEO84%3D" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
 
 
+    # Self-Care Tips
+    st.header("Self-Care Tips")
 
+    # Adding the Self-Care Ideas image
+    st.image("https://cdn.shopify.com/s/files/1/0400/8574/9923/files/Self_Care_Ideas_grande.png?v=1591248756", 
+             caption="Self-Care Ideas", use_column_width=True)
+
+    # Adding the second image
+    st.image("https://pmhsredandblack.com/wp-content/uploads/2019/01/for-Olivias-article-895x900.jpg", 
+             caption="Additional Self-Care Resource", use_column_width=True)
+
+    # Add the YouTube video below the images
+    st.video("https://www.youtube.com/watch?app=desktop&v=LY4i5CSn7AA")
+
+    # Display user-added self-care activities
+    if st.session_state.activities:
+        st.subheader("Your Self-Care Routine")
+        for activity, duration, frequency in st.session_state.activities:
+            st.markdown(f"- **Activity**: {activity}, **Duration**: {duration} minutes, **Frequency**: {frequency}")
+
+    # Guides & E-books
+    st.header("Guides & E-books")
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .guide-hover img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .guide-hover img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create a container for the images
+    guide_col1, guide_col2, guide_col3 = st.columns(3)
+
+    with guide_col1:
+        st.markdown(
+            '<a href="https://www.gnyha.org/wp-content/uploads/2020/06/Building-Resilience-UCD.pdf" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_b42d7fea-8ae2-11ef-978e-0ab00016590f.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with guide_col2:
+        st.markdown(
+            '<a href="https://www.mindful.org/an-introduction-to-mindful-gratitude/" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_72510c1e-8ae6-11ef-8e7f-4ed4b81f76cb.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    with guide_col3:
+        st.markdown(
+            '<a href="https://iris.who.int/bitstream/handle/10665/205887/B5084.pdf" class="guide-hover">'
+            '<img src="https://storage.vivago.ai/image/p_d1074afe-8ae4-11ef-924c-9afd28bf6444.jpg?width=512" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # Podcast/Audio Library
+    st.header("Podcast/Audio Library")
+
+
+    # Add custom CSS for hover effect
+    st.markdown("""
+        <style>
+        .podcast-hover img {
+            transition: transform 0.2s ease; /* Animation */
+        }
+        .podcast-hover img:hover {
+            transform: scale(1.1); /* Zoom in */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Create columns for side-by-side podcast images
+    podcast_col1, podcast_col2, podcast_col3 = st.columns(3)
+
+    # The Anxiety Coaches Podcast
+    with podcast_col1:
+        st.markdown(
+            '<a href="https://player.fm/series/the-anxiety-coaches-podcast" class="podcast-hover">'
+            '<img src="https://cdn.player.fm/images/230641/series/Ut7N671x7htRnKjm/256.jpg" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # The Self-Esteem and Confidence Mindset
+    with podcast_col2:
+        st.markdown(
+            '<a href="https://podcasts.apple.com/gb/podcast/the-self-esteem-and-confidence-mindset/id1497438573" class="podcast-hover">'
+            '<img src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts116/v4/a0/f5/c5/a0f5c592-4e41-de36-e9fe-3981dcaf986e/mza_17991338792145651433.jpg/300x300bb.webp" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+
+    # Spotify Podcast - Overcoming Anxiety
+    with podcast_col3:
+        st.markdown(
+            '<a href="https://open.spotify.com/show/5M5D6lihTbDs8aRnb6xazq" class="podcast-hover">'
+            '<img src="https://i.scdn.co/image/ab6765630000ba8ac3cc83aee70191fa17f56934" width="100%" />'
+            '</a>', unsafe_allow_html=True
+        )
+def show_FAQs_page():
+    st.title("Frequently Asked Questions (FAQs)")
+    
+    st.markdown("""
+    <style>
+    .faq-question {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+    .faq-answer {
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.6;
+    }
+    .faq-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+    .additional-questions {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="faq-header">Welcome to the SereniFi FAQ Section!</div>', unsafe_allow_html=True)
+    st.write("""
+    Here you'll find answers to some of the most common questions about our platform, services, and how to make the most of your experience.
+    """)
+
+    st.write("---")
+
+    with st.expander("1. What is SereniFi?"):
+        st.markdown('<div class="faq-question">What is SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">SereniFi is a mental wellness platform dedicated to promoting mental well-being through interactive tools and resources. Our goal is to help individuals manage anxiety, stress, and improve their overall mental health.</div>', unsafe_allow_html=True)
+
+    with st.expander("2. How can SereniFi help with anxiety?"):
+        st.markdown('<div class="faq-question">How can SereniFi help with anxiety?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">SereniFi offers a variety of activities, guided meditations, relaxation techniques, and resources designed to reduce stress and anxiety. We also provide tools to track your progress and find what works best for you.</div>', unsafe_allow_html=True)
+
+    with st.expander("3. Is SereniFi free to use?"):
+        st.markdown('<div class="faq-question">Is SereniFi free to use?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, SereniFi offers free access to most of its tools and resources. Some premium features might require a subscription, but we ensure that the essential tools for mental wellness are always available to everyone at no cost.</div>', unsafe_allow_html=True)
+
+    with st.expander("4. Can I use SereniFi on my mobile device?"):
+        st.markdown('<div class="faq-question">Can I use SereniFi on my mobile device?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Absolutely! SereniFi is designed to be mobile-friendly, so you can access all features and resources from your smartphone or tablet, no matter where you are.</div>', unsafe_allow_html=True)
+
+    with st.expander("5. How do I provide feedback or get support?"):
+        st.markdown('<div class="faq-question">How do I provide feedback or get support?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">We value your feedback and encourage you to share your thoughts. You can visit our \'About Us & Feedback\' page to submit your feedback or email us directly at <a href="mailto:info@anxietyrelief.com">info@anxietyrelief.com</a>.</div>', unsafe_allow_html=True)
+
+    with st.expander("6. Is my data safe with SereniFi?"):
+        st.markdown('<div class="faq-question">Is my data safe with SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Your privacy is our top priority. We use state-of-the-art encryption and data protection measures to ensure that your information remains safe and confidential.</div>', unsafe_allow_html=True)
+
+    with st.expander("7. Can I customize my wellness plan on SereniFi?"):
+        st.markdown('<div class="faq-question">Can I customize my wellness plan on SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, you can tailor your wellness activities and resources according to your needs and preferences. SereniFi allows you to choose the techniques and exercises that work best for you.</div>', unsafe_allow_html=True)
+
+    with st.expander("8. How do I join the SereniFi community?"):
+        st.markdown('<div class="faq-question">How do I join the SereniFi community?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">You can join the SereniFi community by signing up on our platform. You\'ll gain access to support groups, forums, and events where you can connect with others on their mental wellness journey.</div>', unsafe_allow_html=True)
+
+    with st.expander("9. What types of mental health professionals contribute to SereniFi?"):
+        st.markdown('<div class="faq-question">What types of mental health professionals contribute to SereniFi?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Our platform is supported by a diverse team of mental health professionals, including psychologists, wellness coaches, and therapists, who provide insights and guidance on our resources and tools.</div>', unsafe_allow_html=True)
+
+    with st.expander("10. Are the activities on SereniFi backed by scientific research?"):
+        st.markdown('<div class="faq-question">Are the activities on SereniFi backed by scientific research?</div>', unsafe_allow_html=True)
+        st.markdown('<div class="faq-answer">Yes, our activities and techniques are grounded in evidence-based practices. We aim to provide methods that are scientifically proven to reduce anxiety and improve mental wellness.</div>', unsafe_allow_html=True)
+
+    st.write("---")
+
+    st.markdown('<div class="additional-questions">Have More Questions?</div>', unsafe_allow_html=True)
+    st.write("""
+    If you have any other questions that aren't listed here, feel free to reach out to us at [info@anxietyrelief.com](mailto:info@anxietyrelief.com). We're here to help you get the most out of SereniFi!!
+    """)
+
+    st.write("---")
+    st.markdown('<p style="text-align: center; font-size: 14px; color: #888888;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
     main()
+
+
+#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
+# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
+# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
+# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
