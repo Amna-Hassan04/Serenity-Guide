@@ -246,9 +246,8 @@ def show_main_page():
 
     # Interactive Widgets
     if st.button('Start Guided Breathing'):
-        st.balloons()
         st.write("**Guided Breathing Exercise:** Inhale deeply through your nose for 4 seconds, hold for 4 seconds, and exhale slowly through your mouth. Repeat this process a few times to feel the calming effect.")
-
+        box_breathing()
 
     st.write("---")
 
@@ -820,7 +819,42 @@ def show_calm_space():
     st.write("---")
     st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
 
+#Guided Breathing
+def box_breathing(count=4, cycles=5):
+    """
+    Streamlit-based Box Breathing exercise with centered timer display.
 
+    Args:
+    count (int): Number of seconds for each step in the box breathing cycle.
+    cycles (int): Number of box breathing cycles to repeat.
+    """
+    # Define steps for the Box Breathing technique
+    steps = ["Inhale", "Hold", "Exhale", "Hold"]
+    
+    # Streamlit interface elements
+    st.title("🧘 Box Breathing Exercise")
+    st.write("A simple breathing exercise to help you relax and focus. Follow the instructions below.")
+    
+    for cycle in range(1, cycles + 1):
+        st.subheader(f"Cycle {cycle} of {cycles}")
+        
+        for step in steps:
+            # Create a placeholder for dynamic text updates
+            placeholder = st.empty()
+            
+            # Show the step label and countdown in the placeholder
+            for second in range(count, 0, -1):
+                placeholder.markdown(f"### {step} - {second} seconds remaining")
+                time.sleep(1.5)  # Pauses the app for 1 second
+            
+            # Clear the step display after each step
+            placeholder.empty()
+        subheader = st.empty()
+        # Small break between cycles
+        st.write("Cycle complete.")
+        time.sleep(2)
+
+    st.success("Box Breathing exercise completed. Take a moment to notice how you feel.")
 
 
 def show_about_and_feedback():
