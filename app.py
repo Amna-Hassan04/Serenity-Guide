@@ -9,6 +9,52 @@ import os
 from dotenv import load_dotenv
 #AI Integration
 import anthropic
+#changes made by --Shibika Roy
+import streamlit as st
+import random
+import time
+# Adding tabs for different sections of the app
+tabs = st.tabs(["Home", "Guided Meditation", "Breathing Exercises", "Monitoring (Beta)"])
+# Code for the Monitoring (Beta) tab
+with tabs[3]:  # This references the Monitoring (Beta) tab
+    st.title("Monitoring (Beta)")
+    st.write("This feature is in Beta. Connect your IoT-enabled heart rate and stress sensors to view real-time data.")
+with tabs[3]:
+    st.title("Monitoring (Beta)")
+    st.write("This feature is in Beta. Connect your IoT-enabled heart rate and stress sensors to view real-time data.")
+    
+    # Connection Instructions
+    st.subheader("How to Connect Your Device:")
+    st.write("""
+    1. Ensure your IoT device is powered on and within Bluetooth range.
+    2. Open the Bluetooth settings on your device and pair it with the app.
+    3. Once connected, your heart rate and stress level will display below in real time.
+    """)
+
+# Display placeholders for real-time data
+heart_rate_display = st.empty()
+stress_level_display = st.empty()
+status_display = st.empty()
+
+def simulate_data():
+    """Simulate heart rate and stress level data"""
+    heart_rate = random.randint(60, 100)
+    stress_level = random.randint(1, 10)
+    return heart_rate, stress_level
+
+# Real-time update loop
+status_display.write("Monitoring real-time data...")
+
+while True:
+    # Simulate or fetch data (replace this with actual IoT data fetching if available)
+    heart_rate, stress_level = simulate_data()
+
+    # Display the data in real-time
+    heart_rate_display.metric("Heart Rate", f"{heart_rate} BPM")
+    stress_level_display.metric("Stress Level", f"{stress_level}/10")
+
+    # Refresh data every second
+    time.sleep(1)
 
 #Changes made by --Charvi Arora 
 #Added security
