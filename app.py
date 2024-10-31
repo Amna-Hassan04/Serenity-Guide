@@ -15,6 +15,27 @@ from streamlit_option_menu import option_menu
 import streamlit.components.v1 as components
 import os
 from dotenv import load_dotenv
+import logging
+import sys
+
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
+)
+logging.info("Application started.")
+
+def global_error_handler(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        # Call the default handler for KeyboardInterrupt
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logging.critical("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+
+# Set the global error handler
+sys.excepthook = global_error_handler
 
 #AI Integration
 import anthropic
@@ -96,10 +117,19 @@ df = px.data.tips()  # Use your actual anxiety relief data
 
 @st.cache_data
 def get_img_as_base64(file):
-    with open(file, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
+    logging.info(f"Entering get_img_as_base64 with file: {file}")
+    try:
+        with open(file, "rb") as f:
+            data = f.read()
+        encoded_data = base64.b64encode(data).decode()
+        logging.info(f"Successfully encoded file: {file}")
+        return encoded_data
+    except Exception as e:
+        logging.error(f"Error in get_img_as_base64 with file {file}: {e}")
+        raise
+    finally:
+        logging.info(f"Exiting get_img_as_base64 with file: {file}")
+        
 # Animated background
 page_bg_img = f"""
 <style>
@@ -147,11 +177,17 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
 def load_lottie_url(url: str):
-    response = requests.get(url)
-    if response.status_code == 200:
+    logging.info(f"Fetching Lottie animation from URL: {url}")
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        logging.info(f"Successfully fetched Lottie animation from URL: {url}")
         return response.json()
-    return None
-
+    except requests.RequestException as e:
+        logging.error(f"Error fetching Lottie animation from URL {url}: {e}")
+        st.error("Failed to fetch Lottie animation. Please try again later.")
+        return None
+    
 # Main function to control page navigation
 def main():
     selected = option_menu(
@@ -309,9 +345,15 @@ def show_main_page():
     #|------MongoDb for Quick Tips For Mental Health Section for inserting and retreiving the tips------|
     #Setting MongoDb connection
     mongodb_uri = os.getenv("MONGODB_URI")
-    client=MongoClient(mongodb_uri)
-    db = client['serenity_guide_db']
-    tips_collection = db['mental_health_tips']
+    logging.info("Attempting to connect to MongoDB")
+    try:
+        client = MongoClient(mongodb_uri)
+        db = client['serenity_guide_db']
+        tips_collection = db['mental_health_tips']
+        logging.info("Successfully connected to MongoDB and accessed the 'serenity_guide_db' database and 'mental_health_tips' collection")
+    except Exception as e:
+        logging.error(f"Error connecting to MongoDB: {e}")
+        raise
 
     # Uncomment the following line to populate the database with tips in the format below:
     # tips = []
@@ -319,14 +361,24 @@ def show_main_page():
 
 
     st.subheader("Quick Tip for Mental Health")
-    all_tips = [] 
+    logging.info("Rendering 'Quick Tip for Mental Health' subheader")
+
+    all_tips = []
     if st.button("Get a Tip"):
-        all_tips = list(tips_collection.find({}, {"_id": 0, "tip": 1}))
-    
+        logging.info("'Get a Tip' button clicked")
+        try:
+            all_tips = list(tips_collection.find({}, {"_id": 0, "tip": 1}))
+            logging.info(f"Retrieved {len(all_tips)} tips from the database")
+        except Exception as e:
+            logging.error(f"Error retrieving tips from the database: {e}")
+            st.error("Failed to retrieve tips. Please try again later.")
+        
         if all_tips:
             random_tip = random.choice(all_tips)
+            logging.info(f"Displaying random tip: {random_tip['tip']}")
             st.write(f"Tip: {random_tip['tip']}")
         else:
+            logging.info("No tips available in the database")
             st.write("No tips available.")
             st.write(f"Tip: {random.choice(tips)}")
     #!--------------------------------------------------------------------------------------------------|
@@ -548,14 +600,25 @@ def spotifyPlaylist():
     </script>
     """
 
+    logging.info("Displaying podcast collection description")
     st.write("Explore our collection of insightful podcasts that empower you with expert advice, inspiring stories, and practical tools to enhance your mental well-being.")
-    # Display the HTML component in Streamlit
-    components.html(spotify_html_podcasts, height=415)
 
+    try:
+        logging.info("Displaying Spotify podcasts HTML component")
+        components.html(spotify_html_podcasts, height=415)
+    except Exception as e:
+        logging.error(f"Error displaying Spotify podcasts HTML component: {e}")
+        st.error("Failed to load podcasts. Please try again later.")
+
+    logging.info("Displaying music playlist description")
     st.write("Dive into our curated playlists featuring calming and therapeutic music designed to soothe your mind and uplift your spirit, creating a harmonious backdrop for your mental health journey.")
-    # Display the HTML component in Streamlit
-    components.html(spotify_html_songs, height=415)
 
+    try:
+        logging.info("Displaying Spotify songs HTML component")
+        components.html(spotify_html_songs, height=415)
+    except Exception as e:
+        logging.error(f"Error displaying Spotify songs HTML component: {e}")
+        st.error("Failed to load music playlists. Please try again later.")
 
 def soothing_sounds():
     st.subheader("🎵 Calm Down with Soothing Sounds")
@@ -579,28 +642,50 @@ def soothing_sounds():
         loopcheckbox = st.checkbox("Loop Sound")
 
     if playbutton:
-        # Rendering the audio player and JS in the app
-        with col3:
-            st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
-    
-    spotifyPlaylist()
+        logging.info("Play button clicked")
+        try:
+            # Rendering the audio player and JS in the app
+            with col3:
+                logging.info(f"Playing sound: {selected_sound}")
+                st.audio(sound_options[selected_sound], format="audio/mp3", loop=loopcheckbox)
+        except Exception as e:
+            logging.error(f"Error playing sound: {selected_sound}, Error: {e}")
+            st.error("Failed to play the selected sound. Please try again later.")
+
+    try:
+        logging.info("Displaying Spotify playlist")
+        spotifyPlaylist()
+    except Exception as e:
+        logging.error(f"Error displaying Spotify playlist: {e}")
+        st.error("Failed to load Spotify playlist. Please try again later.")
 
 def interactive_journal():
+    logging.info("Rendering interactive journal")
+
     if 'journal_entries' not in st.session_state:
+        logging.info("Initializing journal_entries in session state")
         st.session_state.journal_entries = []
 
     journal_input = st.text_area("📝 Daily Journal", placeholder="Write down your thoughts...")
     if st.button("Save Entry"):
-        st.session_state.journal_entries.append({
-            "date": datetime.datetime.now(),
-            "entry": journal_input
-        })
-        st.success("Journal entry saved!")
+        logging.info("Save Entry button clicked")
+        try:
+            st.session_state.journal_entries.append({
+                "date": datetime.datetime.now(),
+                "entry": journal_input
+            })
+            logging.info("Journal entry saved")
+            st.success("Journal entry saved!")
+        except Exception as e:
+            logging.error(f"Error saving journal entry: {e}")
+            st.error("Failed to save journal entry. Please try again later.")
 
     # Display past journal entries
     if st.checkbox("Show Past Entries"):
+        logging.info("Show Past Entries checkbox selected")
         st.write("### Past Journal Entries:")
         for entry in st.session_state.journal_entries:
+            logging.info(f"Displaying journal entry from {entry['date'].strftime('%Y-%m-%d %H:%M:%S')}")
             st.write(f"**{entry['date'].strftime('%Y-%m-%d %H:%M:%S')}**: {entry['entry']}")
 
 def mood_boosting_mini_games():
@@ -758,6 +843,7 @@ def show_calm_space():
     selected_challenge = st.selectbox("Choose an activity for your daily challenge:", options=list(challenges.keys()))
 
     if selected_challenge:
+        logging.info(f"Challenge started: {selected_challenge}")
         st.write(f"**Today's Challenge:** {challenges[selected_challenge]}")
         st.write("Remember, consistency is key to building habits and improving your mental well-being.")
 
@@ -791,6 +877,7 @@ def show_calm_space():
     recent_events = st.text_area("Recent Events", placeholder="Describe any recent events that may have contributed to your anxiety or stress...")
 
     if st.button("Submit"):
+        logging.info("Mood form submitted")
         st.write("Thank you for sharing. Let’s find some exercises to help you.")
         guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
         st.write(guidance)
@@ -798,11 +885,13 @@ def show_calm_space():
     st.subheader("Mood-Boosting Games")
     st.write("Take a break and play games to reduce your anxiety.")
     if st.button("Start Mini Games"):
+        logging.info("Mood boosting game started")
         st.write("Launching a quick mood-boosting game...")
         mood_boosting_mini_games()
 
     #Simon Game Challenge Button
     if st.button("Simon Game Challenge"):
+        logging.info("Simon game challenge started")
         simon_game_challenge()
 
     st.write("---")
@@ -859,9 +948,14 @@ def show_about_and_feedback():
 
     feedback_activity = st.text_area("How have the activities helped you? Share your experience here:")
     if st.button("Submit Feedback"):
+        logging.info("'Submit Feedback' button clicked")
         if feedback_activity:
+            logging.info("Feedback activity provided")
             st.success("Thank you for sharing your experience! Your feedback is valuable and appreciated.")
-    
+        else:
+            logging.info("No feedback activity provided")
+            st.warning("Please provide feedback before submitting.")   
+
     st.write("---")
     
     # Our Advertising Partners
@@ -896,14 +990,19 @@ def show_about_and_feedback():
     # Subscribe for Updates
     st.subheader("Subscribe for Updates")
     st.write("Stay updated with our latest features, activities, and wellness tips.")
+
     email = st.text_input("Enter your email address:")
     if st.button("Subscribe"):
+        logging.info("'Subscribe' button clicked")
         if email:
+            logging.info(f"Subscription email provided: {email}")
             st.success("Thank you for subscribing! You'll receive updates and tips directly to your inbox.")
-    
+        else:
+            logging.info("No email provided for subscription")
+            st.warning("Please enter your email address to subscribe.")
+
     st.write("---")
-    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)
-    
+    st.markdown('<p style="text-align: center;">© 2024 SereniFi. All rights reserved.</p>', unsafe_allow_html=True)    
 
 import streamlit as st
 
@@ -930,10 +1029,16 @@ def show_resources():
         submit_button = st.form_submit_button(label='Add Activity')
 
         if submit_button:
-            # Append the activity to the session state
-            st.session_state.activities.append((activity, duration, frequency))
-            st.success(f"Added '{activity}' for {duration} minutes {frequency}!")
-
+            logging.info("Submit button clicked")
+            try:
+                # Append the activity to the session state
+                st.session_state.activities.append((activity, duration, frequency))
+                logging.info(f"Added activity: {activity}, duration: {duration}, frequency: {frequency}")
+                st.success(f"Added '{activity}' for {duration} minutes {frequency}!")
+            except Exception as e:
+                logging.error(f"Error adding activity: {e}")
+                st.error("Failed to add activity. Please try again later.")
+                
     # Mental Health Articles
     st.header("Mental Health Articles")
 
