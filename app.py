@@ -193,7 +193,7 @@ def main():
     selected = option_menu(
         menu_title=None,
 
-        options=["Home", "Calm Space", "About & Feedback","FAQs"],
+        options=["Home", "Calm Space","Resources" , "About & Feedback","FAQs"],
         icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill","question-circle-fill"],
 
         menu_icon="sun",
