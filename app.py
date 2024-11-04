@@ -229,8 +229,8 @@ def main():
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
-    elif selected == "Resources":  # Added condition for "Resources"
-        show_resources()  # Call the new function
+    elif selected == "Resources":  
+        show_resources()  
     elif selected == "About & Feedback":
         show_about_and_feedback()
     elif selected == "FAQs":
