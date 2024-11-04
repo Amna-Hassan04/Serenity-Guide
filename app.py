@@ -192,7 +192,7 @@ def load_lottie_url(url: str):
 def main():
     selected = option_menu(
         menu_title="Main Menu",  # Added a title for clarity
-        options=["Home", "Calm Space", "Resources", "About & Feedback", "FAQs"],
+        options=["Home", "Calm Space", "Resources" , "About & Feedback", "FAQs"],
         icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill", "question-circle-fill"],
         menu_icon="sun",
         default_index=0,
