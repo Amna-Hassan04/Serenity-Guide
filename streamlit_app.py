@@ -2,10 +2,41 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="SereniFi Guide IoT Dashboard", layout="centered")
 
-st.title("SereniFi Guide IoT Monitoring Dashboard")
+# Add navigation options in sidebar
+selected_tab = st.sidebar.selectbox("Choose a tab", ["Home", "Monitoring (Beta)", "Other Tabs"])
+
+if selected_tab == "Monitoring (Beta)":
+    # Add code for Monitoring (Beta) tab
+
+
+st.title("Monitoring (Beta)")
 st.write("This dashboard monitors real-time heart rate and stress level data.")
+
+if selected_tab == "Monitoring (Beta)":
+    # Add title and connection instructions
+    st.title("Monitoring (Beta)")
+    st.subheader("Connect Your Heart Rate and Stress Monitoring Device")
+
+    # Connection instructions
+    st.markdown("""
+    To connect your device, please follow these steps:
+    
+    1. **Enable Bluetooth** on your heart rate monitoring device and the device running this app.
+    2. **Select Your Device** from the dropdown below and click **Connect**.
+    3. Once connected, your heart rate and stress levels will appear in real-time.
+    """)
+
+    # Simulated dropdown to select a device (for demonstration purposes)
+    device_name = st.selectbox("Select Monitoring Device", ["Device 1", "Device 2", "Device 3"])
+
+    # Simulate a connect button
+    if st.button("Connect"):
+        st.success(f"Connected to {device_name}!")
+        # Simulate real-time data
+        st.write("Heart Rate: 72 bpm")
+        st.write("Stress Level: Moderate")
+
 
 # Display placeholders for real-time data
 heart_rate_display = st.empty()
