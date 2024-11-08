@@ -1,10 +1,7 @@
 import base64
 import datetime
 import time
-#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
-# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
-# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
-# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
+
 from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
@@ -66,9 +63,6 @@ scroll_to_top = """
     </style>
 """
 
-
-
-#Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
 load_dotenv()
