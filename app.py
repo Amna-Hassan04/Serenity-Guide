@@ -16,46 +16,57 @@ import time
 # Adding tabs for different sections of the app
 tabs = st.tabs(["Home", "Guided Meditation", "Breathing Exercises", "Monitoring (Beta)"])
 # Code for the Monitoring (Beta) tab
-with tabs[3]:  # This references the Monitoring (Beta) tab
+import streamlit as st
+import random
+import time
+
+# Add navigation options in sidebar
+selected_tab = st.sidebar.selectbox("Choose a tab", ["Home", "Monitoring (Beta)", "Other Tabs"])
+
+if selected_tab == "Monitoring (Beta)":
     st.title("Monitoring (Beta)")
-    st.write("This feature is in Beta. Connect your IoT-enabled heart rate and stress sensors to view real-time data.")
-with tabs[3]:
-    st.title("Monitoring (Beta)")
-    st.write("This feature is in Beta. Connect your IoT-enabled heart rate and stress sensors to view real-time data.")
+    st.subheader("Connect Your Heart Rate and Stress Monitoring Device")
+
+    # Connection instructions
+    st.markdown("""
+    To connect your device, please follow these steps:
     
-    # Connection Instructions
-    st.subheader("How to Connect Your Device:")
-    st.write("""
-    1. Ensure your IoT device is powered on and within Bluetooth range.
-    2. Open the Bluetooth settings on your device and pair it with the app.
-    3. Once connected, your heart rate and stress level will display below in real time.
+    1. **Enable Bluetooth** on your heart rate monitoring device and the device running this app.
+    2. **Select Your Device** from the dropdown below and click **Connect**.
+    3. Once connected, your heart rate and stress levels will appear in real-time.
     """)
 
-# Display placeholders for real-time data
-heart_rate_display = st.empty()
-stress_level_display = st.empty()
-status_display = st.empty()
+    # Simulated dropdown to select a device (for demonstration purposes)
+    device_name = st.selectbox("Select Monitoring Device", ["Device 1", "Device 2", "Device 3"])
 
-def simulate_data():
-    """Simulate heart rate and stress level data"""
-    heart_rate = random.randint(60, 100)
-    stress_level = random.randint(1, 10)
-    return heart_rate, stress_level
+    # Simulate a connect button
+    if st.button("Connect"):
+        st.success(f"Connected to {device_name}!")
+        
+        # Display placeholders for real-time data
+        heart_rate_display = st.empty()
+        stress_level_display = st.empty()
+        status_display = st.empty()
 
-# Real-time update loop
-status_display.write("Monitoring real-time data...")
+        def simulate_data():
+            """Simulate heart rate and stress level data"""
+            heart_rate = random.randint(60, 100)
+            stress_level = random.randint(1, 10)
+            return heart_rate, stress_level
 
-while True:
-    # Simulate or fetch data (replace this with actual IoT data fetching if available)
-    heart_rate, stress_level = simulate_data()
+        # Real-time update loop
+        status_display.write("Monitoring real-time data...")
+        
+        for _ in range(100):  # Use a finite range instead of while True for demonstration
+            # Simulate or fetch data
+            heart_rate, stress_level = simulate_data()
 
-    # Display the data in real-time
-    heart_rate_display.metric("Heart Rate", f"{heart_rate} BPM")
-    stress_level_display.metric("Stress Level", f"{stress_level}/10")
+            # Display the data in real-time
+            heart_rate_display.metric("Heart Rate", f"{heart_rate} BPM")
+            stress_level_display.metric("Stress Level", f"{stress_level}/10")
 
-    # Refresh data every second
-    time.sleep(1)
-
+            # Refresh data every second
+            time.sleep(1)
 #Changes made by --Charvi Arora 
 #Added security
 # Load environment variables from .env file
