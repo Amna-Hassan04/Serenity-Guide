@@ -1,0 +1,54 @@
+# Core dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# DateTime handling
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# Database
+pymongo>=4.5.0
+
+# HTTP requests and API handling
+requests>=2.31.0
+anthropic>=0.3.0
+
+# UI components
+streamlit-option-menu>=0.3.2
+streamlit-lottie>=0.0.5
+
+# Audio/Media handling
+playsound>=1.3.0
+
+# Security and encryption
+python-dotenv>=1.0.0
+cryptography>=41.0.0
+
+# Notifications (if implementing push notifications)
+firebase-admin>=6.2.0
+pywebpush>=1.14.0
+
+# Image processing
+Pillow>=10.0.0
+
+# Data visualization
+plotly>=5.18.0
+
+# Logging and monitoring
+logging>=0.5.1.2
+
+# State management
+cachetools>=5.3.0
+
+# JSON handling
+jsonschema>=4.19.0
+
+# For development and testing
+pytest>=7.4.0
+black>=23.9.0
+flake8>=6.1.0
+
+# Version control
+setuptools>=68.0.0
+wheel>=0.41.0

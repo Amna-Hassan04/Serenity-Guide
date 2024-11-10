@@ -1,0 +1,36 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Support
+    url: https://github.com/Amna-Hassan04/Serenity-Guide/discussions
+    about: Please ask and answer questions here.
+  - name: Security Bug Bounty
+    url: https://bounty.github.com/
+    about: Please report security vulnerabilities here.
+issue_template:
+  - name: Bug Report
+    about: "Report a bug to help improve the project"
+    labels: ["bug"]
+    title: "[Bug]: "
+    assignees:
+      - Amna-Hassan04
+  - name: Feature Request
+    about: "Suggest a new feature or enhancement"
+    labels: ["enhancement"]
+    title: "[Feature]: "
+    assignees:
+      - Amna-Hassan04
+
+  - name: Temporary Reduced Availability
+    about: "Anouncement made by Maintainer"
+    labels: ["custom"]
+    title: "[Custom]: "
+    assignees:
+      - Amna-Hassan04
+      
+  - name: Custom Issue
+    about: "Submit a custom issue or inquiry"
+    labels: ["custom"]
+    title: "[Custom]: "
+    assignees:
+      - Amna-Hassan04
+      

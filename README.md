@@ -8,13 +8,22 @@ Feel Calm, Centered, and Peaceful
 
 | 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
 |--------------|--------------|---------------|-----------------|------------------|
-| ![GitHub stars](https://img.shields.io/badge/stars-9-blue) | ![GitHub forks](https://img.shields.io/badge/forks-26-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-22-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-7-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-9-lightgrey) |
+| ![GitHub stars](https://img.shields.io/badge/stars-16-blue) | ![GitHub forks](https://img.shields.io/badge/forks-56-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-48-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-8-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-37-lightgrey) |
 
-## 🏆 Featured in
+## 🏆 Featured in Open Source Programs
 
-| Event Logo | Event Name                          | Event Description                                                                                                                                                       |
-|------------|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![GSSoC 24](https://gssoc.girlscript.tech/GS_logo_Black.svg) | GirlScript Summer of Code 2024 Ext | GirlScript Summer of Code Ext Edition is a One-month-long Open Source Program conducted from 1st Octuber to 30th octuber by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. |
+<table>
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+   <tr>
+      <td><img src="https://user-images.githubusercontent.com/63473496/153487849-4f094c16-d21c-463e-9971-98a8af7ba372.png" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
+      <td>GirlScript Summer of Code Extd 2024</td>
+      <td>GirlScript Summer of Code Extd is a 1-month long Open Source program by GirlScript Foundation.It is an initiative to bring more beginners to Open-Source Software Development.</td>
+   </tr>
+</table>
 
 
 ## Overview  
@@ -36,8 +45,8 @@ Feel Calm, Centered, and Peaceful
 To set up SereniFi on your local machine, follow these steps:
 
 1. **Clone the Repository**  
-   ```bash
-   git clone https://github.com/Amna-Hassan04//serenity-guide.git
+   ```bash 
+   git clone https://github.com/Amna-Hassan04/serenity-guide.git
    ```
 
 2. **Navigate to the Project Directory**  
@@ -47,12 +56,13 @@ To set up SereniFi on your local machine, follow these steps:
 
 3. **Install Dependencies**  
    ```bash
-   npm install
+   pip install -r requirements.txt
+
    ```
 
 4. **Start the Application**  
    ```bash
-   npm start
+   streamlit run app.py
    ```
 
 ---
@@ -63,8 +73,8 @@ To set up SereniFi on your local machine, follow these steps:
 
 <a href="https://github.com/Amna-Hassan04/Serenity-Guide/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Amna-Hassan04/Serenity-Guide&v=1" />
-
 </a>
+
 
 
 ## 🏆 Acknowledgments  
@@ -74,7 +84,7 @@ A heartfelt thanks to all contributors, testers, and supporters. Special thanks 
 ---
 
 ## Contribution Guidelines  
-We welcome contributions! Please read our [Code of Conduct] to participate in this project. By contributing, you agree to abide by its terms.
+We welcome contributions! Please read our [Code of Conduct](https://github.com/Amna-Hassan04/Serenity-Guide?tab=coc-ov-file#contributor-code-of-conduct) to participate in this project. By contributing, you agree to abide by its terms.
 
 ## License  
 This project is licensed under the **GPL-3.0 License**
