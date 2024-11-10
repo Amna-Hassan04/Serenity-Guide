@@ -11,7 +11,7 @@ AI-Powered Recommendations: Integrates Claude AI to offer personalized anxiety m
 Interactive UI: Features relaxation exercises, games, breathing techniques, and daily challenges.
 Data Visualization: Shows the effectiveness of calming activities through interactive charts.
 Accessible Design: User-friendly interface with custom styling for a calming user experience.
-
+Logging & Exception handling: Improves debugging and error tracking.
 
 
 ## 3. Libraries and Dependencies
