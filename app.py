@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 import logging
 import sys
+from affirmation_widget import display_affirmation_widget
 
 
 # Configure logging
@@ -812,6 +813,9 @@ def simon_game_challenge():
 def show_calm_space():
     st.title("Calm Space")
     st.write("Engage in a breathing exercise to calm your mind.")
+
+    st.subheader("Daily Affirmations")
+    display_affirmation_widget()
     
     st.subheader("Quick Tips for Positivity")
     quick_tips = [
