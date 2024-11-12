@@ -8,7 +8,7 @@ Feel Calm, Centered, and Peaceful
 
 | 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
 |--------------|--------------|---------------|-----------------|------------------|
-| ![GitHub stars](https://img.shields.io/badge/stars-16-blue) | ![GitHub forks](https://img.shields.io/badge/forks-56-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-48-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-8-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-37-lightgrey) |
+| ![GitHub stars](https://img.shields.io/badge/stars-32-blue) | ![GitHub forks](https://img.shields.io/badge/forks-91-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-69-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-3-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-77-lightgrey) |
 
 ## 🏆 Featured in Open Source Programs
 
