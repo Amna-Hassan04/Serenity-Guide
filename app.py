@@ -346,11 +346,9 @@ def show_footer():
 # Main function to control page navigation
 def main():
     selected = option_menu(
-        menu_title=None,
-
-        options=["Home", "Calm Space", "About & Feedback","FAQs"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill","question-circle-fill"],
-
+        menu_title="Main Menu",  # Added a title for clarity
+        options=["Home", "Calm Space", "Resources" , "About & Feedback", "FAQs"],
+        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill", "question-circle-fill"],
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
@@ -360,33 +358,34 @@ def main():
                 "background-color": "#333",
                 "border-radius": "10px",
                 "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
-                "width": "100%",  # Increase the width of the menu bar
-                "max-width": "100%",  # Prevent overflow
+                "width": "100%",
+                "max-width": "100%",
             },
             "nav-link": {
                 "font-size": "18px",
                 "text-align": "center",
-                "margin": "0 20px",  # Increase left and right margin to expand space between items
+                "margin": "0 20px",
                 "--hover-color": "#ddd",
                 "border-radius": "10px",
                 "color": "#fff",
-                "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
-                "transition": "background-color 0.3s ease, transform 0.2s"
+                "background-color": "rgba(0, 0, 0, 0.8)",
+                "transition": "background-color 0.3s ease, transform 0.2s",
             },
             "nav-link-selected": {
                 "background-color": "#04AA6D",
                 "color": "#fff",
-                "font-size": "14px",
+                "font-size": "16px",
+                "font-weight": "bold",
+                "transform": "scale(1.1)",
             }
         }
     )
-
     if selected == "Home":
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
-    elif selected == "Resources":  # Added condition for "Resources"
-        show_resources()  # Call the new function
+    elif selected == "Resources":  
+        show_resources()  
     elif selected == "About & Feedback":
         show_about_and_feedback()
     elif selected == "FAQs":
