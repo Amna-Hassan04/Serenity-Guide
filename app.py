@@ -2,7 +2,7 @@ import base64
 import datetime
 import time
 
-from pymongo import MongoClient
+#from pymongo import MongoClient
 import streamlit as st
 import plotly.express as px
 import pandas as pd
@@ -14,7 +14,9 @@ import os
 from dotenv import load_dotenv
 import logging
 import sys
-from affirmation_widget import display_affirmation_widget
+#from affirmation_widget import display_affirmation_widget
+
+st.set_page_config(page_title="SereniFi", page_icon=":relieved:", layout="wide")
 
 
 # Configure logging
@@ -94,7 +96,6 @@ def anxiety_management_guide(mood, feeling_description, current_stress_level, re
 
     
 # Set page config (must be the first Streamlit command)
-st.set_page_config(page_title="SereniFi", page_icon=":relieved:", layout="centered")
 st.markdown(scroll_to_top, unsafe_allow_html=True)
 def scroll_to_top_button():
     st.markdown('<a id="scrollButton" title="Go to top" href="#top">↑ Top</a>', unsafe_allow_html=True)
@@ -130,19 +131,19 @@ page_bg_img = f"""
 <style>
 /* Animated background gradient */
 [data-testid="stAppViewContainer"] > .main {{
-background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background: linear-gradient(-45deg, #f7b1ab, #fbd6c8, #d7ecef, #b7dfe5);
 background-size: 400% 400%;
 animation: gradientBG 15s ease infinite;
 }}
 
 [data-testid="stSidebar"] > div:first-child {{
-background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background: linear-gradient(-45deg, #f7b1ab, #fbd6c8, #d7ecef, #b7dfe5);
 background-size: 400% 400%;
 animation: gradientBG 15s ease infinite;
 }}
 
 [data-testid="stHeader"] {{
-background: rgba(0,0,0,0);
+background: rgba(0,0,0,0); /* Transparent header */
 }}
 
 [data-testid="stToolbar"] {{
@@ -170,7 +171,6 @@ right: 2rem;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-
 def load_lottie_url(url: str):
     logging.info(f"Fetching Lottie animation from URL: {url}")
     try:
@@ -178,7 +178,11 @@ def load_lottie_url(url: str):
         response.raise_for_status()  # Raise an HTTPError for bad responses
         logging.info(f"Successfully fetched Lottie animation from URL: {url}")
         return response.json()
-    return None
+    except requests.RequestException as e:
+        logging.error(f"Error fetching Lottie animation from URL {url}: {e}")
+        st.error("Failed to fetch Lottie animation. Please try again later.")
+        return None
+
 
 #Footer Function to show footer and bottom nav
 def show_footer():
@@ -280,39 +284,33 @@ def show_footer():
     # Render the HTML in the footer
     st.markdown(footer_html, unsafe_allow_html=True)
 
-    except requests.RequestException as e:
-        logging.error(f"Error fetching Lottie animation from URL {url}: {e}")
-        st.error("Failed to fetch Lottie animation. Please try again later.")
-        return None
-    
 # Main function to control page navigation
 def main():
     selected = option_menu(
         menu_title=None,
-
-        options=["Home", "Calm Space", "About & Feedback","FAQs"],
-        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill","question-circle-fill"],
-
+        options=["Home", "Calm Space", "FAQs"],
+        icons=["house-door-fill", "cloud-sun-fill", "chat-dots-fill", "question-circle-fill"],
         menu_icon="sun",
         default_index=0,
         orientation="horizontal",
         styles={
             "container": {
-                "padding": "0!important",
+                "padding": "4!important",
                 "background-color": "#333",
-                "border-radius": "10px",
+                "border-radius": "5px",
                 "box-shadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
-                "width": "100%",  # Increase the width of the menu bar
-                "max-width": "100%",  # Prevent overflow
+                "min-width": "100px",
+                "max-width": "100%",
             },
             "nav-link": {
                 "font-size": "18px",
                 "text-align": "center",
-                "margin": "0 20px",  # Increase left and right margin to expand space between items
+                "margin": "-10 20px ",
+
                 "--hover-color": "#ddd",
                 "border-radius": "10px",
                 "color": "#fff",
-                "background-color": "rgba(0, 0, 0, 0.8)",  # More opaque background
+                "background-color": "rgba(0, 0, 0, 0.8)",
                 "transition": "background-color 0.3s ease, transform 0.2s"
             },
             "nav-link-selected": {
@@ -327,8 +325,6 @@ def main():
         show_main_page()
     elif selected == "Calm Space":
         show_calm_space()
-    elif selected == "Resources":  # Added condition for "Resources"
-        show_resources()  # Call the new function
     elif selected == "About & Feedback":
         show_about_and_feedback()
     elif selected == "FAQs":
@@ -337,29 +333,24 @@ def main():
 
 def show_main_page():
     st.markdown(
-    """
-    <style>
-    .centered-title {
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
-    </style>
-    <h1 class="centered-title">Welcome to SereniFi</h1>
-    """, unsafe_allow_html=True
-)
-
+        """
+        <style>
+        .centered-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        </style>
+        <h1 class="centered-title">Welcome to SereniFi</h1>
+        """, unsafe_allow_html=True
+    )
 
     st.markdown('<h3 class="pulse" style="text-align: center;">Feel Calm, Centered, and Peaceful</h3>', unsafe_allow_html=True)
-
-
 
     st.image("https://images.pexels.com/photos/185801/pexels-photo-185801.jpeg?auto=compress&cs=tinysrgb&w=600", caption="Breathe and Relax", use_column_width=True)
 
     st.write("---")
-    
 
-    
     # Interactive content
     st.markdown("""
     ### Welcome to Your Oasis of Calm
@@ -382,7 +373,6 @@ def show_main_page():
         st.balloons()
         st.write("**Guided Breathing Exercise:** Inhale deeply through your nose for 4 seconds, hold for 4 seconds, and exhale slowly through your mouth. Repeat this process a few times to feel the calming effect.")
 
-
     st.write("---")
 
     # Survey for Personalized Tips
@@ -398,7 +388,6 @@ def show_main_page():
                 "Overwhelmed": "It's important to step away and take a break."
             }
             st.write(f"**Tip:** {tips[mood]}")
-
 
     st.write("---")
 
@@ -432,89 +421,29 @@ def show_main_page():
         st.warning("It's good you're trying! Consistency can help you feel more balanced.")
     else:
         st.error("Mental health is crucial! Start small by incorporating simple self-care practices.")
-    
 
     st.write("---")
 
-
-    # Tip for improving mental health
-    
-    #|------MongoDb for Quick Tips For Mental Health Section for inserting and retreiving the tips------|
-    #Setting MongoDb connection
-    mongodb_uri = os.getenv("MONGODB_URI")
-    logging.info("Attempting to connect to MongoDB")
-    try:
-        client = MongoClient(mongodb_uri)
-        db = client['serenity_guide_db']
-        tips_collection = db['mental_health_tips']
-        logging.info("Successfully connected to MongoDB and accessed the 'serenity_guide_db' database and 'mental_health_tips' collection")
-    except Exception as e:
-        logging.error(f"Error connecting to MongoDB: {e}")
-        raise
-
-    # Uncomment the following line to populate the database with tips in the format below:
-    # tips = []
-    # tips_collection.insert_one({"tip": "Take deep breaths to relax."}) 
-
-
+    # Quick Tip for Mental Health Section
     st.subheader("Quick Tip for Mental Health")
-    logging.info("Rendering 'Quick Tip for Mental Health' subheader")
-
-    all_tips = []
     if st.button("Get a Tip"):
-        logging.info("'Get a Tip' button clicked")
-        try:
-            all_tips = list(tips_collection.find({}, {"_id": 0, "tip": 1}))
-            logging.info(f"Retrieved {len(all_tips)} tips from the database")
-        except Exception as e:
-            logging.error(f"Error retrieving tips from the database: {e}")
-            st.error("Failed to retrieve tips. Please try again later.")
-        
-        if all_tips:
-            random_tip = random.choice(all_tips)
-            logging.info(f"Displaying random tip: {random_tip['tip']}")
-            st.write(f"Tip: {random_tip['tip']}")
-        else:
-            logging.info("No tips available in the database")
-            st.write("No tips available.")
-            st.write(f"Tip: {random.choice(tips)}")
-    #!--------------------------------------------------------------------------------------------------|
+        tips = [
+            "Take deep breaths to relax.",
+            "Go for a walk in nature.",
+            "Write down three things you're grateful for.",
+            "Take a moment to stretch your body.",
+            "Listen to your favorite calming music."
+        ]
+        st.write(f"**Tip:** {random.choice(tips)}")
 
+    st.write("---")
+
+    # Lottie animation
     lottie_url_breathing = "https://lottie.host/89b3ab99-b7ee-4764-ac3a-5fe1ef057bde/WaOPmT23PU.json"
-    
-
     lottie_json_breathing = load_lottie_url(lottie_url_breathing)
-    
 
     if lottie_json_breathing:
-        st.markdown(
-            """
-            <style>
-            .lottie-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                background: none;
-            }
-            .lottie-item {
-                margin: 0 10px;  /* Add space between animations */
-            }
-            .lottie-animation {
-                background: transparent;  /* Make the background of the animation transparent */
-            }
-            </style>
-            <div class="lottie-container">
-            """, unsafe_allow_html=True)
-
-        st.markdown('<div class="lottie-item lottie-animation">', unsafe_allow_html=True)
         st_lottie(lottie_json_breathing, speed=1, width=300, height=300, key="breathing-animation")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-
 
     st.write("---")
 
@@ -911,101 +840,173 @@ def simon_game_challenge():
     </table>
     """, unsafe_allow_html=True)
 
+import streamlit as st
+import logging
+import time
+
 def show_calm_space():
+    # Set page layout to wide
+    
     st.title("Calm Space")
     st.write("Engage in a breathing exercise to calm your mind.")
 
-    st.subheader("Daily Affirmations")
-    display_affirmation_widget()
-    
-    st.subheader("Quick Tips for Positivity")
-    quick_tips = [
-        "Take a deep breath and count to 5.",
-        "Focus on what you can control, not on what you can't.",
-        "Take a moment to reflect on something you're grateful for.",
-        "Smile at yourself in the mirror."
-    ]
-    st.write("\n".join(f"- {tip}" for tip in quick_tips))
+    # Section: Daily Affirmations in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(175, 158, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>💬 Daily Affirmations</h3>
+                <p>Start your day with positive affirmations to center your thoughts.</p>
+                <!-- Uncomment when function is available -->
+                <!-- display_affirmation_widget() -->
+            </div>
+            """, unsafe_allow_html=True
+        )
+
+    # Section: Quick Tips for Positivity in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(165, 175, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>🌟 Quick Tips for Positivity</h3>
+                <ul>
+                    <li>Take a deep breath and count to 5.</li>
+                    <li>Focus on what you can control, not on what you can't.</li>
+                    <li>Take a moment to reflect on something you're grateful for.</li>
+                    <li>Smile at yourself in the mirror.</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
     st.write("---")
 
-    # Interactive Section: Daily Challenge Suggestions
-    st.subheader("Daily Challenge Suggestions")
-    challenges = {
-        "Meditation": "Try a 10-minute guided meditation session today. Find a quiet space and focus on your breath.",
-        "Yoga": "Follow a 15-minute yoga routine to stretch and relax your body. Check out a video for guidance.",
-        "Breathing": "Engage in deep breathing exercises for 5 minutes. Inhale deeply for 4 seconds, hold for 4 seconds, and exhale slowly.",
-        "Journaling": "Spend 10 minutes writing down your thoughts and feelings. Reflect on your day and your emotions.",
-        "Music": "Listen to calming music or nature sounds for 20 minutes. Allow the sounds to help you relax and unwind."
-    }
+    # Section: Daily Challenge Suggestions in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(168, 175, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>🎯 Daily Challenge Suggestions</h3>
+                <p>Choose a challenge to engage with today:</p>
+            
+            """, unsafe_allow_html=True
+        )
 
-    selected_challenge = st.selectbox("Choose an activity for your daily challenge:", options=list(challenges.keys()))
+        challenges = {
+            "Meditation": "Try a 10-minute guided meditation session today. Find a quiet space and focus on your breath.",
+            "Yoga": "Follow a 15-minute yoga routine to stretch and relax your body. Check out a video for guidance.",
+            "Breathing": "Engage in deep breathing exercises for 5 minutes. Inhale deeply for 4 seconds, hold for 4 seconds, and exhale slowly.",
+            "Journaling": "Spend 10 minutes writing down your thoughts and feelings. Reflect on your day and your emotions.",
+            "Music": "Listen to calming music or nature sounds for 20 minutes. Allow the sounds to help you relax and unwind."
+        }
+        
+        selected_challenge = st.selectbox("Choose an activity for your daily challenge:", options=list(challenges.keys()))
+        if selected_challenge:
+            logging.info(f"Challenge started: {selected_challenge}")
+            st.write(f"**Today's Challenge:** {challenges[selected_challenge]}")
+            st.write("Remember, consistency is key to building habits and improving your mental well-being.")
 
-    if selected_challenge:
-        logging.info(f"Challenge started: {selected_challenge}")
-        st.write(f"**Today's Challenge:** {challenges[selected_challenge]}")
-        st.write("Remember, consistency is key to building habits and improving your mental well-being.")
+            # Progress Bar Feature
+            if st.button("Start Progress"):
+                progress_bar = st.progress(0)
+                challenge_time = {
+                    "Meditation": 600,
+                    "Yoga": 900,
+                    "Breathing": 300,
+                    "Journaling": 600,
+                    "Music": 1200
+                }[selected_challenge]
 
-        #Progress Bar Feature added by suhaib-lone
-        if st.button("Start Progress"):
-            progress_bar=st.progress(0)
-            if selected_challenge == "Meditation" or selected_challenge == "journaling":
-                challenge_time=600
-            elif selected_challenge == "Yoga":
-                challenge_time=900
-            elif selected_challenge == "Breathing":
-                challenge_time=300
-            else:
-                challenge_time=1200
-            for i in range(challenge_time):
-                time.sleep(1)
-                progress_bar.progress((i+1)/challenge_time)
-            st.success("Ding! Ding! Time UP!")
+                for i in range(challenge_time):
+                    time.sleep(1)
+                    progress_bar.progress((i + 1) / challenge_time)
+                st.success("Ding! Ding! Time UP!")
+            
+    st.write("---")
 
+    # Section: Daily Anxiety Check in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(175, 172, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>🧠 Daily Anxiety Check</h3>
+                <p>Check in with your emotions and start managing your anxiety.</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
+        mood = st.selectbox("How are you feeling today?", ["Anxious", "Stressed", "Overwhelmed", "Calm", "Other"])
+        feeling_description = st.text_area("What exactly are you feeling?", placeholder="Describe your feelings here...")
+        current_stress_level = st.slider("Current Stress Level (1 to 10)", 1, 10, value=5)
+        recent_events = st.text_area("Recent Events", placeholder="Describe any recent events that may have contributed to your anxiety or stress...")
+
+        if st.button("Submit"):
+            logging.info("Mood form submitted")
+            st.write("Thank you for sharing. Let’s find some exercises to help you.")
+            guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
+            st.write(guidance)
 
     st.write("---")
 
-    st.subheader("Daily Anxeity Check")
-    # Sidebar Inputs
-    st.subheader("📝 Share Your Current State:")
-    
-    mood = st.selectbox("How are you feeling today?", ["Anxious", "Stressed", "Overwhelmed", "Calm", "Other"])
-    feeling_description = st.text_area("What exactly are you feeling?", placeholder="Describe your feelings here...")
-    current_stress_level = st.slider("Current Stress Level (1 to 10)", 1, 10, value=5)
-    recent_events = st.text_area("Recent Events", placeholder="Describe any recent events that may have contributed to your anxiety or stress...")
+    # Section: Mood-Boosting Games in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(168, 175, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>🎮 Mood-Boosting Games</h3>
+                <p>Take a break and play games to reduce your anxiety.</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
+        st.write("")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Start Mini Games"):
+                logging.info("Mood boosting game started")
+                st.write("Launching a quick mood-boosting game...")
+                mood_boosting_mini_games()
 
-    if st.button("Submit"):
-        logging.info("Mood form submitted")
-        st.write("Thank you for sharing. Let’s find some exercises to help you.")
-        guidance = anxiety_management_guide(mood, feeling_description, current_stress_level, recent_events)
-        st.write(guidance)
-    
-    st.subheader("Mood-Boosting Games")
-    st.write("Take a break and play games to reduce your anxiety.")
-    if st.button("Start Mini Games"):
-        logging.info("Mood boosting game started")
-        st.write("Launching a quick mood-boosting game...")
-        mood_boosting_mini_games()
-
-    #Simon Game Challenge Button
-    if st.button("Simon Game Challenge"):
-        logging.info("Simon game challenge started")
-        simon_game_challenge()
-
-    st.write("---")
-    soothing_sounds()
+        with col2:
+            if st.button("Simon Game Challenge"):
+                logging.info("Simon game challenge started")
+                st.write("Starting the Simon Game Challenge!")
+                simon_game_challenge()
 
     st.write("---")
 
-    st.subheader("Interactive Journaling")
-    if st.button("Submit Journal Entry"):
-        st.success("Journal entry: It's important to reflect and release your emotions.")
-        interactive_journal()
+    # Section: Soothing Sounds in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(168, 175, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>🎶 Soothing Sounds</h3>
+                <p>Relax with calming sounds to ease your mind.</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
+        soothing_sounds()
+
+    st.write("---")
+
+    # Section: Interactive Journaling in a box
+    with st.container():
+        st.markdown(
+            """
+            <div style="border: 2px solidrgb(168, 175, 76); border-radius: 8px; padding: 20px; background-color: #e8f5e9;">
+                <h3>📓 Interactive Journaling</h3>
+                <p>Reflect and release your emotions with journaling.</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
+        st.write("")
+
+        if st.button("Submit Journal Entry"):
+            st.success("Journal entry: It's important to reflect and release your emotions.")
+            interactive_journal()
+
+    # Footer Section
     show_footer()
-
-
 def show_about_and_feedback():
     st.title("About Us & Feedback")
     
@@ -1365,9 +1366,3 @@ def show_FAQs_page():
 
 if __name__ == "__main__":
     main()
-
-
-#   The error you're seeing (ImportError: If this fails your Python may not be configured for Tk)
-# suggests that the tkinter library, which is typically used for building GUIs in Python, is either not 
-# installed or not supported in your current environment. Streamlit doesn’t natively support tkinter because 
-# it runs in a web-based environment, so the Tkinter GUI elements can't be rendered in a Streamlit app.
